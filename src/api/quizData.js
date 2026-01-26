@@ -1,44 +1,46 @@
+// placeholder until backend solved
+
 const quizData = {
     questions: [
         {
-            question: "what will <code>console.log('Hello World')</code> log to the console?",
+            question: "what is this posture? (fudo-dachi)",
             answers: [
-                "'Hello World'",
-                "Hello World",
-                "String",
-                "None of the above",
+                "fudo-dachi",
+                "seiza",
+                "seiken-jodan-uke",
+                "morote-tsuki-gedan",
+            ],
+            correctAnswerIndex: 0,
+        },
+        {
+            question: "what is this posture? (seiza)",
+            answers: [
+                "zenkutsu-dachi",
+                "yoi-dachi",
+                "seiza",
+                "seiken-oi-tsuki-jodan",
+            ],
+            correctAnswerIndex: 2,
+        },
+        {
+            question: "what is this posture? (zenkutsu-dachi)",
+            answers: [
+                "kin-geri",
+                "zenkutsu-dachi",
+                "hiza-ganmen-geri",
+                "seiza",
             ],
             correctAnswerIndex: 1,
         },
         {
-            question: "what will <code>console.log(15)</code> log to the console?",
+            question: "what is this posture? (seiken-oi-tsuki-jodan)",
             answers: [
-                "Number",
-                "'15'",
-                "15",
-                "None of the above",
+                "seiken-oi-tsuki-gedan",
+                "seiken-oi-tsuki-chudan",
+                "seiken-oi-tsuki-jodan",
+                "seiken-mae-gedan-barai",
             ],
             correctAnswerIndex: 2,
-        },
-        {
-            question: "what will <code>console.log(15 + 5)</code> log to the console?",
-            answers: [
-                "155",
-                "'155'",
-                "20",
-                "'20'",
-            ],
-            correctAnswerIndex: 2,
-        },
-        {
-            question: "what will <code>console.log('15 + 20')</code> log to the console?",
-            answers: [
-                "35",
-                "1520",
-                "'35'",
-                "15 + 20",
-            ],
-            correctAnswerIndex: 3,
         },
     ]
 }
