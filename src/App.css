@@ -13,3 +13,8 @@
 .incorrect-answer {
   color: lightcoral;
 }
+
+.result-display {
+  color: darkcyan;
+  padding-top: 2em;
+}

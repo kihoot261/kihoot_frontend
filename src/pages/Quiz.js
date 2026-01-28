@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
-import quizData from '../api/quizData';
-import { useNavigate } from 'react-router-dom';
+import configureGame from '../api/quizData';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 function Quiz() {
 
@@ -11,15 +11,19 @@ function Quiz() {
   const [clickable, setClickable] = useState(true);
   const navigate = useNavigate();
   const amountCorrectRef = useRef(0);
+  const location = useLocation();
+  const { kyu, time, mode } = location.state;
 
   useEffect(() => {
     amountCorrectRef.current = amountCorrect;
   }, [amountCorrect]);
 
+  const quizData = configureGame(kyu, time, mode);
+
   const handleAnswer = (index) => {
     setDisplayAnswer(true);
     setClickable(false);
-    if (quizData.questions[displayQuestion].correctAnswerIndex === index) {
+    if (quizData.questions[displayQuestion].correctAnswer === index) {
       setAnswerCorrect(true);
       setAmountCorrect(prev => {
         const next = prev + 1;
@@ -36,10 +40,13 @@ function Quiz() {
         setDisplayQuestion(displayQuestion + 1);
       }
       else {
-        console.log(amountCorrectRef.current);
-        navigate('/results', { state: { corrects: amountCorrect, total: quizData.questions.length} });
+        navigate('/results', { state: { corrects: amountCorrectRef.current, total: quizData.questions.length } });
       }
     }, 3000)
+  }
+
+  const fixAnswer = (answer) => {
+    return answer.replaceAll('-', ' ');
   }
 
   return (
@@ -60,11 +67,10 @@ function Quiz() {
           {
             quizData.questions[displayQuestion].answers.map((answer, index) => {
               return (
-                <button key={index} disabled={!clickable} onClick={() => handleAnswer(index)}>
+                <button key={index} disabled={!clickable} onClick={() => handleAnswer(answer)}>
                   <h3>
-                    {answer}
+                    {fixAnswer(answer)}
                   </h3>
-
                 </button>
               )
             })
