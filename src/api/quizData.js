@@ -1,27 +1,12 @@
 import { supabase } from "./supabase";
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 
 export const useConfigureGame = (kyuParam, questionsParam, orderParam) => {
 
     const [kihoot, setKihoot] = useState([]);
     const [quiz, setQuiz] = useState(null);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            const { data, error } = await supabase.from('db_kihoot').select('*').in('kyu', kyuParam);
-            if (error) console.error('Error fetching data:', error);
-            else setKihoot(data);
-        };
-        fetchData();
-    }, [kyuParam]);
-
-    useEffect(() => {
-        if (kihoot.length > 0 && questionsParam !== null) {
-            createQuiz();
-        }
-    }, [kihoot, questionsParam, orderParam]);
-
-    function generateUniqueRandom(count, min, max, correctId) {
+    const generateUniqueRandom = useCallback((count, min, max, correctId) => {
         if (count > (max - min + 1)) {
             throw new Error("Cannot generate more unique numbers than the range allows");
         }
@@ -33,9 +18,9 @@ export const useConfigureGame = (kyuParam, questionsParam, orderParam) => {
             }
         }
         return Array.from(uniqueNumbers);
-    }
+    }, []);
 
-    function generateAnswers(correctId) {
+    const generateAnswers = useCallback((correctId) => {
         try {
             let wrongAnswers = generateUniqueRandom(3, 1, kihoot.length - 1, correctId);
             const randomPos = Math.floor(Math.random() * 4);
@@ -52,9 +37,9 @@ export const useConfigureGame = (kyuParam, questionsParam, orderParam) => {
             console.error('Error in generateAnswers:', error);
             return error
         }
-    }
+    }, [generateUniqueRandom, kihoot]);
 
-    function randomLimited() {
+    const randomLimited = useCallback(() => {
         let questions = [];
         try {
             const randomIds = generateUniqueRandom(questionsParam, 1, kihoot.length - 1, -1);
@@ -74,11 +59,11 @@ export const useConfigureGame = (kyuParam, questionsParam, orderParam) => {
             return error;
         }
 
-        return questions;
+        return questions; 
+    
+    }, [generateUniqueRandom, generateAnswers, kihoot, questionsParam]);
 
-    }
-
-    function createQuiz() {
+    const createQuiz = useCallback(() => {
         try {
             const finalQuiz = randomLimited();
             setQuiz(finalQuiz);
@@ -87,7 +72,22 @@ export const useConfigureGame = (kyuParam, questionsParam, orderParam) => {
             console.error('Error in createQuiz:', error);
             setQuiz([]);
         }
-    }
+    }, [randomLimited]);
+
+     useEffect(() => {
+        const fetchData = async () => {
+            const { data, error } = await supabase.from('db_kihoot').select('*').in('kyu', kyuParam);
+            if (error) console.error('Error fetching data:', error);
+            else setKihoot(data);
+        };
+        fetchData();
+    }, [kyuParam]);
+
+    useEffect(() => {
+        if (kihoot.length > 0 && questionsParam !== null) {
+            createQuiz();
+        }
+    }, [kihoot, questionsParam, orderParam, createQuiz]);
 
     return { questions: quiz }
 }
