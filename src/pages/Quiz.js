@@ -14,7 +14,7 @@ function Quiz() {
   const amountCorrectRef = useRef(0);
   const location = useLocation();
   const { kyu, time, mode, questions, order } = location.state;
-  console.log(time, mode);
+  console.log('Pasando de esto: ', time, mode);
 
   useEffect(() => {
     amountCorrectRef.current = amountCorrect;

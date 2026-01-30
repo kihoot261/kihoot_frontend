@@ -7,17 +7,25 @@ export const useConfigureGame = (kyuParam, questionsParam, orderParam) => {
     const [quiz, setQuiz] = useState(null);
 
     const generateUniqueRandom = useCallback((count, min, max, correctId) => {
-        if (count > (max - min + 1)) {
-            throw new Error("Cannot generate more unique numbers than the range allows");
-        }
-        const uniqueNumbers = new Set();
-        while (uniqueNumbers.size < count) {
-            const num = Math.floor(Math.random() * (max - min + 1)) + min;
-            if (correctId !== num) {
-                uniqueNumbers.add(num);
+        try {
+            if (count > (max - min + 1)) {
+                throw new Error("Cannot generate more unique numbers than the range allows");
             }
+            const uniqueNumbers = new Set();
+            while (uniqueNumbers.size < count) {
+                const num = Math.floor(Math.random() * (max - min + 1)) + min;
+                if (correctId !== num) {
+                    uniqueNumbers.add(num);
+                }
+            }
+            return Array.from(uniqueNumbers);
         }
-        return Array.from(uniqueNumbers);
+
+        catch (error) {
+            console.error('Error in generateUniqueRandom:', error);
+            return error;
+        }
+
     }, []);
 
     const generateAnswers = useCallback((correctId) => {
@@ -35,22 +43,33 @@ export const useConfigureGame = (kyuParam, questionsParam, orderParam) => {
 
         catch (error) {
             console.error('Error in generateAnswers:', error);
-            return error
+            return error;
         }
     }, [generateUniqueRandom, kihoot]);
+
+    const addTechnique = useCallback((img, name, id) => {
+        try {
+            let question = {};
+            question['question'] = img;
+            question['correctAnswer'] = name;
+            question['answers'] = generateAnswers(id);
+            return question;
+        }
+        catch (error) {
+            console.error('Error in addTechnique:', error);
+            return error;
+        }
+
+    }, [generateAnswers]);
 
     const randomLimited = useCallback(() => {
         let questions = [];
         try {
-            const randomIds = generateUniqueRandom(questionsParam, 1, kihoot.length - 1, -1);
+            let countQuestions = questionsParam === null ? kihoot.length - 1 : questionsParam;
+            const randomIds = generateUniqueRandom(countQuestions, 1, kihoot.length - 1, -1);
             randomIds.forEach((id) => {
-                let question = {};
                 let elem = kihoot.find(tecnique => tecnique.id === id);
-                question['question'] = elem.image;
-                question['correctAnswer'] = elem.name;
-                const answers = generateAnswers(id);
-                question['answers'] = answers;
-                questions.push(question);
+                questions.push(addTechnique(elem.image, elem.name, id));
             });
         }
 
@@ -59,22 +78,49 @@ export const useConfigureGame = (kyuParam, questionsParam, orderParam) => {
             return error;
         }
 
-        return questions; 
-    
-    }, [generateUniqueRandom, generateAnswers, kihoot, questionsParam]);
+        return questions;
+
+    }, [generateUniqueRandom, kihoot, questionsParam, addTechnique]);
+
+    const sortedFull = useCallback(() => {
+        let questions = [];
+        try {
+            kihoot.forEach((elem) => {
+                questions.push(addTechnique(elem.image, elem.name, elem.id));
+            });
+        }
+
+        catch (error) {
+            console.error('Error in sortedFull:', error);
+            return error;
+        }
+
+        return questions;
+
+    }, [kihoot, addTechnique]);
 
     const createQuiz = useCallback(() => {
         try {
-            const finalQuiz = randomLimited();
-            setQuiz(finalQuiz);
+            if (questionsParam !== null) { // hay un número limitado de preguntas
+                setQuiz(randomLimited());
+            }
+            else {                         // están todas las preguntas
+                if (orderParam) {
+                    setQuiz(sortedFull());
+                }
+                else {
+                    setQuiz(randomLimited());    // salteado y todo
+                }
+            }
         }
+
         catch (error) {
             console.error('Error in createQuiz:', error);
             setQuiz([]);
         }
-    }, [randomLimited]);
+    }, [sortedFull, randomLimited, orderParam, questionsParam]);
 
-     useEffect(() => {
+    useEffect(() => {
         const fetchData = async () => {
             const { data, error } = await supabase.from('db_kihoot').select('*').in('kyu', kyuParam);
             if (error) console.error('Error fetching data:', error);
@@ -84,11 +130,12 @@ export const useConfigureGame = (kyuParam, questionsParam, orderParam) => {
     }, [kyuParam]);
 
     useEffect(() => {
-        if (kihoot.length > 0 && questionsParam !== null) {
+        if (kihoot.length > 0) {
             createQuiz();
         }
-    }, [kihoot, questionsParam, orderParam, createQuiz]);
 
-    return { questions: quiz }
+    }, [kihoot, createQuiz]);
+
+    return { questions: quiz };
 }
 
