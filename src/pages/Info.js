@@ -1,5 +1,6 @@
 import React from 'react'
 import Header from '../components/Header'
+import ReturnHome from '../components/ReturnHome';
 
 function Info() {
   return (
@@ -10,6 +11,7 @@ function Info() {
       <p>
         Pots enviar-me un email a: <a href='mailto:kihoot261@gmail.com'>kihoot261@gmail.com</a> en cas de tenir una suggerencia o veure un error
       </p>
+      <ReturnHome></ReturnHome>
     </>
   )
 }

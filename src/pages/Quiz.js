@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import configureGame from '../api/quizData';
+import { useConfigureGame } from '../api/quizData';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 function Quiz() {
@@ -12,13 +12,16 @@ function Quiz() {
   const navigate = useNavigate();
   const amountCorrectRef = useRef(0);
   const location = useLocation();
-  const { kyu, time, mode } = location.state;
+  const { kyu, time, mode, questions, order } = location.state;
 
   useEffect(() => {
     amountCorrectRef.current = amountCorrect;
   }, [amountCorrect]);
 
-  const quizData = configureGame(kyu, time, mode);
+  const quizData = useConfigureGame(kyu, questions, order);
+  if (quizData.questions === null) {
+    return <div>Loading quiz...</div>; // canviar a un spinner o algo
+  }
 
   const handleAnswer = (index) => {
     setDisplayAnswer(true);
