@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useConfigureGame } from '../api/quizData';
 import { useNavigate, useLocation } from 'react-router-dom';
+import ReturnHome from '../components/ReturnHome';
 
 function Quiz() {
 
@@ -60,13 +61,17 @@ function Quiz() {
         {displayAnswer &&
           <>
             {
-              answerCorrect ? <h3 className='correct-answer'>Correct!</h3> : <h3 className='incorrect-answer'>Incorrect!</h3>
+              answerCorrect ? <h3 className='correct-answer'>Correct!</h3>
+                :
+                <>
+                  <h3 className='incorrect-answer'>Incorrect!</h3>
+                  <h3>Correct answer is: {fixAnswer(quizData.questions[displayQuestion].correctAnswer)}</h3>
+                </>
             }
           </>
         }
-
         <div>
-          <h3 dangerouslySetInnerHTML={{ __html: quizData.questions[displayQuestion].question }}></h3>
+          <img src={quizData.questions[displayQuestion].question} alt='tecnique-img' className='img-tecnica'></img>
           {
             quizData.questions[displayQuestion].answers.map((answer, index) => {
               return (
@@ -80,6 +85,7 @@ function Quiz() {
           }
         </div>
       </div>
+      <ReturnHome></ReturnHome>
     </>
 
   )
