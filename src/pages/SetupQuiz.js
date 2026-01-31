@@ -1,5 +1,4 @@
-// esta página configurará el quiz, pero se hará en un futuro
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import ReturnHome from '../components/ReturnHome';
 
@@ -87,6 +86,14 @@ function SetupQuiz() {
   buttons.push(<button key={12} onClick={() => handleKyu('ni-dan')}>Ni-dan</button>);
   kyus.push('sho-dan', 'ni-dan');
 
+  useEffect(() => {
+    if(order && questions !== null) {
+      setVisibilityMode(false);
+      setVisibilityTime(false);
+      setVisibilityOrder(false);
+    }
+  }, [order, questions])
+
   return (
     <>
       <h1>
@@ -129,7 +136,7 @@ function SetupQuiz() {
           Ordre
         </h2>
         <ul>
-          <button onClick={() => handleOrder(true)}>Ordenat</button>
+          <button onClick={() => handleOrder(true)}  disabled={questions !== null}>Ordenat</button>
           <button onClick={() => handleOrder(false)}>Aleatori</button>
         </ul>
       </div>

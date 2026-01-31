@@ -49,10 +49,11 @@ export const useConfigureGame = (kyuParam, questionsParam, orderParam) => {
 
     const addTechnique = useCallback((img, name, id) => {
         try {
-            let question = {};
-            question['question'] = img;
-            question['correctAnswer'] = name;
-            question['answers'] = generateAnswers(id);
+            let question = {
+                'question': img,
+                'correctAnswer': name,
+                'answers': generateAnswers(id)
+            };
             return question;
         }
         catch (error) {
@@ -101,16 +102,11 @@ export const useConfigureGame = (kyuParam, questionsParam, orderParam) => {
 
     const createQuiz = useCallback(() => {
         try {
-            if (questionsParam !== null) { // hay un número limitado de preguntas
+            if (questionsParam !== null) {
                 setQuiz(randomLimited());
             }
-            else {                         // están todas las preguntas
-                if (orderParam) {
-                    setQuiz(sortedFull());
-                }
-                else {
-                    setQuiz(randomLimited());    // salteado y todo
-                }
+            else {
+                orderParam ? setQuiz(sortedFull()) : setQuiz(randomLimited());
             }
         }
 
