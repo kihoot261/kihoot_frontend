@@ -63,7 +63,7 @@ export const useConfigureGame = (kyuParam, questionsParam, orderParam) => {
 
     }, [generateAnswers]);
 
-    const randomLimited = useCallback(() => {
+    const randomLimited = useCallback(() => { // hay que cambiar para añadir más complejidad, de modo que hay tecnicas similares
         let questions = [];
         try {
             let countQuestions = questionsParam === null ? kihoot.length - 1 : questionsParam;

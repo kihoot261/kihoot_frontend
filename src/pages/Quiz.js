@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { useConfigureGame } from '../api/quizData';
 import { useNavigate, useLocation } from 'react-router-dom';
 import ReturnHome from '../components/ReturnHome';
+import Loading from '../components/Loading';
 
 function Quiz() {
 
@@ -49,27 +50,6 @@ function Quiz() {
     }, 3000)
   }, [displayQuestion, navigate, quizData, time])
 
-  useEffect(() => {
-    let interval = null;
-    if (isActive && !displayAnswer && seconds > 0) {
-      interval = setInterval(() => {
-        setSeconds((prev) => prev - 1);
-      }, 1000);
-    } else if (seconds === 0) {
-      setIsActive(false);
-      handleAnswer('');
-    }
-    return () => clearInterval(interval);
-  }, [isActive, seconds, displayAnswer, handleAnswer]);
-
-  useEffect(() => {
-    amountCorrectRef.current = amountCorrect;
-  }, [amountCorrect]);
-
-  if (quizData.questions === null) {
-    return <div>Loading quiz...</div>; // canviar a un spinner o algo
-  }
-
   const handleChange = (e) => {
     setInputValue(e.target.value);
   };
@@ -98,6 +78,27 @@ function Quiz() {
     else {
       return <h3 className='correct-answer'>Correct!</h3>;
     }
+  }
+
+  useEffect(() => {
+    let interval = null;
+    if (isActive && !displayAnswer && seconds > 0) {
+      interval = setInterval(() => {
+        setSeconds((prev) => prev - 1);
+      }, 1000);
+    } else if (seconds === 0) {
+      setIsActive(false);
+      handleAnswer('');
+    }
+    return () => clearInterval(interval);
+  }, [isActive, seconds, displayAnswer, handleAnswer]);
+
+  useEffect(() => {
+    amountCorrectRef.current = amountCorrect;
+  }, [amountCorrect]);
+
+  if (quizData.questions === null) {
+    return <Loading></Loading>; // canviar a un spinner o algo
   }
 
   return (
@@ -129,7 +130,7 @@ function Quiz() {
             })
           }
           {
-            mode &&
+            mode && // hay que añadir la posibilidad de que por ejemplo shudan = chudan
             <>
               <p>Nom tecnica: </p>
               <input type="text"

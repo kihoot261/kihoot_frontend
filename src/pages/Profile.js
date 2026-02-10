@@ -1,12 +1,20 @@
 import React from 'react'
-import Header from '../components/Header'
 import ReturnHome from '../components/ReturnHome';
+import { useNavigate, Navigate } from 'react-router-dom';
+import { UserAuth } from '../auth/AuthContext';
 
 function Profile() {
+
+  const navigate = useNavigate();
+  const { session } = UserAuth();
+
   return (
     <>
-      <Header></Header>
-      <div>Profile</div>
+      {!session && <ul>
+        <button onClick={() => navigate('/login')}>Inicia sessió</button>
+        <button onClick={() => navigate('/register')}>Registrar-se</button>
+      </ul>}
+      {session && <Navigate to={'/myprofile'}></Navigate>}
       <ReturnHome></ReturnHome>
     </>
   )

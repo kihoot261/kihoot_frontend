@@ -87,10 +87,11 @@ function SetupQuiz() {
   kyus.push('sho-dan', 'ni-dan');
 
   useEffect(() => {
-    if(order && questions !== null) {
+    if (order && questions !== null) {
       setVisibilityMode(false);
       setVisibilityTime(false);
       setVisibilityOrder(false);
+      setOrder(false);
     }
   }, [order, questions])
 
@@ -136,7 +137,7 @@ function SetupQuiz() {
           Ordre
         </h2>
         <ul>
-          <button onClick={() => handleOrder(true)}  disabled={questions !== null}>Ordenat</button>
+          <button onClick={() => handleOrder(true)} disabled={questions !== null}>Ordenat</button>
           <button onClick={() => handleOrder(false)}>Aleatori</button>
         </ul>
       </div>
