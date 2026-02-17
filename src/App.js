@@ -11,6 +11,7 @@ import Register from './pages/Register';
 import Header from './components/Header';
 import RedirectAuthenticated from './components/RedirectAuthenticated';
 import MyProfile from './pages/MyProfile';
+import ChangePassword from './pages/ChangePassword';
 
 function App() {
   const location = useLocation();
@@ -35,6 +36,7 @@ function App() {
         <Route path='/login' element={<Login></Login>}></Route>
         <Route path='/register' element={<Register></Register>}></Route>
         <Route path='/myprofile' element={<RedirectAuthenticated><MyProfile></MyProfile></RedirectAuthenticated>}></Route>
+        <Route path='/changepassword' element={<RedirectAuthenticated><ChangePassword></ChangePassword></RedirectAuthenticated>}></Route>
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </div>
