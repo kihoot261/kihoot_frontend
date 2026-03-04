@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import ReturnHome from '../components/ReturnHome';
 import { UserAuth } from '../auth/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 function Register() {
   const [emailValue, setEmailValue] = useState('');

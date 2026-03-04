@@ -11,18 +11,7 @@ export const AuthContextProvider = ({ children }) => {
 
         const { data, error } = await supabase.auth.signUp({
             email: email,
-            password: password,
-            options: {
-                data: {
-                    name: name,
-                    surnames: surnames,
-                    username: username,
-                    games_played: 0,
-                    n_successes: 0,
-                    n_failures: 0,
-                    ratio: 0
-                }
-            }
+            password: password
         });
 
         if (error) {
@@ -48,6 +37,7 @@ export const AuthContextProvider = ({ children }) => {
                         games_played: 0,
                         n_successes: 0,
                         n_failures: 0,
+                        total_number_questions: 0,
                         ratio: 0
                     }
                 ]);
@@ -56,8 +46,6 @@ export const AuthContextProvider = ({ children }) => {
                 console.log('Error in signUpUser during profile insert:', profileError);
                 return { success: false, error: profileError };
             }
-
-            console.log('Profile inserted successfully:', profileData);
             return { success: true, data: { user: data.user, profile: profileData } };
         } else {
             console.log('Signup successful, but user not available yet (check email confirmation).');
@@ -107,20 +95,11 @@ export const AuthContextProvider = ({ children }) => {
             return { success: false, error: 'Name must be a non-empty string' };
         }
 
-        const { error: authError } = await supabase.auth.updateUser({
-            data: { name: nameUser.trim() },
-        });
-
-        if (authError) {
-            console.log('Error updating auth user:', authError);
-            return { success: false, error: authError };
-        }
-
         else {
             const { error: profileError } = await supabase
                 .from('profiles')
                 .update({ name: nameUser.trim() })
-                .eq('id', session.user.id);
+                .eq('id', session?.user.id);
 
             if (profileError) {
                 console.log('Error updating profile:', profileError);
@@ -139,20 +118,33 @@ export const AuthContextProvider = ({ children }) => {
             return { success: false, error: 'Name must be a non-empty string' };
         }
 
-        const { error: authError } = await supabase.auth.updateUser({
-            data: { surnames: surnamesUser.trim() },
-        });
+        else {
+            const { error: profileError } = await supabase
+                .from('profiles')
+                .update({ surnames: surnamesUser.trim() })
+                .eq('id', session?.user.id);
 
-        if (authError) {
-            console.log('Error updating auth user:', authError);
-            return { success: false, error: authError };
+            if (profileError) {
+                console.log('Error updating profile:', profileError);
+                return { success: false, error: profileError };
+            }
+
+            else {
+                return { success: true };
+            }
+        }
+    }
+    const changeUsernameUser = async (usernameUser) => {
+        if (!usernameUser || typeof usernameUser !== 'string' || usernameUser.trim() === '') {
+            console.log('Invalid name provided');
+            return { success: false, error: 'Name must be a non-empty string' };
         }
 
         else {
             const { error: profileError } = await supabase
                 .from('profiles')
-                .update({ surnames: surnamesUser.trim() })
-                .eq('id', session.user.id);
+                .update({ username: usernameUser.trim() })
+                .eq('id', session?.user.id);
 
             if (profileError) {
                 console.log('Error updating profile:', profileError);
@@ -165,36 +157,35 @@ export const AuthContextProvider = ({ children }) => {
         }
     }
 
-    const changeUsernameUser = async (usernameUser) => {
-        if (!usernameUser || typeof usernameUser !== 'string' || usernameUser.trim() === '') {
-            console.log('Invalid name provided');
-            return { success: false, error: 'Name must be a non-empty string' };
+    const getUserData = async () => {
+        const { data, error } = await supabase.from('profiles').select('*').eq('id', session.user.id);
+        if (error) {
+            console.error('Error fetching data in AuthContext:', error);
+            return null;
         }
+        return data;
+    }
 
-        const { error: authError } = await supabase.auth.updateUser({
-            data: { username: usernameUser.trim() },
-        });
-
-        if (authError) {
-            console.log('Error updating auth user:', authError);
-            return { success: false, error: authError };
-        }
-
-        else {
-            const { error: profileError } = await supabase
+    const updateUserStats = async (successesParam, failuresParam, total_questionsParam, ratioParam, games_playedParam) => {
+        const { profileError } = await supabase
                 .from('profiles')
-                .update({ username: usernameUser.trim() })
-                .eq('id', session.user.id);
+                .update({ 
+                    n_successes: successesParam,
+                    n_failures: failuresParam,
+                    total_number_questions: total_questionsParam,
+                    ratio: ratioParam,
+                    games_played: games_playedParam
+                })
+                .eq('id', session?.user.id);
 
             if (profileError) {
-                console.log('Error updating profile:', profileError);
+                console.error('Error updating data in AuthContext:', profileError);
                 return { success: false, error: profileError };
             }
 
             else {
                 return { success: true };
             }
-        }
     }
 
     useEffect(() => {
@@ -208,7 +199,7 @@ export const AuthContextProvider = ({ children }) => {
     }, []);
 
     return (
-        <AuthContext.Provider value={{ session, signUpUser, signOutUser, signInUser, changeUserPassword, changeNameUser, changeSurnamesUser, changeUsernameUser }}>
+        <AuthContext.Provider value={{ session, signUpUser, signOutUser, signInUser, changeUserPassword, changeNameUser, changeSurnamesUser, changeUsernameUser, getUserData, updateUserStats }}>
             {children}
         </AuthContext.Provider>
     )

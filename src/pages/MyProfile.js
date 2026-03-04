@@ -1,16 +1,18 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import ReturnHome from '../components/ReturnHome';
-import { useNavigate } from 'react-router-dom';
 import { UserAuth } from '../auth/AuthContext';
+import { useNavigate } from 'react-router';
+import Loading from '../components/Loading';
 
 function MyProfile() {
 
     const navigate = useNavigate();
-    const { signOutUser, session, changeNameUser, changeSurnamesUser, changeUsernameUser } = UserAuth();
+    const { signOutUser, session, changeNameUser, changeSurnamesUser, changeUsernameUser, getUserData } = UserAuth();
     const [nameValue, setNameValue] = useState('');
     const [usernameValue, setUsernameValue] = useState('');
     const [surnamesValue, setSurnamesValue] = useState('');
     const [editMode, setEditMode] = useState(false);
+    const [userData, setUserData] = useState(null);
 
     const handleChangeName = (e) => {
         setNameValue(e.target.value);
@@ -93,19 +95,43 @@ function MyProfile() {
         }
     }
 
+    const fetchData = useCallback(async () => {
+        if (session) {
+            try {
+                const data = await getUserData();
+                setUserData(data[0]);
+            }
+            catch (error) {
+                console.error('Error fetching data in MyProfile:', error);
+            }
+        }
+        else {
+            console.error('no ha iniciado sesion');
+        }
+
+    }, [session, getUserData])
+
+    useEffect(() => {
+        if(session && !userData) fetchData();
+    }, [fetchData, session, userData]);
+
+    if (userData === null) {
+        return <Loading></Loading>; // canviar a un spinner o algo
+    }
+
     return (
         <>
             {!editMode &&
                 <>
                     <div>
-                        <p>Nom: {session?.user?.user_metadata?.name}</p>
-                        <p>Cognoms: {session?.user?.user_metadata?.surnames}</p>
-                        <p>Nom usuari: {session?.user?.user_metadata?.username}</p>
+                        <p>Nom: {userData.name}</p>
+                        <p>Cognoms: {userData.surnames}</p>
+                        <p>Nom usuari: {userData.username}</p>
                         <p>Email: {session?.user?.user_metadata?.email}</p>
-                        <p>Partides jugades: {session?.user?.user_metadata?.games_played}</p>
-                        <p>Nombre encerts: {session?.user?.user_metadata?.n_successes}</p>
-                        <p>Nombre fallos: {session?.user?.user_metadata?.n_failures}</p>
-                        <p>Ratio encerts/fallos: {session?.user?.user_metadata?.ratio}%</p>
+                        <p>Partides jugades: {userData.games_played}</p>
+                        <p>Nombre encerts: {userData.n_successes}</p>
+                        <p>Nombre fallos: {userData.n_failures}</p>
+                        <p>Ratio encerts/fallos: {userData.ratio}%</p>
                     </div>
                     <div>
                         <button onClick={handleEditMode}>Edita les meves dades</button>

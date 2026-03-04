@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom';
 import ReturnHome from '../components/ReturnHome';
+import { useNavigate } from 'react-router';
 
 function SetupQuiz() {
   const [kyu, setKyu] = useState([]);

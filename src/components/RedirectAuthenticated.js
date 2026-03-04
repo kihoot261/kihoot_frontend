@@ -1,7 +1,7 @@
 import React from 'react'
 import { UserAuth } from '../auth/AuthContext'
-import { Navigate } from 'react-router-dom';
 import Loading from './Loading';
+import { Navigate } from 'react-router';
 
 const  RedirectAuthenticated = ({ children }) => {
     const { session } = UserAuth();

@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { useConfigureGame } from '../api/quizData';
-import { useNavigate, useLocation } from 'react-router-dom';
 import ReturnHome from '../components/ReturnHome';
 import Loading from '../components/Loading';
+import { useLocation, useNavigate } from 'react-router';
 
 function Quiz() {
 
@@ -47,7 +47,7 @@ function Quiz() {
       else {
         navigate('/results', { state: { corrects: amountCorrectRef.current, total: quizData.questions.length } });
       }
-    }, 3000)
+    }, 30) //cambiar tiempo respuesta
   }, [displayQuestion, navigate, quizData, time])
 
   const handleChange = (e) => {

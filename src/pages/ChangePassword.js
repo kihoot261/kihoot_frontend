@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { UserAuth } from '../auth/AuthContext';
 import { supabase } from '../api/supabase';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 function ChangePassword() {
 
