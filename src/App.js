@@ -6,7 +6,7 @@ import Header from './components/Header';
 function App() {
   const location = useLocation();
   const showOnlyOnHome = location.pathname === '/';
-  
+
   return (
     <div className="App">
       {
@@ -20,6 +20,7 @@ function App() {
       }
       <Outlet></Outlet>
     </div>
+
   );
 }
 

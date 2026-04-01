@@ -2,7 +2,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { AuthContextProvider } from './auth/AuthContext';
+import { AuthContextProvider } from './utils/AuthContext';
 import { createBrowserRouter, RouterProvider } from 'react-router';
 import Quiz from './pages/Quiz';
 import Info from './pages/Info';
@@ -15,6 +15,11 @@ import RedirectAuthenticated from './components/RedirectAuthenticated';
 import MyProfile from './pages/MyProfile';
 import ChangePassword from './pages/ChangePassword';
 import { Navigate } from 'react-router';
+import Routines from './pages/Routines';
+import CreateRoutine from './pages/CreateRoutine';
+import SearchRoutines from './pages/SearchRoutines';
+import MyRoutines from './pages/MyRoutines';
+import MyThings from './pages/MyThings';
 
 const router = createBrowserRouter([
     {
@@ -51,6 +56,21 @@ const router = createBrowserRouter([
             },
             {
                 path: 'changepassword', element: <RedirectAuthenticated><ChangePassword></ChangePassword></RedirectAuthenticated>
+            },
+            {
+                path: 'mythings', element: <RedirectAuthenticated><MyThings></MyThings></RedirectAuthenticated>
+            },
+            {
+                path: 'routines', element: <Routines></Routines>
+            },
+            {
+                path: 'createroutine', element: <RedirectAuthenticated><CreateRoutine></CreateRoutine></RedirectAuthenticated>
+            },
+            {
+                path: 'searchroutines', element: <SearchRoutines></SearchRoutines>
+            },
+            {
+                path: 'myroutines', element: <RedirectAuthenticated><MyRoutines></MyRoutines></RedirectAuthenticated>
             },
             {
                 path: "*", element: <Navigate to="/" replace />

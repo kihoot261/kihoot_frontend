@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { UserAuth } from "../auth/AuthContext";
+import { UserAuth } from "../utils/AuthContext";
 import Loading from "./Loading";
 
 const Header = () => {

@@ -1,13 +1,12 @@
 import React from 'react'
 import ReturnHome from '../components/ReturnHome';
-import { UserAuth } from '../auth/AuthContext';
+import { UserAuth } from '../utils/AuthContext';
 import { Navigate, useNavigate } from 'react-router';
 
 function Profile() {
 
   const navigate = useNavigate();
   const { session } = UserAuth();
-  console.log(session);
 
   return (
     <>

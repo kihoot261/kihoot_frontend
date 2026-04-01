@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import ReturnHome from '../components/ReturnHome';
 import { useLocation } from 'react-router';
-import { UserAuth } from '../auth/AuthContext';
+import { UserAuth } from '../utils/AuthContext';
 
 function Results() {
 
@@ -28,12 +28,12 @@ function Results() {
         if (session) {
             updateMyStats();
         }
-    })
+    });
 
     return (
         <>
             <h1 className='result-display'>
-                Percentatge d'encerts: {corrects / total * 100}%
+                Porcentaje de aciertos: {(corrects / total * 100).toFixed(2)}%
             </h1>
             <ReturnHome></ReturnHome>
         </>

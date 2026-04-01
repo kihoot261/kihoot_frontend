@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import ReturnHome from '../components/ReturnHome';
-import { UserAuth } from '../auth/AuthContext';
+import { UserAuth } from '../utils/AuthContext';
 import { useNavigate } from 'react-router';
 import Loading from '../components/Loading';
 
@@ -29,14 +29,24 @@ function MyProfile() {
     const changePassword = async (e) => {
         e.preventDefault();
         try {
-            //await changeUserPassword(passwordValue);
             navigate('/changepassword');
-
         }
         catch (error) {
             console.error('error en changePassword de MyProfile.js', error);
         }
     }
+
+    /*
+    const deleteUser = async (e) => {
+        e.preventDefault();
+        try {
+            navigate('/deleteuser');
+        }
+        catch (error) {
+            console.error('error en deleteUser de MyProfile.js', error);
+        }
+    }
+        */
 
     const changeName = async (e) => {
         e.preventDefault();
@@ -112,7 +122,7 @@ function MyProfile() {
     }, [session, getUserData])
 
     useEffect(() => {
-        if(session && !userData) fetchData();
+        if (session && !userData) fetchData();
     }, [fetchData, session, userData]);
 
     if (userData === null) {
@@ -124,54 +134,54 @@ function MyProfile() {
             {!editMode &&
                 <>
                     <div>
-                        <p>Nom: {userData.name}</p>
-                        <p>Cognoms: {userData.surnames}</p>
-                        <p>Nom usuari: {userData.username}</p>
+                        <p>Nombre: {userData.name}</p>
+                        <p>Apellidos: {userData.surnames}</p>
+                        <p>Nombre usuario: {userData.username}</p>
                         <p>Email: {session?.user?.user_metadata?.email}</p>
-                        <p>Partides jugades: {userData.games_played}</p>
-                        <p>Nombre encerts: {userData.n_successes}</p>
-                        <p>Nombre fallos: {userData.n_failures}</p>
-                        <p>Ratio encerts/fallos: {userData.ratio}%</p>
+                        <p>Partidas jugadas: {userData.games_played}</p>
+                        <p>Número aciertos: {userData.n_successes}</p>
+                        <p>Número fallos: {userData.n_failures}</p>
+                        <p>Ratio aciertos/fallos: {userData.ratio}%</p>
                     </div>
                     <div>
-                        <button onClick={handleEditMode}>Edita les meves dades</button>
-                    </div>
-                    <button onClick={handleSignOut}>Tancar sessió</button>
+                        <button onClick={() => navigate('/mythings')}>Mis cosas</button>
+                        <button onClick={handleEditMode}>Editar mis datos</button>
+                        <button onClick={handleSignOut}>Cerrar sessión</button>                    </div>
                 </>
             }
             {editMode &&
                 <>
-                    <div>
+                    <form>
                         <div>
-                            <p>Canvia Nom: </p>
+                            <p>Canviar nombre: </p>
                             <input type="text"
                                 value={nameValue}
                                 onChange={handleChangeName}
-                                placeholder="Nou nom..."></input>
+                                placeholder="Nuevo nombre..."></input>
                         </div>
 
                         <div>
-                            <p>Canvia Cognoms: </p>
+                            <p>Canviar apellidos: </p>
                             <input type="text"
                                 value={surnamesValue}
                                 onChange={handleChangeSurnames}
-                                placeholder="Nou/s cognoms..."></input>
+                                placeholder="Nuevo/s apellidos..."></input>
                         </div>
 
                         <div>
-                            <p>Canvia nom usuari: </p>
+                            <p>Canviar nombre usuario: </p>
                             <input type="text"
                                 value={usernameValue}
                                 onChange={handleChangeUsername}
-                                placeholder="Nou nom d'usuari..."></input>
+                                placeholder="Nuevo nombre usuario..."></input>
                         </div>
 
                         <div>
+                            {/* <button onClick={deleteUser}>Eliminar perfil</button> */}
                             <button onClick={changePassword}>Canvia contraseña</button>
                         </div>
-
                         <button onClick={returnViewMode}>Actualitza</button>
-                    </div>
+                    </form>
                 </>
             }
 
