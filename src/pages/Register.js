@@ -1,7 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useRef } from 'react'
 import ReturnHome from '../components/ReturnHome';
 import { UserAuth } from '../utils/AuthContext';
 import { useNavigate } from 'react-router';
+import SimpleReactValidator from 'simple-react-validator';
+import { errorMessages } from '../utils/errorMessages';
+import RegularButton from '../components/RegularButton';
 
 function Register() {
   const [emailValue, setEmailValue] = useState('');
@@ -9,9 +12,12 @@ function Register() {
   const [usernameValue, setUsernameValue] = useState('');
   const [nameValue, setNameValue] = useState('');
   const [surnameValue, setSurnameValue] = useState('');
-  const [clickable, setClickable] = useState(false);
   const { signUpUser } = UserAuth();
   const navigate = useNavigate();
+
+  const validator = useRef(new SimpleReactValidator({
+    messages: errorMessages
+  }));
 
   const handleEmail = (e) => {
     setEmailValue(e.target.value);
@@ -35,64 +41,91 @@ function Register() {
 
   const handleRegister = async (e) => {
     e.preventDefault();
-    try {
-      const result = await signUpUser(emailValue, passwordValue, nameValue, surnameValue, usernameValue);
-      if (result.success) {
-        navigate('/');
+    if (validator.current.allValid()) {
+      try {
+        const result = await signUpUser(emailValue, passwordValue, nameValue, surnameValue, usernameValue);
+        if (result.success) {
+          navigate('/');
+        }
+      }
+      catch (error) {
+        console.error('error en handleRegister de Register.js', error);
       }
     }
-    catch (error) {
-      console.error('error en handleRegister de Register.js', error);
-    }
-  }
-
-  useEffect(() => {
-    if (emailValue !== '' && passwordValue !== '' && nameValue !== '' && usernameValue !== '' && surnameValue !== '') {
-      setClickable(true);
-    }
     else {
-      setClickable(false);
+      validator.current.showMessages();
     }
-  }, [clickable, passwordValue, emailValue, surnameValue, nameValue, usernameValue]);
+
+  }
 
   return (
     <div>
       <form onSubmit={handleRegister}>
-        <p>Email: </p>
-        <input type="email"
-          value={emailValue}
-          onChange={handleEmail}
-          placeholder="Email...">
-        </input>
+        <div>
+          <label for='email'>Email: </label>
+          <input type="text"
+            value={emailValue}
+            onChange={handleEmail}
+            id='email'
+            placeholder="Email...">
+          </input>
+          <div>
+            {validator.current.message('email', emailValue, 'required|email')}
+          </div>
+        </div>
 
-        <p>Contrasenya: </p>
-        <input type="password"
-          value={passwordValue}
-          onChange={handlePassword}
-          placeholder='Contrasenya...'>
-        </input>
 
-        <p>Nom: </p>
-        <input type="text"
-          value={nameValue}
-          onChange={handleName}
-          placeholder="Nom...">
-        </input>
+        <div>
+          <label for='password'>Contraseña: </label>
+          <input type="password"
+            value={passwordValue}
+            onChange={handlePassword}
+            id='password'
+            placeholder='Contraseña...'>
+          </input>
+          <div>
+            {validator.current.message('password', passwordValue, 'required|min:8|max:16|alpha_num')}
+          </div>
+        </div>
 
-        <p>Cognoms: </p>
-        <input type="text"
-          value={surnameValue}
-          onChange={handleSurname}
-          placeholder="Cognoms...">
-        </input>
+        <div>
+          <label for='name'>Nombre: </label>
+          <input type="text"
+            value={nameValue}
+            onChange={handleName}
+            id='name'
+            placeholder="Nombre...">
+          </input>
+          <div>
+            {validator.current.message('name', nameValue, 'required')}
+          </div>
+        </div>
+        <div>
+          <label for='surname'>Apellido/s: </label>
+          <input type="text"
+            value={surnameValue}
+            onChange={handleSurname}
+            id='surname'
+            placeholder="Apellidos...">
+          </input>
+          <div>
+            {validator.current.message('surname', surnameValue, 'required')}
+          </div>
+        </div>
 
-        <p>Nom d'usuari: </p>
-        <input type="text"
-          value={usernameValue}
-          onChange={handleUsername}
-          placeholder="Nom d'usuari...">
-        </input>
-        <button disabled={!clickable} type='submit'>Envia</button>
+        <div>
+          <label for='username'>Nombre de usuario: </label>
+          <input type="text"
+            value={usernameValue}
+            id='username'
+            onChange={handleUsername}
+            placeholder="Nombre de usuario...">
+          </input>
+          <div>
+            {validator.current.message('name', usernameValue, 'required|min:5')}
+          </div>
+        </div>
+        <RegularButton type='submit' title='Envia'></RegularButton>
       </form>
       <ReturnHome></ReturnHome>
     </div>

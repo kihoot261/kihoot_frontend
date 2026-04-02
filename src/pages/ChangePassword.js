@@ -1,7 +1,11 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { UserAuth } from '../utils/AuthContext';
 import { supabase } from '../api/supabase';
 import { useNavigate } from 'react-router';
+import SimpleReactValidator from 'simple-react-validator';
+import RegularButton from '../components/RegularButton';
+import { errorMessages } from '../utils/errorMessages';
+import ReturnHome from '../components/ReturnHome';
 
 function ChangePassword() {
 
@@ -9,7 +13,12 @@ function ChangePassword() {
   const [repeatPassword, setRepeatPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const { changeUserPassword } = UserAuth();
+  const [diffPasswords, setDiffPasswords] = useState(false);
   const navigate = useNavigate();
+
+  const validator = useRef(new SimpleReactValidator({
+    messages: errorMessages
+  }));
 
   const handleNewPassword = (e) => {
     setNewPassword(e.target.value);
@@ -17,54 +26,79 @@ function ChangePassword() {
 
   const handleOldPassword = (e) => {
     setOldPassword(e.target.value);
+    setDiffPasswords(oldPassword === repeatPassword);
   };
 
   const handleRepeatedPassword = (e) => {
     setRepeatPassword(e.target.value);
+    setDiffPasswords(oldPassword === repeatPassword);
   };
 
   const changePassword = async (e) => {
-    const { data: isVerified } = await supabase.rpc('verify_user_password', { password: oldPassword })
-    if (isVerified && oldPassword === repeatPassword) {
-      e.preventDefault();
+    e.preventDefault();
+    if (validator.current.allValid()) {
+      const { data: isVerified } = await supabase.rpc('verify_user_password', { password: oldPassword })
+      if (isVerified && !diffPasswords) {
         try {
-            await changeUserPassword(newPassword);
+          await changeUserPassword(newPassword);
+          navigate('/');
         }
         catch (error) {
-            console.error('error en changePassword de ChangePassword.js', error);
+          console.error('error en changePassword de ChangePassword.js', error);
         }
+      }
     }
-    navigate('/');
+    else {
+      validator.current.showMessages();
+    }
   }
 
   return (
     <>
-      <h1>Canvia la contraseña</h1>
-      <div>
+      <h1>Cambia la contraseña</h1>
+      <form onSubmit={changePassword}>
         <div>
-          <p>Antiga contrasenya: </p>
+          <label for='oldPassword'>Antigua contraseña: </label>
           <input type="password"
             value={oldPassword}
             onChange={handleOldPassword}
-            placeholder="Antiga contrasenya..."></input>
+            id='oldPassword'
+            placeholder="Antigua contraseña..."></input>
+          <div>
+            {validator.current.message('oldPassword', oldPassword, 'required|min:8|max:16')}
+          </div>
         </div>
+
         <div>
-          <p>Repeteix antiga contrasenya: </p>
+          <label for='repeatPassword'>Repite antigua contraseña: </label>
           <input type="password"
             value={repeatPassword}
             onChange={handleRepeatedPassword}
-            placeholder="Repeteix antiga contrasenya..."></input>
+            id='repeatPassword'
+            placeholder="Repite antigua contraseña..."></input>
+          <div>
+            {
+              !diffPasswords &&
+              <span>Las contraseñas no coinciden</span>
+            }
+            {validator.current.message('repeatPassword', repeatPassword, 'required|min:8|max:16')}
+          </div>
         </div>
+
         <div>
-          <p>Nova contrasenya: </p>
+          <label for='newPassword'>Nueva contraseña: </label>
           <input type="password"
             value={newPassword}
             onChange={handleNewPassword}
-            placeholder="Nova contrasenya..."></input>
+            id='newPassword'
+            placeholder="Nueva contraseña..."></input>
+          <div>
+            {validator.current.message('newPassword', newPassword, 'required|min:8|max:16|alpha_num')}
+          </div>
         </div>
-        <button onClick={changePassword}>Canvia contrasenya</button>
-      </div>
-
+        <RegularButton type='submit' title='Cambiar contrasenya'></RegularButton>
+      </form>
+      <ReturnHome></ReturnHome>
     </>
   )
 }

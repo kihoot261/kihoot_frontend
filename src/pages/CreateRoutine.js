@@ -1,8 +1,11 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import ReturnHome from '../components/ReturnHome';
 import { v4 as uuidv4 } from 'uuid';
 import { UserAuth } from '../utils/AuthContext';
 import { useNavigate } from 'react-router';
+import SimpleReactValidator from 'simple-react-validator';
+import { errorMessages } from '../utils/errorMessages';
+import RegularButton from '../components/RegularButton';
 
 function CreateRoutine() {
     const emptyExercice = {
@@ -29,6 +32,10 @@ function CreateRoutine() {
     const [routineDefined, setRoutineDefined] = useState(false);
     const { createRoutine } = UserAuth();
     const navigate = useNavigate();
+
+    const validator = useRef(new SimpleReactValidator({
+        messages: errorMessages
+    }));
 
     const updateCurrentExerciseName = (e) => {
         setNameValue(e.target.value);
@@ -103,7 +110,12 @@ function CreateRoutine() {
 
     const defineExercices = (e) => {
         e.preventDefault();
-        setRoutineDefined(true);
+        if (validator.current.allValid()) {
+            setRoutineDefined(true);
+        }
+        else {
+            validator.current.showMessages();
+        }
     }
 
     return (
@@ -119,6 +131,9 @@ function CreateRoutine() {
                             required
                             onChange={handleChangeTitle}
                             placeholder="Titulo..."></input>
+                        <div>
+                            {validator.current.message('title', titleValue, 'required')}
+                        </div>
                     </div>
 
                     <div>
@@ -128,8 +143,11 @@ function CreateRoutine() {
                             required
                             onChange={handleChangeDescription}
                             placeholder="Descripción rutina..."></textarea>
+                        <div>
+                            {validator.current.message('description', descriptionValue, 'required')}
+                        </div>
                     </div>
-                    <button type="submit">Añade ejercicios</button>
+                    <RegularButton type="submit" title='Añade ejercicios'></RegularButton>
                 </form>
             }
 
@@ -137,14 +155,19 @@ function CreateRoutine() {
                 <>
                     <form onSubmit={saveExercise}>
                         <div>
+                            <div>
+                                <label for="name">Nombre ejercicio:</label><br></br>
                             <input
                                 type='text' // añadir labels a todos
                                 value={nameValue}
+                                id='name'
                                 onChange={updateCurrentExerciseName}
                                 placeholder="Nombre ejercicio..."
                                 autoFocus
                                 required
                             />
+                            </div>
+                            
                             <textarea name='description' rows={5} cols={30}
                                 value={descriptionExerciceValue}
                                 onChange={updateCurrentExerciseDescription}
