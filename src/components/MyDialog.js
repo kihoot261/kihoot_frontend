@@ -1,5 +1,6 @@
 import React from 'react';
 import { confirmable, createConfirmation } from 'react-confirm';
+import RegularButton from './RegularButton';
 
 const MyDialog = (props) => {
     const { proceed, message } = props;
@@ -19,8 +20,8 @@ const MyDialog = (props) => {
         }}>
             <div>
                 <p>{message}</p>
-                <button onClick={() => proceed(true)}>Yes</button>
-                <button onClick={() => proceed(false)}>No</button>
+                <RegularButton title='Si' callback={() => proceed(true)}></RegularButton>
+                <RegularButton title='No' callback={() => proceed(false)}></RegularButton>
             </div>
         </div>
     );

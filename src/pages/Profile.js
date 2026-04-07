@@ -2,6 +2,7 @@ import React from 'react'
 import ReturnHome from '../components/ReturnHome';
 import { UserAuth } from '../utils/AuthContext';
 import { Navigate, useNavigate } from 'react-router';
+import RegularButton from '../components/RegularButton';
 
 function Profile() {
 
@@ -10,10 +11,12 @@ function Profile() {
 
   return (
     <>
-      {!session && <ul>
-        <button onClick={() => navigate('/login')}>Inicia sessió</button>
-        <button onClick={() => navigate('/register')}>Registrar-se</button>
-      </ul>}
+      {!session &&
+        <ul>
+          <RegularButton title='Inicia sesión' callback={() => navigate('/login')}></RegularButton>
+          <RegularButton title='Registrarse' callback={() => navigate('/register')}></RegularButton>
+        </ul>
+      }
       {session && <Navigate to={'/myprofile'}></Navigate>}
       <ReturnHome></ReturnHome>
     </>

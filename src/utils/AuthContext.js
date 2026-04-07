@@ -206,7 +206,7 @@ export const AuthContextProvider = ({ children }) => {
 
 
     //routines
-    const createRoutine = async (title, description, exercices) => {
+    const createRoutine = async (title, description, username, exercices) => {
         try {
             const { data: dataRoutine, error: routineError } = await supabase
                 .from('trainings')
@@ -214,6 +214,7 @@ export const AuthContextProvider = ({ children }) => {
                     {
                         id_user: session?.user.id,
                         title: title,
+                        username: username,
                         description: description
                     }
                 )
@@ -413,6 +414,81 @@ export const AuthContextProvider = ({ children }) => {
         }
     }
 
+    const getRoutineById = async (id_routine) => {
+        try {
+            const { data: routine, error: routinesError } = await supabase
+                .from('trainings')
+                .select('*')
+                .eq('id', id_routine)
+            if (routinesError) {
+                console.log('Error in getRoutineById during routine search in AuthContext:', routinesError);
+                return { success: false, error: routinesError };
+            }
+            else {
+                return { success: true, data: routine }
+            }
+        }
+        catch (error) {
+            console.error('Error getRoutineById in AuthContext:', error);
+            return { success: false, error };
+        }
+    }
+
+    const changeRoutineTitle = async(title_routine, id_routine) => {
+        const { error: routineError } = await supabase
+                .from('trainings')
+                .update({ title: title_routine.trim() })
+                .eq('id', id_routine);
+
+            if (routineError) {
+                console.log('Error updating title routine:', routineError);
+                return { success: false, error: routineError };
+            }
+
+            else {
+                return { success: true };
+            }
+    }
+
+    const changeRoutineDescription = async(desc_routine, id_routine) => {
+        const { error: routineError } = await supabase
+                .from('trainings')
+                .update({ description: desc_routine.trim() })
+                .eq('id', id_routine);
+
+            if (routineError) {
+                console.log('Error updating title routine:', routineError);
+                return { success: false, error: routineError };
+            }
+
+            else {
+                return { success: true };
+            }
+    }
+
+
+
+    //exercises
+    const getExercicesFromRoutineById = async(id_routine) => {
+        try {
+            const { data: exercices, error: exercicesError } = await supabase
+                .from('training_exercises')
+                .select('*')
+                .eq('id_training', id_routine)
+            if (exercicesError) {
+                console.log('Error in getExercicesFromRoutineById during routine search in AuthContext:', exercicesError);
+                return { success: false, error: exercicesError };
+            }
+            else {
+                return { success: true, data: exercices }
+            }
+        }
+        catch (error) {
+            console.error('Error getExercicesFromRoutineById in AuthContext:', error);
+            return { success: false, error };
+        }
+    }
+
     useEffect(() => {
         supabase.auth.getSession().then(({ data: { session } }) => {
             setSession(session);
@@ -442,7 +518,11 @@ export const AuthContextProvider = ({ children }) => {
             getRoutinesById,
             saveRoutine,
             unsaveRoutine,
-            deleteRoutine
+            deleteRoutine,
+            getRoutineById,
+            changeRoutineTitle,
+            changeRoutineDescription,
+            getExercicesFromRoutineById
         }}>
             {children}
         </AuthContext.Provider>

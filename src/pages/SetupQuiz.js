@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import ReturnHome from '../components/ReturnHome';
 import { useNavigate } from 'react-router';
+import RegularButton from '../components/RegularButton';
 
 function SetupQuiz() {
   const [kyu, setKyu] = useState([]);
@@ -77,13 +78,12 @@ function SetupQuiz() {
     const kyuName = insertText(i);
     kyus.push(kyuName);
     buttons.push(
-      <button key={i} onClick={() => handleKyu(kyuName)}>
-        {capitalizeFirstLetter(kyuName)}
-      </button>
+      <RegularButton key={i} title={capitalizeFirstLetter(kyuName)} callback={() => handleKyu(kyuName)}></RegularButton>
     );
   }
-  buttons.push(<button key={11} onClick={() => handleKyu('sho-dan')}>Sho-dan</button>);
-  buttons.push(<button key={12} onClick={() => handleKyu('ni-dan')}>Ni-dan</button>);
+  buttons.push(<RegularButton key={11} title='Sho-dan' callback={() => handleKyu('sho-dan')}></RegularButton>);
+  buttons.push(<RegularButton key={12} title='Ni-dan' callback={() => handleKyu('ni-dan')}></RegularButton>)
+
   kyus.push('sho-dan', 'ni-dan');
 
   useEffect(() => {
@@ -98,67 +98,67 @@ function SetupQuiz() {
   return (
     <>
       <h1>
-        Configuració de Partida
+        Configuración de Partida
       </h1>
 
-      <div>
-        <h2>
-          Kyu
-        </h2>
-        <ul>
-          {buttons}
-        </ul>
+      <div> { /* este será un form algo diferente al resto */ }
+        <div>
+          <h2>
+            Kyu
+          </h2>
+          <ul>
+            {buttons}
+          </ul>
+        </div>
+
+        <div style={{ visibility: visibilityQuestions ? 'visible' : 'hidden' }}>
+          <h2>
+            Número de preguntas
+          </h2>
+          <ul>
+            <RegularButton title='10' disabled={chekNumQuestions(1)} callback={() => handleQuestions(10)}></RegularButton>
+            <RegularButton title='20' disabled={chekNumQuestions(2)} callback={() => handleQuestions(20)}></RegularButton>
+            <RegularButton title='50' disabled={chekNumQuestions(5)} callback={() => handleQuestions(50)}></RegularButton>
+            <RegularButton title='Totes' callback={() => handleQuestions(null)}></RegularButton>
+          </ul>
+        </div>
+
+        <div style={{ visibility: visibilityMode ? 'visible' : 'hidden' }}>
+          <h2>
+            Modo
+          </h2>
+          <ul>
+            <RegularButton title='Escriptura' callback={() => handleMode(true)}></RegularButton>
+            <RegularButton title='Tap' callback={() => handleMode(false)}></RegularButton>
+          </ul>
+        </div>
+
+        <div style={{ visibility: visibilityOrder ? 'visible' : 'hidden' }}>
+          <h2>
+            Orden
+          </h2>
+          <ul>
+            <RegularButton title='Ordenat' callback={() => handleOrder(true)} disabled={questions !== null}></RegularButton>
+            <RegularButton title='Aleatori' callback={() => handleOrder(false)}></RegularButton>
+          </ul>
+        </div>
+
+        <div style={{ visibility: visibilityTime ? 'visible' : 'hidden' }}>
+          <h2>
+            Tiempo
+          </h2>
+          <ul>
+            <RegularButton title='30s' callback={() => handleTime(30)}></RegularButton>
+            <RegularButton title='60s' callback={() => handleTime(60)}></RegularButton>
+            <RegularButton title='Sin tiempo' callback={() => handleTime(null)}></RegularButton>
+          </ul>
+        </div>
+        <RegularButton title='Comienza la partida' disabled={startGame} callback={() => goToConfigureGame()}></RegularButton>
       </div>
 
-      <div style={{ visibility: visibilityQuestions ? 'visible' : 'hidden' }}>
-        <h2>
-          Número de preguntes
-        </h2>
-        <ul>
-          <button onClick={() => handleQuestions(10)} disabled={chekNumQuestions(1)}>10</button>
-          <button onClick={() => handleQuestions(20)} disabled={chekNumQuestions(2)}>20</button>
-          <button onClick={() => handleQuestions(50)} disabled={chekNumQuestions(5)}>50</button>
-          <button onClick={() => handleQuestions(null)}>Totes</button>
-        </ul>
-      </div>
 
-      <div style={{ visibility: visibilityMode ? 'visible' : 'hidden' }}>
-        <h2>
-          Mode
-        </h2>
-        <ul>
-          <button onClick={() => handleMode(true)}>Escriptura</button>
-          <button onClick={() => handleMode(false)}>Tap</button>
-        </ul>
-      </div>
+      <ReturnHome></ReturnHome>
 
-      <div style={{ visibility: visibilityOrder ? 'visible' : 'hidden' }}>
-        <h2>
-          Ordre
-        </h2>
-        <ul>
-          <button onClick={() => handleOrder(true)} disabled={questions !== null}>Ordenat</button>
-          <button onClick={() => handleOrder(false)}>Aleatori</button>
-        </ul>
-      </div>
-
-      <div style={{ visibility: visibilityTime ? 'visible' : 'hidden' }}>
-        <h2>
-          Temps
-        </h2>
-        <ul>
-          <button onClick={() => handleTime(30)}>30s</button>
-          <button onClick={() => handleTime(60)}>60s</button>
-          <button onClick={() => handleTime(null)}>Sense temps</button>
-        </ul>
-      </div>
-
-      <button onClick={() => goToConfigureGame()} disabled={startGame}>
-        Comença partida
-      </button>
-      <div>
-        <ReturnHome></ReturnHome>
-      </div>
 
     </>
   )

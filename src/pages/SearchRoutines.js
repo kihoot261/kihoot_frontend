@@ -3,6 +3,8 @@ import ReturnHome from '../components/ReturnHome'
 import { UserAuth } from '../utils/AuthContext';
 import Loading from '../components/Loading';
 import RegularButton from '../components/RegularButton';
+import { useNavigate } from 'react-router';
+import TituloDescripción from '../components/TituloDescripcion';
 
 function SearchRoutines() {
 
@@ -10,6 +12,7 @@ function SearchRoutines() {
     const [routines, setRoutines] = useState(null);
     const [savedRoutines, setSavedRoutines] = useState(null);
     const [shownRoutines, setShownRoutines] = useState(null);
+    const navigate = useNavigate();
 
     const fetchRoutines = useCallback(async () => {
         try {
@@ -39,7 +42,7 @@ function SearchRoutines() {
     }, [getSavedRoutines, session])
 
     const saveTheRoutine = async (e, id_routine) => {
-        e.preventDefault();
+        e.stopPropagation();
         try {
             await saveRoutine(id_routine);
         }
@@ -86,9 +89,9 @@ function SearchRoutines() {
                     {
                         shownRoutines.map((routine) => {
                             return (
-                                <div key={routine.id}>
-                                    <h3>Titulo: {routine.title}</h3>
-                                    <p>Descripción: {routine.description}</p>
+                                <div key={routine.id} onClick={() => navigate('/routine', {state: {id_routine: routine.id}})}>
+                                    <TituloDescripción titulo={routine.title} desc={routine.description}></TituloDescripción>
+                                    <p>Creado por: {routine.username}</p>
                                     <RegularButton title='Guardar rutina' callback={(e) => saveTheRoutine(e, routine.id)}></RegularButton>
                                 </div>
                             )

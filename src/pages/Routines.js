@@ -1,36 +1,17 @@
 import React from 'react'
 import { useNavigate } from 'react-router';
 import ReturnHome from '../components/ReturnHome';
+import RegularButton from '../components/RegularButton';
 
 function Routines() {
 
     const navigate = useNavigate();
 
-    const createRoutine = async (e) => {
-        e.preventDefault();
-        try {
-            navigate('/createroutine');
-        }
-        catch (error) {
-            console.error('error en deleteUser de MyProfile.js', error);
-        }
-    }
-
-    const searchRoutines = async (e) => {
-        e.preventDefault();
-        try {
-            navigate('/searchroutines');
-        }
-        catch (error) {
-            console.error('error en deleteUser de MyProfile.js', error);
-        }
-    }
-
     return (
         <>
             <div>
-                <button onClick={createRoutine}>Crear rutina entrenamiento</button>
-                <button onClick={searchRoutines}>Buscar rutinas entrenamiento</button>
+                <RegularButton title='Crear rutina entrenamiento' callback={() => navigate('/createroutine')}></RegularButton>
+                <RegularButton title='Buscar rutinas entrenamiento' callback={() => navigate('/searchroutines')}></RegularButton>
             </div>
             <ReturnHome></ReturnHome>
         </>

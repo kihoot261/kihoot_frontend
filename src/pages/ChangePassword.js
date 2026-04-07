@@ -26,12 +26,12 @@ function ChangePassword() {
 
   const handleOldPassword = (e) => {
     setOldPassword(e.target.value);
-    setDiffPasswords(oldPassword === repeatPassword);
+    setDiffPasswords(newPassword === repeatPassword);
   };
 
   const handleRepeatedPassword = (e) => {
     setRepeatPassword(e.target.value);
-    setDiffPasswords(oldPassword === repeatPassword);
+    setDiffPasswords(newPassword === repeatPassword);
   };
 
   const changePassword = async (e) => {
@@ -70,22 +70,6 @@ function ChangePassword() {
         </div>
 
         <div>
-          <label for='repeatPassword'>Repite antigua contraseña: </label>
-          <input type="password"
-            value={repeatPassword}
-            onChange={handleRepeatedPassword}
-            id='repeatPassword'
-            placeholder="Repite antigua contraseña..."></input>
-          <div>
-            {
-              !diffPasswords &&
-              <span>Las contraseñas no coinciden</span>
-            }
-            {validator.current.message('repeatPassword', repeatPassword, 'required|min:8|max:16')}
-          </div>
-        </div>
-
-        <div>
           <label for='newPassword'>Nueva contraseña: </label>
           <input type="password"
             value={newPassword}
@@ -96,6 +80,23 @@ function ChangePassword() {
             {validator.current.message('newPassword', newPassword, 'required|min:8|max:16|alpha_num')}
           </div>
         </div>
+
+        <div>
+          <label for='repeatPassword'>Repite nueva contraseña: </label>
+          <input type="password"
+            value={repeatPassword}
+            onChange={handleRepeatedPassword}
+            id='repeatPassword'
+            placeholder="Repite nueva contraseña..."></input>
+          <div>
+            {
+              !diffPasswords &&
+              <span>Las contraseñas no coinciden</span>
+            }
+            {validator.current.message('repeatPassword', repeatPassword, 'required|min:8|max:16|alpha_num')}
+          </div>
+        </div>
+
         <RegularButton type='submit' title='Cambiar contrasenya'></RegularButton>
       </form>
       <ReturnHome></ReturnHome>

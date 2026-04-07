@@ -4,12 +4,15 @@ import { UserAuth } from '../utils/AuthContext';
 import Loading from '../components/Loading';
 import RegularButton from '../components/RegularButton';
 import { confirm } from '../components/MyDialog';
+import { useNavigate } from 'react-router';
+import TituloDescripción from '../components/TituloDescripcion';
+
 function MyRoutines() {
 
     const { getMyRoutines, getSavedRoutines, unsaveRoutine, deleteRoutine } = UserAuth();
     const [myRoutines, setMyRoutines] = useState(null);
     const [savedRoutines, setSavedRoutines] = useState(null);
-    //const navigate = useNavigate();
+    const navigate = useNavigate();
 
     const fetchRoutines = useCallback(async () => {
         try {
@@ -80,9 +83,8 @@ function MyRoutines() {
                     {
                         myRoutines.map((routine) => {
                             return (
-                                <div key={routine.id}>
-                                    <h3>Titulo: {routine.title}</h3>
-                                    <p>Descripción: {routine.description}</p>
+                                <div key={routine.id} onClick={() => navigate('/routine', { state: { id_routine: routine.id } })}>
+                                    <TituloDescripción titulo={routine.title} desc={routine.description}></TituloDescripción>
                                     <RegularButton title='Eliminar rutina' callback={(e) => eraseRoutine(e, routine.id, routine.title)}></RegularButton>
                                 </div>
                             )
@@ -96,9 +98,8 @@ function MyRoutines() {
                     {
                         savedRoutines.map((routine) => {
                             return (
-                                <div key={routine.id} onClick={() => console.log('pa la rutina que me voy')}>
-                                    <h3>Titulo: {routine.title}</h3>
-                                    <p>Descripción: {routine.description}</p>
+                                <div key={routine.id} onClick={() => navigate('/routine', { state: { id_routine: routine.id } })}>
+                                    <TituloDescripción titulo={routine.title} desc={routine.description}></TituloDescripción>
                                     <RegularButton title='Quitar de favoritos' callback={(e) => handleUnfavourite(e, routine.id)}></RegularButton>
                                 </div>
                             )

@@ -3,6 +3,7 @@ import { useConfigureGame } from '../api/quizData';
 import ReturnHome from '../components/ReturnHome';
 import Loading from '../components/Loading';
 import { useLocation, useNavigate } from 'react-router';
+import RegularButton from '../components/RegularButton';
 
 function Quiz() {
 
@@ -47,7 +48,7 @@ function Quiz() {
       else {
         navigate('/results', { state: { corrects: amountCorrectRef.current, total: quizData.questions.length } });
       }
-    }, 30) //cambiar tiempo respuesta
+    }, 3000) //cambiar tiempo respuesta
   }, [displayQuestion, navigate, quizData, time])
 
   const handleChange = (e) => {
@@ -121,11 +122,7 @@ function Quiz() {
           {
             !mode && quizData.questions[displayQuestion].answers.map((answer, index) => {
               return (
-                <button key={index} disabled={!clickable} onClick={() => handleAnswer(answer)}>
-                  <h3>
-                    {fixAnswer(answer)}
-                  </h3>
-                </button>
+                <RegularButton disabled={!clickable} key={index} title={fixAnswer(answer)} callback={() => handleAnswer(answer)}></RegularButton>
               )
             })
           }
@@ -137,7 +134,7 @@ function Quiz() {
                 value={inputValue}
                 onChange={handleChange}
                 placeholder="Tecnica..."></input>
-              <button disabled={!clickable} onClick={() => handleAnswer(fixInput(inputValue))}>Envia</button>
+              <RegularButton disabled={!clickable} title='Envia' callback={() => handleAnswer(fixInput(inputValue))}></RegularButton>
             </>
           }
         </div>

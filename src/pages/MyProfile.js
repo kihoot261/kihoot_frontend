@@ -1,8 +1,11 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect, useCallback, useRef } from 'react'
 import ReturnHome from '../components/ReturnHome';
 import { UserAuth } from '../utils/AuthContext';
 import { useNavigate } from 'react-router';
 import Loading from '../components/Loading';
+import RegularButton from '../components/RegularButton';
+import SimpleReactValidator from 'simple-react-validator';
+import { errorMessages } from '../utils/errorMessages';
 
 function MyProfile() {
 
@@ -13,6 +16,10 @@ function MyProfile() {
     const [surnamesValue, setSurnamesValue] = useState('');
     const [editMode, setEditMode] = useState(false);
     const [userData, setUserData] = useState(null);
+
+    const validator = useRef(new SimpleReactValidator({
+        messages: errorMessages
+    }));
 
     const handleChangeName = (e) => {
         setNameValue(e.target.value);
@@ -50,32 +57,51 @@ function MyProfile() {
 
     const changeName = async (e) => {
         e.preventDefault();
-        try {
-            await changeNameUser(nameValue);
+        if (validator.current.fieldValid('name')) {
+            try {
+                await changeNameUser(nameValue);
+            }
+            catch (error) {
+                console.error('error en changeName de MyProfile.js', error);
+            }
+
         }
-        catch (error) {
-            console.error('error en changeName de MyProfile.js', error);
+        else {
+            validator.current.showMessages();
         }
+
     }
 
     const changeSurnames = async (e) => {
         e.preventDefault();
-        try {
-            await changeSurnamesUser(surnamesValue);
+        if (validator.current.fieldValid('surname')) {
+            try {
+                await changeSurnamesUser(surnamesValue);
+            }
+            catch (error) {
+                console.error('error en changeSurnames de MyProfile.js', error);
+            }
         }
-        catch (error) {
-            console.error('error en changeSurnames de MyProfile.js', error);
+        else {
+            validator.current.showMessages();
         }
+
     }
 
     const changeUsername = async (e) => {
         e.preventDefault();
-        try {
-            await changeUsernameUser(usernameValue);
+        if (validator.current.fieldValid('username')) {
+            try {
+                await changeUsernameUser(usernameValue);
+            }
+            catch (error) {
+                console.error('error en changeUsername de MyProfile.js', error);
+            }
         }
-        catch (error) {
-            console.error('error en changeUsername de MyProfile.js', error);
+        else {
+            validator.current.showMessages();
         }
+
     }
 
     const handleEditMode = () => {
@@ -89,7 +115,7 @@ function MyProfile() {
         if (surnamesValue !== '') {
             changeSurnames(e);
         }
-        if (usernameValue !== '') {
+        if (usernameValue !== '' || usernameValue.length < 5) {
             changeUsername(e);
         }
         setEditMode(false);
@@ -144,47 +170,59 @@ function MyProfile() {
                         <p>Ratio aciertos/fallos: {userData.ratio}%</p>
                     </div>
                     <div>
-                        <button onClick={() => navigate('/mythings')}>Mis cosas</button>
-                        <button onClick={handleEditMode}>Editar mis datos</button>
-                        <button onClick={handleSignOut}>Cerrar sessión</button>                    </div>
+                        <RegularButton title='Mis cosas' callback={() => navigate('/mythings')}></RegularButton>
+                        <RegularButton title='Editar mis datos' callback={handleEditMode}></RegularButton>
+                        <RegularButton title='Cerrar sessión' callback={handleSignOut}></RegularButton>
+                    </div>
                 </>
             }
             {editMode &&
                 <>
-                    <form>
+                    <form onSubmit={returnViewMode}>
                         <div>
-                            <p>Canviar nombre: </p>
+                            <label for='name'>Canviar nombre: </label>
                             <input type="text"
+                                id='name'
                                 value={nameValue}
                                 onChange={handleChangeName}
                                 placeholder="Nuevo nombre..."></input>
+                            <div>
+                                {validator.current.message('name', nameValue, 'required')}
+                            </div>
                         </div>
 
                         <div>
-                            <p>Canviar apellidos: </p>
+                            <label for='surname'>Canviar apellidos: </label>
                             <input type="text"
+                                id='surname'
                                 value={surnamesValue}
                                 onChange={handleChangeSurnames}
                                 placeholder="Nuevo/s apellidos..."></input>
+                            <div>
+                                {validator.current.message('surname', surnamesValue, 'required')}
+                            </div>
                         </div>
 
                         <div>
-                            <p>Canviar nombre usuario: </p>
+                            <label for='username'>Canviar nombre usuario: </label>
                             <input type="text"
+                                id='username'
                                 value={usernameValue}
                                 onChange={handleChangeUsername}
                                 placeholder="Nuevo nombre usuario..."></input>
+                            <div>
+                                {validator.current.message('username', usernameValue, 'required|min:5')}
+                            </div>
                         </div>
 
                         <div>
+                            <RegularButton title='Cambia contraseña' callback={changePassword}></RegularButton>
                             {/* <button onClick={deleteUser}>Eliminar perfil</button> */}
-                            <button onClick={changePassword}>Canvia contraseña</button>
                         </div>
-                        <button onClick={returnViewMode}>Actualitza</button>
+                        <RegularButton title='Actualiza' type='submit'></RegularButton>
                     </form>
                 </>
             }
-
             <ReturnHome></ReturnHome>
         </>
     )
