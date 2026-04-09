@@ -5,11 +5,12 @@ import Loading from '../components/Loading';
 import TituloDescripción from '../components/TituloDescripcion';
 import RegularButton from '../components/RegularButton';
 import ReturnHome from '../components/ReturnHome';
+import { confirm } from '../components/MyDialog';
 
 function Routine() {
     const location = useLocation();
     const { id_routine } = location.state;
-    const { session, getRoutineById, getExercicesFromRoutineById } = UserAuth();
+    const { session, getRoutineById, getExercicesFromRoutineById, deleteExercise } = UserAuth();
     const [routine, setRoutine] = useState(null)
     const [exercices, setExercices] = useState(null);
     const [ownsRoutine, setOwnsRoutine] = useState(false);
@@ -38,6 +39,21 @@ function Routine() {
         }
     }, [getExercicesFromRoutineById, id_routine])
 
+    const eraseExercise = async (id_exercice, title_exercise) => {
+        const result = confirm({
+            message: 'Seguro que quieres eliminar ' + title_exercise
+        });
+
+        if (result) {
+            try {
+                await deleteExercise(id_exercice);
+            }
+            catch (error) {
+                console.error('error en handleUnfavourite de MyRoutines.js', error);
+            }
+        }
+    }
+
     useEffect(() => {
         if (session === undefined) {
             return;
@@ -61,7 +77,7 @@ function Routine() {
                 <h3>Descripción: </h3>
                 <p>{routine.description}</p>
                 {
-                    ownsRoutine && <RegularButton title='Editar rutina' callback={() => navigate('/editroutine', {state: {id_routine: routine.id}})}></RegularButton>
+                    ownsRoutine && <RegularButton title='Editar rutina' callback={() => navigate('/editroutine', { state: { id_routine: routine.id } })}></RegularButton>
                 }
             </div>
             <div>
@@ -77,16 +93,22 @@ function Routine() {
                                         <li>Series: {exercice.series}</li>
                                         <li>Descanso: {exercice.rest}</li>
                                     </ul>
-                                    {exercice.source && <p>Video explicativo: {exercice.source}</p>}
+                                    {exercice.source && <p>Video explicativo: <a href={exercice.source}>{exercice.source}</a></p>}
                                     {!exercice.source && <p>Video explicativo: -</p>}
                                     {
-                                        ownsRoutine && <RegularButton title='Editar ejercicio' callback={() => console.log('si papi')}></RegularButton>
+                                        ownsRoutine &&
+                                        <>
+                                            <RegularButton title='Eliminar ejercicio' callback={() => eraseExercise(exercice.id, exercice.title)}></RegularButton>
+                                            <RegularButton title='Editar ejercicio' callback={() => navigate('/editexercise', { state: { id_exercice: exercice.id, id_routine: routine.id } })}></RegularButton>
+                                        </>
+
                                     }
                                 </div>
                             )
                         })
                     }
                 </div>
+                <RegularButton title='Añadir ejercicio' callback={() => navigate('/addsingleexercise', { state: { id_routine: id_routine } })}></RegularButton>
             </div>
             <ReturnHome></ReturnHome>
         </>

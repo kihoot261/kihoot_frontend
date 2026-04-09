@@ -18,6 +18,7 @@ function SearchRoutines() {
         try {
             const searchedRoutines = await searchRoutines();
             setRoutines(searchedRoutines.data);
+            //filtrar las propias?
         }
         catch (error) {
             console.error('Error searching routines in SearchRoutines:', error);

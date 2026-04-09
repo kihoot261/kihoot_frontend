@@ -1,10 +1,10 @@
-import React, { useRef, useState } from 'react'
-import RegularButton from '../components/RegularButton';
+import React, { useRef, useState } from 'react';
 import SimpleReactValidator from 'simple-react-validator';
 import { errorMessages } from '../utils/errorMessages';
 import { useLocation, useNavigate } from 'react-router';
 import { UserAuth } from '../utils/AuthContext';
 import ReturnHome from '../components/ReturnHome';
+import FormTitleDescription from '../components/FormTitleDescription';
 
 function EditRoutine() {
     const [title, setTitle] = useState('');
@@ -17,20 +17,12 @@ function EditRoutine() {
     }));
     const navigate = useNavigate();
 
-    const handleChangeTitle = (e) => {
-        setTitle(e.target.value);
-    }
-
-    const handleChangeDescription = (e) => {
-        setDesc(e.target.value);
-    }
-
     const changeTitle = async (e) => {
         e.preventDefault();
         if (validator.current.fieldValid('title')) {
             try {
                 await changeRoutineTitle(title, id_routine);
-                navigate(-1);
+                navigate('/routine', {state: {id_routine: id_routine}});
             }
             catch (error) {
                 console.error('error en changeTitle de EditRoutine.js', error);
@@ -43,10 +35,10 @@ function EditRoutine() {
 
     const changeDescription = async (e) => {
         e.preventDefault();
-        if (validator.current.fieldValid('desc')) {
+        if (validator.current.fieldValid('description')) {
             try {
                 await changeRoutineDescription(desc, id_routine);
-                navigate(-1);
+                navigate('/routine', {state: {id_routine: id_routine}});
             }
             catch (error) {
                 console.error('error en changeDescription de EditRoutine.js', error);
@@ -64,35 +56,19 @@ function EditRoutine() {
         if (desc !== '') {
             changeDescription(e);
         }
-        navigate('/')
+        navigate('/routine', {state: {id_routine: id_routine}});
     }
     return (
         <>
-            <form onSubmit={returnViewMode}>
-                <div>
-                    <label htmlFor='title'>Canviar nombre: </label>
-                    <input type="text"
-                        id='title'
-                        value={title}
-                        onChange={handleChangeTitle}
-                        placeholder="Nuevo titulo..."></input>
-                    <div>
-                        {validator.current.message('title', title, 'required')}
-                    </div>
-                </div>
-                <div>
-                    <label htmlFor='description'>Canviar nombre: </label>
-                    <textarea type="text"
-                        id='description'
-                        value={desc}
-                        onChange={handleChangeDescription}
-                        placeholder="Nueva descripción..."></textarea>
-                    <div>
-                        {validator.current.message('desc', desc, 'required')}
-                    </div>
-                </div>
-                <RegularButton title='Actualiza' type='submit'></RegularButton>
-            </form>
+            <FormTitleDescription
+                    titleValue={title}
+                    descriptionValue={desc}
+                    onTitleChange={(e) => setTitle(e.target.value)}
+                    onDescriptionChange={(e) => setDesc(e.target.value)}
+                    onSubmit={returnViewMode}
+                    validator={validator}
+                    buttonName={'Actualiza'}
+                />
             <ReturnHome></ReturnHome>
         </>
     )

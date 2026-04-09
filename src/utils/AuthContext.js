@@ -489,6 +489,144 @@ export const AuthContextProvider = ({ children }) => {
         }
     }
 
+    const changeExerciseName = async(name_exercise, id_exercice) => {
+        const { error: exerciceError } = await supabase
+                .from('training_exercises')
+                .update({ title: name_exercise.trim() })
+                .eq('id', id_exercice);
+
+            if (exerciceError) {
+                console.log('Error updating title exercice:', exerciceError);
+                return { success: false, error: exerciceError };
+            }
+
+            else {
+                return { success: true };
+            }
+    }
+
+    const changeExerciseDescription = async(desc_exercise, id_exercice) => {
+        const { error: exerciceError } = await supabase
+                .from('training_exercises')
+                .update({ description: desc_exercise.trim() })
+                .eq('id', id_exercice);
+
+            if (exerciceError) {
+                console.log('Error updating description exercice:', exerciceError);
+                return { success: false, error: exerciceError };
+            }
+
+            else {
+                return { success: true };
+            }
+    }
+
+    const changeExerciseReps = async(reps_exercise, id_exercice) => {
+        const { error: exerciceError } = await supabase
+                .from('training_exercises')
+                .update({ reps: parseInt(reps_exercise) })
+                .eq('id', id_exercice);
+
+            if (exerciceError) {
+                console.log('Error updating reps exercice:', exerciceError);
+                return { success: false, error: exerciceError };
+            }
+
+            else {
+                return { success: true };
+            }
+    }
+
+    const changeExerciseSeries = async(series_exercise, id_exercice) => {
+        const { error: exerciceError } = await supabase
+                .from('training_exercises')
+                .update({ series: parseInt(series_exercise) })
+                .eq('id', id_exercice);
+
+            if (exerciceError) {
+                console.log('Error updating series exercice:', exerciceError);
+                return { success: false, error: exerciceError };
+            }
+
+            else {
+                return { success: true };
+            }
+    }
+
+    const changeExerciseRest = async(rest_exercise, id_exercice) => {
+        const { error: exerciceError } = await supabase
+                .from('training_exercises')
+                .update({ rest: parseInt(rest_exercise) })
+                .eq('id', id_exercice);
+
+            if (exerciceError) {
+                console.log('Error updating rest exercice:', exerciceError);
+                return { success: false, error: exerciceError };
+            }
+
+            else {
+                return { success: true };
+            }
+    }
+
+    const changeExerciseSource = async(source_exercise, id_exercice) => {
+        const { error: exerciceError } = await supabase
+                .from('training_exercises')
+                .update({ source: source_exercise })
+                .eq('id', id_exercice);
+
+            if (exerciceError) {
+                console.log('Error updating video source exercice:', exerciceError);
+                return { success: false, error: exerciceError };
+            }
+
+            else {
+                return { success: true };
+            }
+    }
+
+    const deleteExercise = async(id_exercice) => {
+        try {
+            const { error: exerciceError } = await supabase
+                .from('training_exercises')
+                .delete()
+                .eq('id', id_exercice)
+            if (exerciceError) {
+                console.log('Error in delete during exercise deletion:', exerciceError);
+                return { success: false, error: exerciceError };
+            }
+            else {
+                return { success: true };
+            }
+        }
+
+        catch (error) {
+            console.error('Error deleting routine in AuthContext:', error);
+            return { success: false, error };
+        }
+    }
+
+    const addExercise = async(id_training, title, desc, reps, series, rest, source) => {
+        const { exsError } = await supabase
+                        .from('training_exercises')
+                        .insert({
+                            id_training: id_training,
+                            title: title,
+                            description: desc,
+                            reps: reps,
+                            series: series,
+                            rest: rest,
+                            source: source
+                        })
+                    if (exsError) {
+                        console.log('Error in addExercise during exercise insert:', exsError);
+                        return { success: false, error: exsError };
+                    }
+                    else {
+                        return { success: true };
+                    }
+    }
+
     useEffect(() => {
         supabase.auth.getSession().then(({ data: { session } }) => {
             setSession(session);
@@ -522,7 +660,15 @@ export const AuthContextProvider = ({ children }) => {
             getRoutineById,
             changeRoutineTitle,
             changeRoutineDescription,
-            getExercicesFromRoutineById
+            getExercicesFromRoutineById,
+            changeExerciseName,
+            changeExerciseDescription,
+            changeExerciseReps,
+            changeExerciseSeries,
+            changeExerciseRest,
+            changeExerciseSource,
+            deleteExercise,
+            addExercise
         }}>
             {children}
         </AuthContext.Provider>

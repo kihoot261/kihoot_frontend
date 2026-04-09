@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { UserAuth } from '../utils/AuthContext';
 import { supabase } from '../api/supabase';
 import { useNavigate } from 'react-router';
@@ -13,32 +13,32 @@ function ChangePassword() {
   const [repeatPassword, setRepeatPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const { changeUserPassword } = UserAuth();
-  const [diffPasswords, setDiffPasswords] = useState(false);
+  const [eqPasswords, setEqPasswords] = useState(false);
+  const [invalidPassword, setInvalidPassword] = useState(false);
   const navigate = useNavigate();
 
   const validator = useRef(new SimpleReactValidator({
     messages: errorMessages
   }));
 
+  const handleOldPassword = (e) => {
+    setOldPassword(e.target.value);
+  };
+
   const handleNewPassword = (e) => {
     setNewPassword(e.target.value);
   };
 
-  const handleOldPassword = (e) => {
-    setOldPassword(e.target.value);
-    setDiffPasswords(newPassword === repeatPassword);
-  };
-
   const handleRepeatedPassword = (e) => {
     setRepeatPassword(e.target.value);
-    setDiffPasswords(newPassword === repeatPassword);
   };
 
   const changePassword = async (e) => {
     e.preventDefault();
+    setEqPasswords(newPassword === repeatPassword);
     if (validator.current.allValid()) {
       const { data: isVerified } = await supabase.rpc('verify_user_password', { password: oldPassword })
-      if (isVerified && !diffPasswords) {
+      if (isVerified && eqPasswords) {
         try {
           await changeUserPassword(newPassword);
           navigate('/');
@@ -47,30 +47,41 @@ function ChangePassword() {
           console.error('error en changePassword de ChangePassword.js', error);
         }
       }
+      else {
+        if (!isVerified) setInvalidPassword(true);
+      }
     }
     else {
       validator.current.showMessages();
     }
   }
 
+  useEffect(() => {
+    setEqPasswords(newPassword === repeatPassword);
+  }, [repeatPassword, newPassword])
+
   return (
     <>
       <h1>Cambia la contraseña</h1>
       <form onSubmit={changePassword}>
         <div>
-          <label for='oldPassword'>Antigua contraseña: </label>
+          <label htmlFor='oldPassword'>Antigua contraseña: </label>
           <input type="password"
             value={oldPassword}
             onChange={handleOldPassword}
             id='oldPassword'
             placeholder="Antigua contraseña..."></input>
           <div>
-            {validator.current.message('oldPassword', oldPassword, 'required|min:8|max:16')}
+            {validator.current.message('oldPassword', oldPassword, 'required')}
+            {
+              invalidPassword &&
+              <span>Antigua contraseña incorrecta</span>
+            }
           </div>
         </div>
 
         <div>
-          <label for='newPassword'>Nueva contraseña: </label>
+          <label htmlFor='newPassword'>Nueva contraseña: </label>
           <input type="password"
             value={newPassword}
             onChange={handleNewPassword}
@@ -82,7 +93,7 @@ function ChangePassword() {
         </div>
 
         <div>
-          <label for='repeatPassword'>Repite nueva contraseña: </label>
+          <label htmlFor='repeatPassword'>Repite nueva contraseña: </label>
           <input type="password"
             value={repeatPassword}
             onChange={handleRepeatedPassword}
@@ -90,7 +101,7 @@ function ChangePassword() {
             placeholder="Repite nueva contraseña..."></input>
           <div>
             {
-              !diffPasswords &&
+              !eqPasswords &&
               <span>Las contraseñas no coinciden</span>
             }
             {validator.current.message('repeatPassword', repeatPassword, 'required|min:8|max:16|alpha_num')}

@@ -115,7 +115,7 @@ function MyProfile() {
         if (surnamesValue !== '') {
             changeSurnames(e);
         }
-        if (usernameValue !== '' || usernameValue.length < 5) {
+        if (usernameValue !== '' || usernameValue.length >= 5) {
             changeUsername(e);
         }
         setEditMode(false);

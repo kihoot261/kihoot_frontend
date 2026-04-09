@@ -45,7 +45,7 @@ function Register() {
       try {
         const result = await signUpUser(emailValue, passwordValue, nameValue, surnameValue, usernameValue);
         if (result.success) {
-          navigate('/');
+          navigate('/login');
         }
       }
       catch (error) {

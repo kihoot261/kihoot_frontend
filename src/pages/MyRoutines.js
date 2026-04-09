@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useState } from 'react'
-import ReturnHome from '../components/ReturnHome'
+import React, { useCallback, useEffect, useState } from 'react';
+import ReturnHome from '../components/ReturnHome';
 import { UserAuth } from '../utils/AuthContext';
 import Loading from '../components/Loading';
 import RegularButton from '../components/RegularButton';
@@ -48,16 +48,17 @@ function MyRoutines() {
 
     const eraseRoutine = async (e, id_routine, title_routine) => {
         e.preventDefault();
-        const result = confirm({
-            message: 'Seguro que quieres eliminar ' + title_routine
+        const result = await confirm({
+            message: 'Seguro que quieres eliminar ' + title_routine + '?'
         });
-
-        if (result) {
+        
+        if (result === true) {
             try {
                 await deleteRoutine(id_routine);
+                navigate('/');
             }
             catch (error) {
-                console.error('error en handleUnfavourite de MyRoutines.js', error);
+                console.error('error en eraseExercise de MyRoutines.js', error);
             }
         }
     }

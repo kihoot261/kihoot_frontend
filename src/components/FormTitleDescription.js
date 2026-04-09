@@ -1,57 +1,53 @@
-import React, { useRef, useState } from 'react'
-import SimpleReactValidator from 'simple-react-validator';
-import { errorMessages } from '../utils/errorMessages';
-import RegularButton from './RegularButton';
+import RegularButton from "./RegularButton"
 
-const FormTitleDescription = ({callback}) => {
+const FormTitleDescription = ({ titleValue,
+    descriptionValue,
+    onTitleChange,
+    onDescriptionChange,
+    onSubmit,
+    validator,
+    buttonName }) => {
 
-    const [titleValue, setTitleValue] = useState('');
-        const [descriptionValue, setDescriptionValue] = useState('');
-        const validator = useRef(new SimpleReactValidator({
-        messages: errorMessages
-    }));
+    return (
+        <form onSubmit={onSubmit}>
+            <div>
+                <label htmlFor='title'>
+                    Título:
+                </label>
+                <input
+                    type="text"
+                    value={titleValue}
+                    id='title'
+                    onChange={onTitleChange}
+                    placeholder="Titulo..."
+                />
+                {
+                    <div>{validator.current.message('title', titleValue, 'required')}</div>
+                }
+            </div>
 
-    const handleChangeTitle = (e) => {
-        setTitleValue(e.target.value);
-    }
-
-    const handleChangeDescription = (e) => {
-        setDescriptionValue(e.target.value);
-    }
-  return (
-    <>
-    
-    <h2>Crear rutina entrenamiento</h2>
-
-            
-                <form onSubmit={callback}>
-                    <div>
-                        <label htmlFor='title'>Título: </label>
-                        <input type="text"
-                            value={titleValue}
-                            íd='title'
-                            onChange={handleChangeTitle}
-                            placeholder="Titulo..."></input>
-                        <div>
-                            {validator.current.message('title', titleValue, 'required')}
-                        </div>
-                    </div>
-
-                    <div>
-                        <label htmlFor='description'>Descripción: </label>
-                        <textarea type="text" name='description' rows={5} cols={30}
-                            value={descriptionValue}
-                            id='description'
-                            onChange={handleChangeDescription}
-                            placeholder="Descripción rutina..."></textarea>
-                        <div>
-                            {validator.current.message('description', descriptionValue, 'required')}
-                        </div>
-                    </div>
-                </form>
-            
-    </>
-  )
+            <div>
+                <label htmlFor='description'>
+                    Descripción:
+                </label>
+                <textarea
+                    type="text"
+                    name='description'
+                    rows={5}
+                    cols={30}
+                    value={descriptionValue}
+                    id='description'
+                    onChange={onDescriptionChange}
+                    placeholder="Descripción rutina..."
+                />
+                {
+                    <div>{validator.current.message('description', descriptionValue, 'required')}</div>
+                }
+            </div>
+            <RegularButton title={buttonName} type='submit' />
+        </form>
+    )
 }
+
 
 export default FormTitleDescription

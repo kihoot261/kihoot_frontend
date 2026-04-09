@@ -12,6 +12,7 @@ function Login() {
   const [passwordValue, setPasswordvalue] = useState('');
   const { signInUser } = UserAuth();
   const navigate = useNavigate();
+  const [failedLogin, setFailedLogin] = useState(false);
 
   const validator = useRef(new SimpleReactValidator({
     messages: errorMessages
@@ -33,6 +34,9 @@ function Login() {
         if (result.success) {
           navigate('/');
         }
+        else {
+          setFailedLogin(true);
+        }
       }
       catch (error) {
         console.error('error en handleRegister de Register.js', error);
@@ -48,7 +52,7 @@ function Login() {
     <div>
       <form onSubmit={handleLogin}>
         <div>
-          <label for='email'>Email: </label>
+          <label htmlFor='email'>Email: </label>
           <input type="text"
             value={emailValue}
             id='email'
@@ -60,7 +64,7 @@ function Login() {
           </div>
         </div>
         <div>
-          <label for='password'>Contraseña: </label>
+          <label htmlFor='password'>Contraseña: </label>
           <input type="password"
             value={passwordValue}
             onChange={handlePassword}
@@ -69,6 +73,10 @@ function Login() {
           </input>
           <div>
             {validator.current.message('password', passwordValue, 'required')}
+            {
+              failedLogin &&
+              <span>Nombre de usuario o contraseña incorrectos</span>
+            }
           </div>
         </div>
         <RegularButton type='submit' title='Envia'></RegularButton>

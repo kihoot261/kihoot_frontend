@@ -7,6 +7,9 @@ import SimpleReactValidator from 'simple-react-validator';
 import { errorMessages } from '../utils/errorMessages';
 import RegularButton from '../components/RegularButton';
 import Loading from '../components/Loading';
+import FormTitleDescription from '../components/FormTitleDescription';
+import FormExercice from '../components/FormExercice';
+import checkNaturals from '../utils/methods';
 
 function CreateRoutine() {
     const emptyExercice = {
@@ -39,30 +42,6 @@ function CreateRoutine() {
         messages: errorMessages
     }));
 
-    const updateCurrentExerciseName = (e) => {
-        setNameValue(e.target.value);
-    };
-
-    const updateCurrentExerciseDescription = (e) => {
-        setDescriptionExerciceValue(e.target.value);
-    };
-
-    const updateCurrentExerciseReps = (e) => {
-        setRepsValue(e.target.value);
-    };
-
-    const updateCurrentExerciseSeries = (e) => {
-        setSeriesValue(e.target.value);
-    };
-
-    const updateCurrentExerciseRest = (e) => {
-        setRestValue(e.target.value);
-    };
-
-    const updateCurrentExerciseSource = (e) => {
-        setSourceValue(e.target.value);
-    };
-
     const resetEverything = () => {
         setCurrentExercise(emptyExercice);
         setNameValue('');
@@ -75,16 +54,22 @@ function CreateRoutine() {
 
     const saveExercise = (e) => {
         e.preventDefault();
-        currentExercise.title = nameValue;
-        currentExercise.description = descriptionExerciceValue;
-        currentExercise.reps = repsValue;
-        currentExercise.series = seriesValue;
-        currentExercise.rest = restValue;
-        currentExercise.source = sourceValue;
-        currentExercise.id = uuidv4();
-        currentExercise.id_training = mainIdTraining;
-        setExercises(prev => [...prev, currentExercise]);
-        resetEverything();
+        if (validator.current.allValid()) {
+            currentExercise.title = nameValue;
+            currentExercise.description = descriptionExerciceValue;
+            currentExercise.reps = checkNaturals(repsValue);
+            currentExercise.series = checkNaturals(seriesValue);
+            currentExercise.rest = checkNaturals(restValue);
+            currentExercise.source = sourceValue;
+            currentExercise.id = uuidv4();
+            currentExercise.id_training = mainIdTraining;
+            setExercises(prev => [...prev, currentExercise]);
+            resetEverything();
+        }
+        else {
+            validator.current.showMessages();
+        }
+
     };
 
     const removeExercise = (id) => {
@@ -100,14 +85,6 @@ function CreateRoutine() {
             console.error('error en changeSurnames de MyProfile.js', error);
         }
         navigate('/routines');
-    }
-
-    const handleChangeTitle = (e) => {
-        setTitleValue(e.target.value);
-    }
-
-    const handleChangeDescription = (e) => {
-        setDescriptionValue(e.target.value);
     }
 
     const defineExercices = (e) => {
@@ -148,133 +125,44 @@ function CreateRoutine() {
         <div>
             <h2>Crear rutina entrenamiento</h2>
 
-            {!routineDefined &&
-                <form onSubmit={defineExercices}>
-                    <div>
-                        <label htmlFor='title'>Título: </label>
-                        <input type="text"
-                            value={titleValue}
-                            íd='title'
-                            onChange={handleChangeTitle}
-                            placeholder="Titulo..."></input>
-                        <div>
-                            {validator.current.message('title', titleValue, 'required')}
-                        </div>
-                    </div>
-
-                    <div>
-                        <label htmlFor='description'>Descripción: </label>
-                        <textarea type="text" name='description' rows={5} cols={30}
-                            value={descriptionValue}
-                            id='description'
-                            onChange={handleChangeDescription}
-                            placeholder="Descripción rutina..."></textarea>
-                        <div>
-                            {validator.current.message('description', descriptionValue, 'required')}
-                        </div>
-                    </div>
-                    <RegularButton type="submit" title='Añade ejercicios'></RegularButton>
-                </form>
-            }
+            <div>
+                <h3>Información de la rutina</h3>
+                <FormTitleDescription
+                    titleValue={titleValue}
+                    descriptionValue={descriptionValue}
+                    onTitleChange={(e) => setTitleValue(e.target.value)}
+                    onDescriptionChange={(e) => setDescriptionValue(e.target.value)}
+                    onSubmit={defineExercices}
+                    validator={validator}
+                    buttonName={'Añadir ejercicios'}
+                />
+            </div>
 
             {routineDefined &&
                 <>
-                    <form onSubmit={saveExercise}>
-                        <div>
-                            <label for="name">Nombre ejercicio:</label><br></br>
-                            <input
-                                type='text' // añadir labels a todos
-                                value={nameValue}
-                                id='name'
-                                onChange={updateCurrentExerciseName}
-                                placeholder="Nombre ejercicio..."
-                                autoFocus
-                                required
-                            />
-                        </div>
-
-                        <div>
-                            <label for='description'>Descripción: </label>
-                            <textarea name='description' rows={5} cols={30}
-                                value={descriptionExerciceValue}
-                                id='description'
-                                onChange={updateCurrentExerciseDescription}
-                                placeholder="Descripción ejercicio..."
-                                autoFocus
-                                required
-                            />
-
-                        </div>
-
-                        <div>
-                            <label for='reps'>Repeticiones: </label>
-                            <input
-                                type='number'
-                                value={repsValue}
-                                id='reps'
-                                onChange={updateCurrentExerciseReps}
-                                placeholder="Número de series..."
-                                autoFocus
-                            />
-                        </div>
-
-                        <div>
-                            <label for='series'>Series: </label>
-                            <input
-                                type='number'
-                                id='series'
-                                value={seriesValue}
-                                onChange={updateCurrentExerciseSeries}
-                                placeholder="Número de series..."
-                                autoFocus
-                            />
-                        </div>
-
-                        <div>
-                            <label for='rest'>Descanso: </label>
-                            <input
-                                type='number'
-                                id='rest'
-                                value={restValue}
-                                onChange={updateCurrentExerciseRest}
-                                placeholder="Segundos de descanso entre series..."
-                                autoFocus
-                            />
-
-                        </div>
-
-                        <div>
-                            <label for='source'>Video explicativo: </label>
-                            <input
-                                type='url' // luego url
-                                value={sourceValue}
-                                id='source'
-                                onChange={updateCurrentExerciseSource}
-                                placeholder="Link video explicativo..."
-                                autoFocus
-                            />
-                        </div>
-                        <RegularButton title='Guardar ejercicio' type='submit'></RegularButton>
-
-                    </form>
-
+                    <FormExercice
+                        nameValue={nameValue}
+                        descriptionValue={descriptionExerciceValue}
+                        repsValue={repsValue}
+                        seriesValue={seriesValue}
+                        restValue={restValue}
+                        sourceValue={sourceValue}
+                        onNameChange={(e) => setNameValue(e.target.value)}
+                        onDescriptionChange={(e) => setDescriptionExerciceValue(e.target.value)}
+                        onRepsChange={(e) => setRepsValue(e.target.value)}
+                        onSeriesChange={(e) => setSeriesValue(e.target.value)}
+                        onRestChange={(e) => setRestValue(e.target.value)}
+                        onSourceChange={(e) => setSourceValue(e.target.value)}
+                        validator={validator}
+                        onSubmit={saveExercise}
+                        exercises={exercises}
+                        onRemoveExercise={removeExercise}
+                    ></FormExercice>
                     {
-                        exercises.length > 0 && (
-                            <div>
-                                <h3>Ejercicios guardados ({exercises.length})</h3>
-                                {
-                                    exercises.map(exercise => (
-                                        <div key={exercise.id}>
-                                            {exercise.title}
-                                            <RegularButton title='x' callback={() => removeExercise(exercise.id)}></RegularButton>
-                                        </div>
-                                    ))
-                                }
-                                <RegularButton title='Guarda rutina' callback={saveRoutine}></RegularButton>
-                            </div>
-                        )
+                        exercises.length > 0 && <RegularButton title='Guarda rutina' callback={saveRoutine}></RegularButton>
                     }
                 </>
+
             }
 
             <ReturnHome></ReturnHome>

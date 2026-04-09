@@ -22,6 +22,8 @@ import MyRoutines from './pages/MyRoutines';
 import MyThings from './pages/MyThings';
 import Routine from './pages/Routine';
 import EditRoutine from './pages/EditRoutine';
+import EditExercice from './pages/EditExercice';
+import AddSingleExercise from './pages/AddSingleExercise';
 
 const router = createBrowserRouter([
     {
@@ -79,6 +81,12 @@ const router = createBrowserRouter([
             },
             {
                 path: 'editroutine', element: <RedirectAuthenticated><EditRoutine></EditRoutine></RedirectAuthenticated>
+            },
+            {
+                path: 'editexercise', element: <RedirectAuthenticated><EditExercice></EditExercice></RedirectAuthenticated>
+            },
+            {
+                path: 'addsingleexercise', element: <RedirectAuthenticated><AddSingleExercise></AddSingleExercise></RedirectAuthenticated>
             },
             {
                 path: "*", element: <Navigate to="/" replace />

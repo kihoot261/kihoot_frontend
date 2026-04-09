@@ -12,9 +12,14 @@ function MyThings() {
             <h2>Mis cosas</h2>
             <ul>
                 <RegularButton title='Mis rutinas' callback={() => navigate('/myroutines')}></RegularButton>
-                <RegularButton title='Mis técnicas'></RegularButton>
-                <RegularButton title='Mis eventos'></RegularButton>
-                <RegularButton title='Mis diarios'></RegularButton>
+                {
+                /*
+                    <RegularButton title='Mis técnicas'></RegularButton>
+                    <RegularButton title='Mis eventos'></RegularButton>
+                    <RegularButton title='Mis diarios'></RegularButton>
+                */
+                }
+
             </ul>
             <ReturnHome></ReturnHome>
         </>
