@@ -88,7 +88,6 @@ export const AuthContextProvider = ({ children }) => {
     }
 
 
-
     //update user
     const changeUserPassword = async (newPassword) => {
         const { error } = await supabase.auth.updateUser({
@@ -434,42 +433,42 @@ export const AuthContextProvider = ({ children }) => {
         }
     }
 
-    const changeRoutineTitle = async(title_routine, id_routine) => {
+    const changeRoutineTitle = async (title_routine, id_routine) => {
         const { error: routineError } = await supabase
-                .from('trainings')
-                .update({ title: title_routine.trim() })
-                .eq('id', id_routine);
+            .from('trainings')
+            .update({ title: title_routine.trim() })
+            .eq('id', id_routine);
 
-            if (routineError) {
-                console.log('Error updating title routine:', routineError);
-                return { success: false, error: routineError };
-            }
+        if (routineError) {
+            console.log('Error updating title routine:', routineError);
+            return { success: false, error: routineError };
+        }
 
-            else {
-                return { success: true };
-            }
+        else {
+            return { success: true };
+        }
     }
 
-    const changeRoutineDescription = async(desc_routine, id_routine) => {
+    const changeRoutineDescription = async (desc_routine, id_routine) => {
         const { error: routineError } = await supabase
-                .from('trainings')
-                .update({ description: desc_routine.trim() })
-                .eq('id', id_routine);
+            .from('trainings')
+            .update({ description: desc_routine.trim() })
+            .eq('id', id_routine);
 
-            if (routineError) {
-                console.log('Error updating title routine:', routineError);
-                return { success: false, error: routineError };
-            }
+        if (routineError) {
+            console.log('Error updating title routine:', routineError);
+            return { success: false, error: routineError };
+        }
 
-            else {
-                return { success: true };
-            }
+        else {
+            return { success: true };
+        }
     }
 
 
 
     //exercises
-    const getExercicesFromRoutineById = async(id_routine) => {
+    const getExercicesFromRoutineById = async (id_routine) => {
         try {
             const { data: exercices, error: exercicesError } = await supabase
                 .from('training_exercises')
@@ -489,103 +488,103 @@ export const AuthContextProvider = ({ children }) => {
         }
     }
 
-    const changeExerciseName = async(name_exercise, id_exercice) => {
+    const changeExerciseName = async (name_exercise, id_exercice) => {
         const { error: exerciceError } = await supabase
-                .from('training_exercises')
-                .update({ title: name_exercise.trim() })
-                .eq('id', id_exercice);
+            .from('training_exercises')
+            .update({ title: name_exercise.trim() })
+            .eq('id', id_exercice);
 
-            if (exerciceError) {
-                console.log('Error updating title exercice:', exerciceError);
-                return { success: false, error: exerciceError };
-            }
+        if (exerciceError) {
+            console.log('Error updating title exercice:', exerciceError);
+            return { success: false, error: exerciceError };
+        }
 
-            else {
-                return { success: true };
-            }
+        else {
+            return { success: true };
+        }
     }
 
-    const changeExerciseDescription = async(desc_exercise, id_exercice) => {
+    const changeExerciseDescription = async (desc_exercise, id_exercice) => {
         const { error: exerciceError } = await supabase
-                .from('training_exercises')
-                .update({ description: desc_exercise.trim() })
-                .eq('id', id_exercice);
+            .from('training_exercises')
+            .update({ description: desc_exercise.trim() })
+            .eq('id', id_exercice);
 
-            if (exerciceError) {
-                console.log('Error updating description exercice:', exerciceError);
-                return { success: false, error: exerciceError };
-            }
+        if (exerciceError) {
+            console.log('Error updating description exercice:', exerciceError);
+            return { success: false, error: exerciceError };
+        }
 
-            else {
-                return { success: true };
-            }
+        else {
+            return { success: true };
+        }
     }
 
-    const changeExerciseReps = async(reps_exercise, id_exercice) => {
+    const changeExerciseReps = async (reps_exercise, id_exercice) => {
         const { error: exerciceError } = await supabase
-                .from('training_exercises')
-                .update({ reps: parseInt(reps_exercise) })
-                .eq('id', id_exercice);
+            .from('training_exercises')
+            .update({ reps: parseInt(reps_exercise) })
+            .eq('id', id_exercice);
 
-            if (exerciceError) {
-                console.log('Error updating reps exercice:', exerciceError);
-                return { success: false, error: exerciceError };
-            }
+        if (exerciceError) {
+            console.log('Error updating reps exercice:', exerciceError);
+            return { success: false, error: exerciceError };
+        }
 
-            else {
-                return { success: true };
-            }
+        else {
+            return { success: true };
+        }
     }
 
-    const changeExerciseSeries = async(series_exercise, id_exercice) => {
+    const changeExerciseSeries = async (series_exercise, id_exercice) => {
         const { error: exerciceError } = await supabase
-                .from('training_exercises')
-                .update({ series: parseInt(series_exercise) })
-                .eq('id', id_exercice);
+            .from('training_exercises')
+            .update({ series: parseInt(series_exercise) })
+            .eq('id', id_exercice);
 
-            if (exerciceError) {
-                console.log('Error updating series exercice:', exerciceError);
-                return { success: false, error: exerciceError };
-            }
+        if (exerciceError) {
+            console.log('Error updating series exercice:', exerciceError);
+            return { success: false, error: exerciceError };
+        }
 
-            else {
-                return { success: true };
-            }
+        else {
+            return { success: true };
+        }
     }
 
-    const changeExerciseRest = async(rest_exercise, id_exercice) => {
+    const changeExerciseRest = async (rest_exercise, id_exercice) => {
         const { error: exerciceError } = await supabase
-                .from('training_exercises')
-                .update({ rest: parseInt(rest_exercise) })
-                .eq('id', id_exercice);
+            .from('training_exercises')
+            .update({ rest: parseInt(rest_exercise) })
+            .eq('id', id_exercice);
 
-            if (exerciceError) {
-                console.log('Error updating rest exercice:', exerciceError);
-                return { success: false, error: exerciceError };
-            }
+        if (exerciceError) {
+            console.log('Error updating rest exercice:', exerciceError);
+            return { success: false, error: exerciceError };
+        }
 
-            else {
-                return { success: true };
-            }
+        else {
+            return { success: true };
+        }
     }
 
-    const changeExerciseSource = async(source_exercise, id_exercice) => {
+    const changeExerciseSource = async (source_exercise, id_exercice) => {
         const { error: exerciceError } = await supabase
-                .from('training_exercises')
-                .update({ source: source_exercise })
-                .eq('id', id_exercice);
+            .from('training_exercises')
+            .update({ source: source_exercise })
+            .eq('id', id_exercice);
 
-            if (exerciceError) {
-                console.log('Error updating video source exercice:', exerciceError);
-                return { success: false, error: exerciceError };
-            }
+        if (exerciceError) {
+            console.log('Error updating video source exercice:', exerciceError);
+            return { success: false, error: exerciceError };
+        }
 
-            else {
-                return { success: true };
-            }
+        else {
+            return { success: true };
+        }
     }
 
-    const deleteExercise = async(id_exercice) => {
+    const deleteExercise = async (id_exercice) => {
         try {
             const { error: exerciceError } = await supabase
                 .from('training_exercises')
@@ -606,25 +605,25 @@ export const AuthContextProvider = ({ children }) => {
         }
     }
 
-    const addExercise = async(id_training, title, desc, reps, series, rest, source) => {
+    const addExercise = async (id_training, title, desc, reps, series, rest, source) => {
         const { exsError } = await supabase
-                        .from('training_exercises')
-                        .insert({
-                            id_training: id_training,
-                            title: title,
-                            description: desc,
-                            reps: reps,
-                            series: series,
-                            rest: rest,
-                            source: source
-                        })
-                    if (exsError) {
-                        console.log('Error in addExercise during exercise insert:', exsError);
-                        return { success: false, error: exsError };
-                    }
-                    else {
-                        return { success: true };
-                    }
+            .from('training_exercises')
+            .insert({
+                id_training: id_training,
+                title: title,
+                description: desc,
+                reps: reps,
+                series: series,
+                rest: rest,
+                source: source
+            })
+        if (exsError) {
+            console.log('Error in addExercise during exercise insert:', exsError);
+            return { success: false, error: exsError };
+        }
+        else {
+            return { success: true };
+        }
     }
 
     useEffect(() => {

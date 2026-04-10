@@ -16,7 +16,7 @@ import ChangePassword from './pages/User/ChangePassword';
 import { Navigate } from 'react-router';
 import Routines from './pages/Routines/Routines';
 import CreateRoutine from './pages/Routines/CreateRoutine';
-import SearchRoutines from './pages/Routines/CreateRoutine';
+import SearchRoutines from './pages/Routines/SearchRoutines';
 import MyRoutines from './pages/Routines/MyRoutines';
 import MyThings from './pages/User/MyThings';
 import Routine from './pages/Routines/Routine';

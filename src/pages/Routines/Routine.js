@@ -6,6 +6,7 @@ import TituloDescripción from '../../components/TituloDescripcion';
 import RegularButton from '../../components/RegularButton';
 import ReturnHome from '../../components/ReturnHome';
 import { confirm } from '../../components/MyDialog';
+import { useIsAdmin } from '../../utils/useIsAdmin';
 
 function Routine() {
     const location = useLocation();
@@ -15,6 +16,7 @@ function Routine() {
     const [exercices, setExercices] = useState(null);
     const [ownsRoutine, setOwnsRoutine] = useState(false);
     const navigate = useNavigate();
+    const isAdmin = useIsAdmin();
 
     const fetchRoutine = useCallback(async () => {
         try {
@@ -67,7 +69,9 @@ function Routine() {
     }, [fetchRoutine, fetchExercises, exercices, session, routine]);
 
     if (routine === null || exercices === null) {
+        console.log('admin: ', isAdmin)
         return <Loading></Loading>
+        
     }
 
     return (
@@ -108,7 +112,10 @@ function Routine() {
                         })
                     }
                 </div>
-                <RegularButton title='Añadir ejercicio' callback={() => navigate('/addsingleexercise', { state: { id_routine: id_routine } })}></RegularButton>
+                {
+                    ownsRoutine && <RegularButton title='Añadir ejercicio' callback={() => navigate('/addsingleexercise', { state: { id_routine: id_routine } })}></RegularButton>
+                }
+
             </div>
             <ReturnHome></ReturnHome>
         </>

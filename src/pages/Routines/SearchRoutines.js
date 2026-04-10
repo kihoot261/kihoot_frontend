@@ -17,14 +17,21 @@ function SearchRoutines() {
     const fetchRoutines = useCallback(async () => {
         try {
             const searchedRoutines = await searchRoutines();
-            setRoutines(searchedRoutines.data);
-            //filtrar las propias?
+            const allRoutines = searchedRoutines.data;
+            if (session) {
+                const savedIds = new Set(allRoutines.map(item => item.id_user));
+                const routinesToShow = allRoutines.filter(r => savedIds.has(r.id));
+                setRoutines(routinesToShow);
+            }
+            else {
+                setRoutines(allRoutines);
+            }
         }
         catch (error) {
             console.error('Error searching routines in SearchRoutines:', error);
             return { success: false, error };
         }
-    }, [searchRoutines])
+    }, [searchRoutines, session])
 
     const fetchSavedRoutines = useCallback(async () => {
         try {
@@ -56,10 +63,13 @@ function SearchRoutines() {
         if (!session) {
             setShownRoutines(routines);
         }
+        if(routines.length === 0) {
+            setShownRoutines([]);
+        }
         else {
             const savedIds = new Set(savedRoutines.map(item => item.id));
             const routinesToShow = routines.filter(r => !savedIds.has(r.id));
-            setShownRoutines(routinesToShow)
+            setShownRoutines(routinesToShow);
         }
     }, [routines, savedRoutines, session])
 
@@ -73,7 +83,7 @@ function SearchRoutines() {
         if (!savedRoutines) {
             fetchSavedRoutines();
         }
-        if(routines && savedRoutines) filterRoutines();
+        if (routines && savedRoutines) filterRoutines();
     }, [fetchRoutines, routines, savedRoutines, session, fetchSavedRoutines, filterRoutines]);
 
     if (shownRoutines === null) {
@@ -90,10 +100,14 @@ function SearchRoutines() {
                     {
                         shownRoutines.map((routine) => {
                             return (
-                                <div key={routine.id} onClick={() => navigate('/routine', {state: {id_routine: routine.id}})}>
+                                <div key={routine.id} onClick={() => navigate('/routine', { state: { id_routine: routine.id } })}>
                                     <TituloDescripción titulo={routine.title} desc={routine.description}></TituloDescripción>
                                     <p>Creado por: {routine.username}</p>
-                                    <RegularButton title='Guardar rutina' callback={(e) => saveTheRoutine(e, routine.id)}></RegularButton>
+                                    {
+                                        session &&
+                                        <RegularButton title='Guardar rutina' callback={(e) => saveTheRoutine(e, routine.id)}></RegularButton>
+                                    }
+
                                 </div>
                             )
                         })
