@@ -1,10 +1,10 @@
 import React, { useState, useRef } from 'react'
-import ReturnHome from '../components/ReturnHome';
-import { UserAuth } from '../utils/AuthContext';
+import ReturnHome from '../../components/ReturnHome';
+import { UserAuth } from '../../utils/AuthContext';
 import { useNavigate } from 'react-router';
 import SimpleReactValidator from 'simple-react-validator';
-import { errorMessages } from '../utils/errorMessages';
-import RegularButton from '../components/RegularButton';
+import { errorMessages } from '../../utils/errorMessages';
+import RegularButton from '../../components/RegularButton';
 
 function Register() {
   const [emailValue, setEmailValue] = useState('');

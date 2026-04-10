@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import ReturnHome from '../components/ReturnHome';
+import ReturnHome from '../../components/ReturnHome';
 import { useNavigate } from 'react-router';
-import RegularButton from '../components/RegularButton';
+import RegularButton from '../../components/RegularButton';
 
 function SetupQuiz() {
   const [kyu, setKyu] = useState([]);

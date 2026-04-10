@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import ReturnHome from '../components/ReturnHome'
-import { UserAuth } from '../utils/AuthContext';
-import Loading from '../components/Loading';
-import RegularButton from '../components/RegularButton';
+import ReturnHome from '../../components/ReturnHome'
+import { UserAuth } from '../../utils/AuthContext';
+import Loading from '../../components/Loading';
+import RegularButton from '../../components/RegularButton';
 import { useNavigate } from 'react-router';
-import TituloDescripción from '../components/TituloDescripcion';
+import TituloDescripción from '../../components/TituloDescripcion';
 
 function SearchRoutines() {
 

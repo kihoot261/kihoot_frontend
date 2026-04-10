@@ -1,11 +1,11 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router'
-import { UserAuth } from '../utils/AuthContext';
-import Loading from '../components/Loading';
-import TituloDescripción from '../components/TituloDescripcion';
-import RegularButton from '../components/RegularButton';
-import ReturnHome from '../components/ReturnHome';
-import { confirm } from '../components/MyDialog';
+import { UserAuth } from '../../utils/AuthContext';
+import Loading from '../../components/Loading';
+import TituloDescripción from '../../components/TituloDescripcion';
+import RegularButton from '../../components/RegularButton';
+import ReturnHome from '../../components/ReturnHome';
+import { confirm } from '../../components/MyDialog';
 
 function Routine() {
     const location = useLocation();

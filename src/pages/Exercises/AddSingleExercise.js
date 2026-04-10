@@ -1,10 +1,10 @@
 import React, { useRef, useState } from 'react'
 import SimpleReactValidator from 'simple-react-validator';
-import { errorMessages } from '../utils/errorMessages';
-import FormExercice from '../components/FormExercice';
+import { errorMessages } from '../../utils/errorMessages';
+import FormExercice from '../../components/FormExercice';
 import { useLocation, useNavigate } from 'react-router';
-import checkNaturals from '../utils/methods';
-import { UserAuth } from '../utils/AuthContext';
+import checkNaturals from '../../utils/methods';
+import { UserAuth } from '../../utils/AuthContext';
 
 function AddSingleExercise() {
     const [nameValue, setNameValue] = useState('');

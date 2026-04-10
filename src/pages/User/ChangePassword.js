@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { UserAuth } from '../utils/AuthContext';
-import { supabase } from '../api/supabase';
+import { UserAuth } from '../../utils/AuthContext';
+import { supabase } from '../../api/supabase';
 import { useNavigate } from 'react-router';
 import SimpleReactValidator from 'simple-react-validator';
-import RegularButton from '../components/RegularButton';
-import { errorMessages } from '../utils/errorMessages';
-import ReturnHome from '../components/ReturnHome';
+import RegularButton from '../../components/RegularButton';
+import { errorMessages } from '../../utils/errorMessages';
+import ReturnHome from '../../components/ReturnHome';
 
 function ChangePassword() {
 

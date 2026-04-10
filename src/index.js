@@ -4,26 +4,26 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { AuthContextProvider } from './utils/AuthContext';
 import { createBrowserRouter, RouterProvider } from 'react-router';
-import Quiz from './pages/Quiz';
-import Info from './pages/Info';
-import Profile from './pages/Profile';
-import SetupQuiz from './pages/SetupQuiz';
-import Results from './pages/Results'
-import Login from './pages/Login';
-import Register from './pages/Register';
+import Quiz from './pages/Quiz/Quiz';
+import Profile from './pages/User/Profile';
+import SetupQuiz from './pages/Quiz/SetupQuiz';
+import Results from './pages/Quiz/Results'
+import Login from './pages/User/Login';
+import Register from './pages/User/Register';
 import RedirectAuthenticated from './components/RedirectAuthenticated';
-import MyProfile from './pages/MyProfile';
-import ChangePassword from './pages/ChangePassword';
+import MyProfile from './pages/User/MyProfile';
+import ChangePassword from './pages/User/ChangePassword';
 import { Navigate } from 'react-router';
-import Routines from './pages/Routines';
-import CreateRoutine from './pages/CreateRoutine';
-import SearchRoutines from './pages/SearchRoutines';
-import MyRoutines from './pages/MyRoutines';
-import MyThings from './pages/MyThings';
-import Routine from './pages/Routine';
-import EditRoutine from './pages/EditRoutine';
-import EditExercice from './pages/EditExercice';
-import AddSingleExercise from './pages/AddSingleExercise';
+import Routines from './pages/Routines/Routines';
+import CreateRoutine from './pages/Routines/CreateRoutine';
+import SearchRoutines from './pages/Routines/CreateRoutine';
+import MyRoutines from './pages/Routines/MyRoutines';
+import MyThings from './pages/User/MyThings';
+import Routine from './pages/Routines/Routine';
+import EditRoutine from './pages/Routines/EditRoutine';
+import EditExercice from './pages/Exercises/EditExercice';
+import AddSingleExercise from './pages/Exercises/AddSingleExercise';
+import Info from './pages/Resources/Info';
 
 const router = createBrowserRouter([
     {

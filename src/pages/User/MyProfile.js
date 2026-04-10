@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react'
-import ReturnHome from '../components/ReturnHome';
-import { UserAuth } from '../utils/AuthContext';
+import ReturnHome from '../../components/ReturnHome';
+import { UserAuth } from '../../utils/AuthContext';
 import { useNavigate } from 'react-router';
-import Loading from '../components/Loading';
-import RegularButton from '../components/RegularButton';
+import Loading from '../../components/Loading';
+import RegularButton from '../../components/RegularButton';
 import SimpleReactValidator from 'simple-react-validator';
-import { errorMessages } from '../utils/errorMessages';
+import { errorMessages } from '../../utils/errorMessages';
 
 function MyProfile() {
 

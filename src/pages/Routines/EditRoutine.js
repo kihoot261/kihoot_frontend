@@ -1,10 +1,10 @@
 import React, { useRef, useState } from 'react';
 import SimpleReactValidator from 'simple-react-validator';
-import { errorMessages } from '../utils/errorMessages';
+import { errorMessages } from '../../utils/errorMessages';
 import { useLocation, useNavigate } from 'react-router';
-import { UserAuth } from '../utils/AuthContext';
-import ReturnHome from '../components/ReturnHome';
-import FormTitleDescription from '../components/FormTitleDescription';
+import { UserAuth } from '../../utils/AuthContext';
+import ReturnHome from '../../components/ReturnHome';
+import FormTitleDescription from '../../components/FormTitleDescription';
 
 function EditRoutine() {
     const [title, setTitle] = useState('');

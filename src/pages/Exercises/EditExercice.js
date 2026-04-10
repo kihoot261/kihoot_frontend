@@ -1,9 +1,9 @@
 import React, { useRef, useState } from 'react';
-import FormExercice from '../components/FormExercice';
+import FormExercice from '../../components/FormExercice';
 import SimpleReactValidator from 'simple-react-validator';
-import { errorMessages } from '../utils/errorMessages';
+import { errorMessages } from '../../utils/errorMessages';
 import { useLocation, useNavigate } from 'react-router';
-import { UserAuth } from '../utils/AuthContext';
+import { UserAuth } from '../../utils/AuthContext';
 
 function EditExercice() {
     const [nameValue, setNameValue] = useState('');

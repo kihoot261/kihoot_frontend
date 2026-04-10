@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react'
-import { useConfigureGame } from '../api/quizData';
-import ReturnHome from '../components/ReturnHome';
-import Loading from '../components/Loading';
+import { useConfigureGame } from '../../api/quizData';
+import ReturnHome from '../../components/ReturnHome';
+import Loading from '../../components/Loading';
 import { useLocation, useNavigate } from 'react-router';
-import RegularButton from '../components/RegularButton';
+import RegularButton from '../../components/RegularButton';
 
 function Quiz() {
 

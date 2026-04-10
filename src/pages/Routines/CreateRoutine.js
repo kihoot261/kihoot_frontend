@@ -1,15 +1,15 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import ReturnHome from '../components/ReturnHome';
+import ReturnHome from '../../components/ReturnHome';
 import { v4 as uuidv4 } from 'uuid';
-import { UserAuth } from '../utils/AuthContext';
+import { UserAuth } from '../../utils/AuthContext';
 import { useNavigate } from 'react-router';
 import SimpleReactValidator from 'simple-react-validator';
-import { errorMessages } from '../utils/errorMessages';
-import RegularButton from '../components/RegularButton';
-import Loading from '../components/Loading';
-import FormTitleDescription from '../components/FormTitleDescription';
-import FormExercice from '../components/FormExercice';
-import checkNaturals from '../utils/methods';
+import { errorMessages } from '../../utils/errorMessages';
+import RegularButton from '../../components/RegularButton';
+import Loading from '../../components/Loading';
+import FormTitleDescription from '../../components/FormTitleDescription';
+import FormExercice from '../../components/FormExercice';
+import checkNaturals from '../../utils/methods';
 
 function CreateRoutine() {
     const emptyExercice = {
