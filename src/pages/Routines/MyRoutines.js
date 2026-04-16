@@ -40,6 +40,7 @@ function MyRoutines() {
         e.preventDefault();
         try {
             await unsaveRoutine(id_routine);
+            navigate('/');
         }
         catch (error) {
             console.error('error en handleUnfavourite de MyRoutines.js', error);
@@ -87,6 +88,7 @@ function MyRoutines() {
                                 <div key={routine.id} onClick={() => navigate('/routine', { state: { id_routine: routine.id } })}>
                                     <TituloDescripción titulo={routine.title} desc={routine.description}></TituloDescripción>
                                     <RegularButton title='Eliminar rutina' callback={(e) => eraseRoutine(e, routine.id, routine.title)}></RegularButton>
+                                    <p>Creado por: {routine.username}</p>
                                 </div>
                             )
                         })

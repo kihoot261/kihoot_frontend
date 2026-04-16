@@ -19,8 +19,7 @@ function SearchRoutines() {
             const searchedRoutines = await searchRoutines();
             const allRoutines = searchedRoutines.data;
             if (session) {
-                const savedIds = new Set(allRoutines.map(item => item.id_user));
-                const routinesToShow = allRoutines.filter(r => savedIds.has(r.id));
+                const routinesToShow = allRoutines.filter(t => t.id_user !== session?.user.id);
                 setRoutines(routinesToShow);
             }
             else {
@@ -29,7 +28,7 @@ function SearchRoutines() {
         }
         catch (error) {
             console.error('Error searching routines in SearchRoutines:', error);
-            return { success: false, error };
+            return error;
         }
     }, [searchRoutines, session])
 
@@ -45,7 +44,7 @@ function SearchRoutines() {
         }
         catch (error) {
             console.error('Error searching saved routines in SearchRoutines:', error);
-            return { success: false, error };
+            return error;
         }
     }, [getSavedRoutines, session])
 

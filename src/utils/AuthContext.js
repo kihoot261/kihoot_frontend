@@ -23,14 +23,14 @@ export const AuthContextProvider = ({ children }) => {
         });
 
         if (error) {
-            console.log('Error in signUpUser during signup:', error);
+            console.error('Error in signUpUser during signup:', error);
             return { success: false, error: error };
         }
 
         if (data?.user?.id) {
             const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
             if (sessionError || !sessionData?.session) {
-                console.log('User not authenticated after signup:', sessionError);
+                console.error('User not authenticated after signup:', sessionError);
                 return { success: false, error: 'User not authenticated. Check email confirmation settings.' };
             }
 
@@ -51,12 +51,12 @@ export const AuthContextProvider = ({ children }) => {
                 ]);
 
             if (profileError) {
-                console.log('Error in signUpUser during profile insert:', profileError);
+                console.error('Error in signUpUser during profile insert:', profileError);
                 return { success: false, error: profileError };
             }
             return { success: true, data: { user: data.user, profile: profileData } };
         } else {
-            console.log('Signup successful, but user not available yet (check email confirmation).');
+            console.error('Signup successful, but user not available yet (check email confirmation).');
             return { success: true, data: data, message: 'Check your email to confirm and complete signup.' };
         }
     };
@@ -68,7 +68,7 @@ export const AuthContextProvider = ({ children }) => {
                 password: password
             });
             if (error) {
-                console.log('error en signInUser de AuthContext', error);
+                console.error('error en signInUser de AuthContext', error);
                 return { success: false, error: error }
             }
             return { success: true, data }
@@ -83,7 +83,7 @@ export const AuthContextProvider = ({ children }) => {
     const signOutUser = () => {
         const { error } = supabase.auth.signOut();
         if (error) {
-            console.log('error en signOut de AuthContext', error)
+            console.error('error en signOut de AuthContext', error)
         }
     }
 
@@ -94,14 +94,14 @@ export const AuthContextProvider = ({ children }) => {
             password: newPassword
         });
         if (error) {
-            console.log('error en changeUserPassword de AuthContext', error)
+            console.error('error en changeUserPassword de AuthContext', error)
         }
     }
 
     const changeNameUser = async (nameUser) => {
 
         if (!nameUser || typeof nameUser !== 'string' || nameUser.trim() === '') {
-            console.log('Invalid name provided');
+            console.error('Invalid name provided');
             return { success: false, error: 'Name must be a non-empty string' };
         }
 
@@ -112,7 +112,7 @@ export const AuthContextProvider = ({ children }) => {
                 .eq('id', session?.user.id);
 
             if (profileError) {
-                console.log('Error updating profile:', profileError);
+                console.error('Error updating profile:', profileError);
                 return { success: false, error: profileError };
             }
 
@@ -124,7 +124,7 @@ export const AuthContextProvider = ({ children }) => {
 
     const changeSurnamesUser = async (surnamesUser) => {
         if (!surnamesUser || typeof surnamesUser !== 'string' || surnamesUser.trim() === '') {
-            console.log('Invalid name provided');
+            console.error('Invalid name provided');
             return { success: false, error: 'Name must be a non-empty string' };
         }
 
@@ -135,7 +135,7 @@ export const AuthContextProvider = ({ children }) => {
                 .eq('id', session?.user.id);
 
             if (profileError) {
-                console.log('Error updating profile:', profileError);
+                console.error('Error updating profile:', profileError);
                 return { success: false, error: profileError };
             }
 
@@ -147,7 +147,7 @@ export const AuthContextProvider = ({ children }) => {
 
     const changeUsernameUser = async (usernameUser) => {
         if (!usernameUser || typeof usernameUser !== 'string' || usernameUser.trim() === '') {
-            console.log('Invalid name provided');
+            console.error('Invalid name provided');
             return { success: false, error: 'Name must be a non-empty string' };
         }
 
@@ -158,7 +158,7 @@ export const AuthContextProvider = ({ children }) => {
                 .eq('id', session?.user.id);
 
             if (profileError) {
-                console.log('Error updating profile:', profileError);
+                console.error('Error updating profile:', profileError);
                 return { success: false, error: profileError };
             }
 
@@ -219,7 +219,7 @@ export const AuthContextProvider = ({ children }) => {
                 )
                 .select()
             if (routineError) {
-                console.log('Error in createRoutine during routine insert:', routineError);
+                console.error('Error in createRoutine during routine insert:', routineError);
                 return { success: false, error: routineError };
             }
             else {
@@ -237,7 +237,7 @@ export const AuthContextProvider = ({ children }) => {
                             source: ex.source
                         })
                     if (exsError) {
-                        console.log('Error in createRoutine during exercises insert:', exsError);
+                        console.error('Error in createRoutine during exercises insert:', exsError);
                         return { success: false, error: exsError };
                     }
                 }
@@ -256,7 +256,7 @@ export const AuthContextProvider = ({ children }) => {
                 .from('trainings')
                 .select('*')
             if (routinesError) {
-                console.log('Error in searchRoutines during routine search:', routinesError);
+                console.error('Error in searchRoutines during routine search:', routinesError);
                 return { success: false, error: routinesError };
             }
             else {
@@ -276,7 +276,7 @@ export const AuthContextProvider = ({ children }) => {
                 .select('*')
                 .eq('id_user', session?.user.id)
             if (routinesError) {
-                console.log('Error in getMyRoutines during routine search in AuthContext:', routinesError);
+                console.error('Error in getMyRoutines during routine search in AuthContext:', routinesError);
                 return { success: false, error: routinesError };
             }
             else {
@@ -296,7 +296,7 @@ export const AuthContextProvider = ({ children }) => {
                 .select('*')
                 .eq('id_user', session?.user.id)
             if (routinesError) {
-                console.log('Error in getSavedRoutines during routine search in AuthContext:', routinesError);
+                console.error('Error in getSavedRoutines during routine search in AuthContext:', routinesError);
                 return { success: false, error: routinesError };
             }
             else {
@@ -316,7 +316,7 @@ export const AuthContextProvider = ({ children }) => {
             }
         }
         catch (error) {
-            console.error('Error getMyRoutines in AuthContext:', error);
+            console.error('Error getSavedRoutines in AuthContext:', error);
             return { success: false, error };
         }
     }
@@ -356,7 +356,7 @@ export const AuthContextProvider = ({ children }) => {
                 )
                 .select()
             if (routineError) {
-                console.log('Error in saveRoutine during routine save:', routineError);
+                console.error('Error in saveRoutine during routine save:', routineError);
                 return { success: false, error: routineError };
             }
             else {
@@ -378,7 +378,7 @@ export const AuthContextProvider = ({ children }) => {
                 .eq('id_training', id_routine)
                 .eq('id_user', session?.user.id)
             if (routineError) {
-                console.log('Error in unsaveRoutine during routine unfavourite:', routineError);
+                console.error('Error in unsaveRoutine during routine unfavourite:', routineError);
                 return { success: false, error: routineError };
             }
             else {
@@ -399,7 +399,7 @@ export const AuthContextProvider = ({ children }) => {
                 .delete()
                 .eq('id', id_routine)
             if (routineError) {
-                console.log('Error in delete during routine deletion:', routineError);
+                console.error('Error in delete during routine deletion:', routineError);
                 return { success: false, error: routineError };
             }
             else {
@@ -420,7 +420,7 @@ export const AuthContextProvider = ({ children }) => {
                 .select('*')
                 .eq('id', id_routine)
             if (routinesError) {
-                console.log('Error in getRoutineById during routine search in AuthContext:', routinesError);
+                console.error('Error in getRoutineById during routine search in AuthContext:', routinesError);
                 return { success: false, error: routinesError };
             }
             else {
@@ -440,7 +440,7 @@ export const AuthContextProvider = ({ children }) => {
             .eq('id', id_routine);
 
         if (routineError) {
-            console.log('Error updating title routine:', routineError);
+            console.error('Error updating title routine:', routineError);
             return { success: false, error: routineError };
         }
 
@@ -456,7 +456,7 @@ export const AuthContextProvider = ({ children }) => {
             .eq('id', id_routine);
 
         if (routineError) {
-            console.log('Error updating title routine:', routineError);
+            console.error('Error updating title routine:', routineError);
             return { success: false, error: routineError };
         }
 
@@ -475,7 +475,7 @@ export const AuthContextProvider = ({ children }) => {
                 .select('*')
                 .eq('id_training', id_routine)
             if (exercicesError) {
-                console.log('Error in getExercicesFromRoutineById during routine search in AuthContext:', exercicesError);
+                console.error('Error in getExercicesFromRoutineById during routine search in AuthContext:', exercicesError);
                 return { success: false, error: exercicesError };
             }
             else {
@@ -495,7 +495,7 @@ export const AuthContextProvider = ({ children }) => {
             .eq('id', id_exercice);
 
         if (exerciceError) {
-            console.log('Error updating title exercice:', exerciceError);
+            console.error('Error updating title exercice:', exerciceError);
             return { success: false, error: exerciceError };
         }
 
@@ -511,7 +511,7 @@ export const AuthContextProvider = ({ children }) => {
             .eq('id', id_exercice);
 
         if (exerciceError) {
-            console.log('Error updating description exercice:', exerciceError);
+            console.error('Error updating description exercice:', exerciceError);
             return { success: false, error: exerciceError };
         }
 
@@ -527,7 +527,7 @@ export const AuthContextProvider = ({ children }) => {
             .eq('id', id_exercice);
 
         if (exerciceError) {
-            console.log('Error updating reps exercice:', exerciceError);
+            console.error('Error updating reps exercice:', exerciceError);
             return { success: false, error: exerciceError };
         }
 
@@ -543,7 +543,7 @@ export const AuthContextProvider = ({ children }) => {
             .eq('id', id_exercice);
 
         if (exerciceError) {
-            console.log('Error updating series exercice:', exerciceError);
+            console.error('Error updating series exercice:', exerciceError);
             return { success: false, error: exerciceError };
         }
 
@@ -559,7 +559,7 @@ export const AuthContextProvider = ({ children }) => {
             .eq('id', id_exercice);
 
         if (exerciceError) {
-            console.log('Error updating rest exercice:', exerciceError);
+            console.error('Error updating rest exercice:', exerciceError);
             return { success: false, error: exerciceError };
         }
 
@@ -575,7 +575,7 @@ export const AuthContextProvider = ({ children }) => {
             .eq('id', id_exercice);
 
         if (exerciceError) {
-            console.log('Error updating video source exercice:', exerciceError);
+            console.error('Error updating video source exercice:', exerciceError);
             return { success: false, error: exerciceError };
         }
 
@@ -591,7 +591,7 @@ export const AuthContextProvider = ({ children }) => {
                 .delete()
                 .eq('id', id_exercice)
             if (exerciceError) {
-                console.log('Error in delete during exercise deletion:', exerciceError);
+                console.error('Error in delete during exercise deletion:', exerciceError);
                 return { success: false, error: exerciceError };
             }
             else {
@@ -618,11 +618,295 @@ export const AuthContextProvider = ({ children }) => {
                 source: source
             })
         if (exsError) {
-            console.log('Error in addExercise during exercise insert:', exsError);
+            console.error('Error in addExercise during exercise insert:', exsError);
             return { success: false, error: exsError };
         }
         else {
             return { success: true };
+        }
+    }
+
+
+
+    //techniques
+    const uploadTechniqueVideo = async (filePath, file) => {
+        const { error } = await supabase.storage
+            .from('Katas')
+            .upload(filePath, file, {
+                cacheControl: '3600',
+                upsert: false
+            })
+        if (error) {
+            console.error('Error in uploadTechniqueVideo during video upload:', error);
+            return { success: false, error: error };
+        }
+        else {
+            const { data: { publicUrl }, errorUrl } = supabase.storage
+                .from('Katas')
+                .getPublicUrl(filePath)
+            if (errorUrl) {
+                console.error('Error in uploadTechniqueVideo during getPublicUrl:', error);
+                return { success: false, error: errorUrl };
+            }
+            else {
+                return { success: true, data: publicUrl };
+            }
+        }
+    }
+
+    const createTechnique = async (title, description, username, source, path) => {
+        const { errorTechnique } = await supabase
+            .from('techniques')
+            .insert({
+                id_user: session?.user.id,
+                title: title,
+                description: description,
+                source: source,
+                username: username,
+                path: path
+            })
+        if (errorTechnique) {
+            console.error('Error in createTechnique during insert:', errorTechnique);
+            return { success: false, error: errorTechnique };
+        }
+        else {
+            return { success: true };
+        }
+    }
+
+    const searchTechniques = async () => {
+        try {
+            const { data: techniques, error: techniquesError } = await supabase
+                .from('techniques')
+                .select('*')
+            if (techniquesError) {
+                console.error('Error in searchedTechniques during techniques search:', techniquesError);
+                return { success: false, error: techniquesError };
+            }
+            else {
+                return { success: true, data: techniques }
+            }
+        }
+        catch (error) {
+            console.error('Error searching techniques in AuthContext:', error);
+            return { success: false, error };
+        }
+    }
+
+    const getSavedTechniques = async () => {
+        try {
+            const { data: techniques, error: techniquesError } = await supabase
+                .from('saved_techniques')
+                .select('*')
+                .eq('id_user', session?.user.id)
+            if (techniquesError) {
+                console.error('Error in getSavedTechniques during techniques search in AuthContext:', techniquesError);
+                return { success: false, error: techniquesError };
+            }
+            else {
+                let array_ids = [];
+                for (const t of techniques) {
+                    array_ids.push(t.id_technique)
+                }
+                const { data, error } = await supabase
+                    .from('techniques')
+                    .select('*')
+                    .in('id', array_ids);
+                if (error) {
+                    console.error('Error fetching saved techniques in AuthContext:', error);
+                    return null;
+                }
+                return { success: true, data: data }
+            }
+        }
+        catch (error) {
+            console.error('Error getSavedRoutines in AuthContext:', error);
+            return { success: false, error };
+        }
+    }
+
+    const saveTechnique = async (id_technique) => {
+        try {
+            const { error: techniquesError } = await supabase
+                .from('saved_techniques')
+                .insert(
+                    {
+                        id_user: session?.user.id,
+                        id_technique: id_technique
+                    }
+                )
+                .select()
+            if (techniquesError) {
+                console.error('Error in saveTechnique during technique save:', techniquesError);
+                return { success: false, error: techniquesError };
+            }
+            else {
+                return { success: true };
+            }
+        }
+
+        catch (error) {
+            console.error('Error saving technique in AuthContext:', error);
+            return { success: false, error };
+        }
+    }
+
+    const unsaveTechnique = async (id_technique) => {
+        try {
+            const { error: techniquesError } = await supabase
+                .from('saved_techniques')
+                .delete()
+                .eq('id_technique', id_technique)
+                .eq('id_user', session?.user.id)
+            if (techniquesError) {
+                console.error('Error in unsaveTechnique during technique unfavourite:', techniquesError);
+                return { success: false, error: techniquesError };
+            }
+            else {
+                return { success: true };
+            }
+        }
+
+        catch (error) {
+            console.error('Error saving technique in AuthContext:', error);
+            return { success: false, error };
+        }
+    }
+
+    const getTechniqueById = async (id_technique) => {
+        try {
+            const { data: technique, error: techniquesError } = await supabase
+                .from('techniques')
+                .select('*')
+                .eq('id', id_technique)
+            if (techniquesError) {
+                console.error('Error in getTechniqueById during technique search in AuthContext:', techniquesError);
+                return { success: false, error: techniquesError };
+            }
+            else {
+                return { success: true, data: technique }
+            }
+        }
+        catch (error) {
+            console.error('Error getTechniqueById in AuthContext:', error);
+            return { success: false, error };
+        }
+    }
+
+    const getMyTechniques = async () => {
+        try {
+            const { data: techniques, error: techniquesError } = await supabase
+                .from('techniques')
+                .select('*')
+                .eq('id_user', session?.user.id)
+            if (techniquesError) {
+                console.error('Error in getMyTechniques during technique search in AuthContext:', techniquesError);
+                return { success: false, error: techniquesError };
+            }
+            else {
+                return { success: true, data: techniques }
+            }
+        }
+        catch (error) {
+            console.error('Error getMyTechniques in AuthContext:', error);
+            return { success: false, error };
+        }
+    }
+
+    const deleteTechnique = async (id_technique) => {
+        const { error: techniquesError } = await supabase
+            .from('techniques')
+            .delete()
+            .eq('id', id_technique)
+        if (techniquesError) {
+            console.error('Error in delete during technique deletion:', techniquesError);
+            return { success: false, error: techniquesError };
+        }
+        else {
+            return { success: true }
+        }
+    }
+
+    const deleteVideo = async (filePath) => {
+        try {
+            const { error } = await supabase.storage
+                .from('Katas')
+                .remove([filePath])
+            if (error) {
+                console.error('Error in deleteTechnique during video deletion:', error);
+                return { success: false, error: error };
+            }
+            else {
+                return { success: true }
+            }
+
+        }
+
+        catch (error) {
+            console.error('Error deleting technique in AuthContext:', error);
+            return { success: false, error };
+        }
+    }
+
+    const createComment = async (id_technique, message, username) => {
+        try {
+            const { error: commentError } = await supabase
+                .from('comments')
+                .insert(
+                    {
+                        id_user: session?.user.id,
+                        id_technique: id_technique,
+                        message: message,
+                        username: username
+                    }
+                )
+                .select()
+            if (commentError) {
+                console.error('Error in saveTechnique during technique save:', commentError);
+                return { success: false, error: commentError };
+            }
+            else {
+                return { success: true };
+            }
+        }
+
+        catch (error) {
+            console.error('Error saving technique in AuthContext:', error);
+            return { success: false, error };
+        }
+    }
+
+    const getCommentsById = async (id_technique) => {
+        try {
+            const { data: comments, error: commentError } = await supabase
+                .from('comments')
+                .select('*')
+                .eq('id_technique', id_technique)
+            if (commentError) {
+                console.error('Error in getCommentsById during comments search in AuthContext:', commentError);
+                return { success: false, error: commentError };
+            }
+            else {
+                return { success: true, data: comments }
+            }
+        }
+        catch (error) {
+            console.error('Error getTechniqueById in AuthContext:', error);
+            return { success: false, error };
+        }
+    }
+
+    const deleteComment = async (id_comment) => {
+        const { error: commentError } = await supabase
+            .from('comments')
+            .delete()
+            .eq('id', id_comment)
+        if (commentError) {
+            console.error('Error in delete during comment deletion:', commentError);
+            return { success: false, error: commentError };
+        }
+        else {
+            return { success: true }
         }
     }
 
@@ -667,7 +951,20 @@ export const AuthContextProvider = ({ children }) => {
             changeExerciseRest,
             changeExerciseSource,
             deleteExercise,
-            addExercise
+            addExercise,
+            uploadTechniqueVideo,
+            createTechnique,
+            searchTechniques,
+            getSavedTechniques,
+            saveTechnique,
+            getTechniqueById,
+            getMyTechniques,
+            deleteTechnique,
+            deleteVideo,
+            unsaveTechnique,
+            createComment,
+            getCommentsById,
+            deleteComment
         }}>
             {children}
         </AuthContext.Provider>

@@ -1,35 +1,35 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
-import ReturnHome from '../../components/ReturnHome';
-import { v4 as uuidv4 } from 'uuid';
-import { UserAuth } from '../../utils/AuthContext';
-import { useNavigate } from 'react-router';
-import SimpleReactValidator from 'simple-react-validator';
-import { errorMessages } from '../../utils/errorMessages';
-import RegularButton from '../../components/RegularButton';
-import Loading from '../../components/Loading';
-import FormTitleDescription from '../../components/FormTitleDescription';
-import FormExercice from '../../components/FormExercice';
-import checkNaturals from '../../utils/methods';
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import ReturnHome from "../../components/ReturnHome";
+import { v4 as uuidv4 } from "uuid";
+import { UserAuth } from "../../utils/AuthContext";
+import { useNavigate } from "react-router";
+import SimpleReactValidator from "simple-react-validator";
+import { errorMessages } from "../../utils/errorMessages";
+import RegularButton from "../../components/RegularButton";
+import Loading from "../../components/Loading";
+import FormTitleDescription from "../../components/FormTitleDescription";
+import FormExercice from "../../components/FormExercice";
+import { checkNaturals } from "../../utils/methods";
 
 function CreateRoutine() {
     const emptyExercice = {
         id_training: null,
         id: null,
-        title: '',
-        description: '',
+        title: "",
+        description: "",
         reps: 0,
         series: 0,
         rest: 0,
-        source: ''
-    }
+        source: "",
+    };
     const mainIdTraining = uuidv4();
     const [exercises, setExercises] = useState([]);
-    const [titleValue, setTitleValue] = useState('');
-    const [descriptionValue, setDescriptionValue] = useState('');
+    const [titleValue, setTitleValue] = useState("");
+    const [descriptionValue, setDescriptionValue] = useState("");
     const [currentExercise, setCurrentExercise] = useState(emptyExercice);
-    const [nameValue, setNameValue] = useState('');
-    const [descriptionExerciceValue, setDescriptionExerciceValue] = useState('');
-    const [sourceValue, setSourceValue] = useState('');
+    const [nameValue, setNameValue] = useState("");
+    const [descriptionExerciceValue, setDescriptionExerciceValue] = useState("");
+    const [sourceValue, setSourceValue] = useState("");
     const [repsValue, setRepsValue] = useState(0);
     const [seriesValue, setSeriesValue] = useState(0);
     const [restValue, setRestValue] = useState(0);
@@ -38,19 +38,21 @@ function CreateRoutine() {
     const [userData, setUserData] = useState(null);
     const navigate = useNavigate();
 
-    const validator = useRef(new SimpleReactValidator({
-        messages: errorMessages
-    }));
+    const validator = useRef(
+        new SimpleReactValidator({
+            messages: errorMessages,
+        }),
+    );
 
     const resetEverything = () => {
         setCurrentExercise(emptyExercice);
-        setNameValue('');
-        setDescriptionExerciceValue('');
-        setSourceValue('');
+        setNameValue("");
+        setDescriptionExerciceValue("");
+        setSourceValue("");
         setRepsValue(0);
         setRestValue(0);
         setSeriesValue(0);
-    }
+    };
 
     const saveExercise = (e) => {
         e.preventDefault();
@@ -63,55 +65,53 @@ function CreateRoutine() {
             currentExercise.source = sourceValue;
             currentExercise.id = uuidv4();
             currentExercise.id_training = mainIdTraining;
-            setExercises(prev => [...prev, currentExercise]);
+            setExercises((prev) => [...prev, currentExercise]);
             resetEverything();
-        }
-        else {
+        } else {
             validator.current.showMessages();
         }
-
     };
 
     const removeExercise = (id) => {
-        setExercises(prev => prev.filter(ex => ex.id !== id));
+        setExercises((prev) => prev.filter((ex) => ex.id !== id));
     };
 
     const saveRoutine = async (e) => {
         e.preventDefault();
         try {
-            await createRoutine(titleValue, descriptionValue, userData.username, Array.from(exercises));
+            await createRoutine(
+                titleValue,
+                descriptionValue,
+                userData.username,
+                Array.from(exercises),
+            );
+        } catch (error) {
+            console.error("error en changeSurnames de MyProfile.js", error);
         }
-        catch (error) {
-            console.error('error en changeSurnames de MyProfile.js', error);
-        }
-        navigate('/routines');
-    }
+        navigate("/routines");
+    };
 
     const defineExercices = (e) => {
         e.preventDefault();
         if (validator.current.allValid()) {
             setRoutineDefined(true);
-        }
-        else {
+        } else {
             validator.current.showMessages();
         }
-    }
+    };
 
     const fetchData = useCallback(async () => {
         if (session) {
             try {
                 const data = await getUserData();
                 setUserData(data[0]);
+            } catch (error) {
+                console.error("Error fetching data in MyProfile:", error);
             }
-            catch (error) {
-                console.error('Error fetching data in MyProfile:', error);
-            }
+        } else {
+            console.error("no ha iniciado sesion");
         }
-        else {
-            console.error('no ha iniciado sesion');
-        }
-
-    }, [session, getUserData])
+    }, [session, getUserData]);
 
     useEffect(() => {
         if (session && !userData) fetchData();
@@ -134,11 +134,11 @@ function CreateRoutine() {
                     onDescriptionChange={(e) => setDescriptionValue(e.target.value)}
                     onSubmit={defineExercices}
                     validator={validator}
-                    buttonName={'Añadir ejercicios'}
+                    buttonName={"Añadir ejercicios"}
                 />
             </div>
 
-            {routineDefined &&
+            {routineDefined && (
                 <>
                     <FormExercice
                         nameValue={nameValue}
@@ -148,7 +148,9 @@ function CreateRoutine() {
                         restValue={restValue}
                         sourceValue={sourceValue}
                         onNameChange={(e) => setNameValue(e.target.value)}
-                        onDescriptionChange={(e) => setDescriptionExerciceValue(e.target.value)}
+                        onDescriptionChange={(e) =>
+                            setDescriptionExerciceValue(e.target.value)
+                        }
                         onRepsChange={(e) => setRepsValue(e.target.value)}
                         onSeriesChange={(e) => setSeriesValue(e.target.value)}
                         onRestChange={(e) => setRestValue(e.target.value)}
@@ -158,16 +160,18 @@ function CreateRoutine() {
                         exercises={exercises}
                         onRemoveExercise={removeExercise}
                     ></FormExercice>
-                    {
-                        exercises.length > 0 && <RegularButton title='Guarda rutina' callback={saveRoutine}></RegularButton>
-                    }
+                    {exercises.length > 0 && (
+                        <RegularButton
+                            title="Guarda rutina"
+                            callback={saveRoutine}
+                        ></RegularButton>
+                    )}
                 </>
-
-            }
+            )}
 
             <ReturnHome></ReturnHome>
         </div>
-    )
+    );
 }
 
-export default CreateRoutine
+export default CreateRoutine;

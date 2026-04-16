@@ -3,7 +3,7 @@ import SimpleReactValidator from 'simple-react-validator';
 import { errorMessages } from '../../utils/errorMessages';
 import FormExercice from '../../components/FormExercice';
 import { useLocation, useNavigate } from 'react-router';
-import checkNaturals from '../../utils/methods';
+import { checkNaturals } from '../../utils/methods';
 import { UserAuth } from '../../utils/AuthContext';
 
 function AddSingleExercise() {

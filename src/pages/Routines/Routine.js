@@ -12,7 +12,7 @@ function Routine() {
     const location = useLocation();
     const { id_routine } = location.state;
     const { session, getRoutineById, getExercicesFromRoutineById, deleteExercise } = UserAuth();
-    const [routine, setRoutine] = useState(null)
+    const [routine, setRoutine] = useState(null);
     const [exercices, setExercices] = useState(null);
     const [ownsRoutine, setOwnsRoutine] = useState(false);
     const navigate = useNavigate();
@@ -25,7 +25,7 @@ function Routine() {
             setOwnsRoutine(foundRoutine.data[0].id_user === session?.user.id);
         }
         catch (error) {
-            console.error('Error searching routine in SearchRoutines:', error);
+            console.error('Error searching routine in Routine.js:', error);
             return { success: false, error };
         }
     }, [getRoutineById, id_routine, session])
@@ -36,7 +36,7 @@ function Routine() {
             setExercices(foundExercises.data);
         }
         catch (error) {
-            console.error('Error searching exercises in SearchRoutines:', error);
+            console.error('Error searching exercises in Routine.js:', error);
             return { success: false, error };
         }
     }, [getExercicesFromRoutineById, id_routine])
@@ -71,13 +71,13 @@ function Routine() {
     if (routine === null || exercices === null) {
         console.log('admin: ', isAdmin)
         return <Loading></Loading>
-        
+
     }
 
     return (
         <>
             <div>
-                <h1>Titulo: {routine.title}</h1>
+                <h1>{routine.title}</h1>
                 <h3>Descripción: </h3>
                 <p>{routine.description}</p>
                 {

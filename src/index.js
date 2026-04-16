@@ -24,6 +24,11 @@ import EditRoutine from './pages/Routines/EditRoutine';
 import EditExercice from './pages/Exercises/EditExercice';
 import AddSingleExercise from './pages/Exercises/AddSingleExercise';
 import Info from './pages/Resources/Info';
+import Techniques from './pages/Techniques/Techniques';
+import CreateTechnique from './pages/Techniques/CreateTechnique';
+import SearchTechnique from './pages/Techniques/SearchTechnique';
+import Technique from './pages/Techniques/Technique';
+import MyTechniques from './pages/Techniques/MyTechniques';
 
 const router = createBrowserRouter([
     {
@@ -87,6 +92,21 @@ const router = createBrowserRouter([
             },
             {
                 path: 'addsingleexercise', element: <RedirectAuthenticated><AddSingleExercise></AddSingleExercise></RedirectAuthenticated>
+            },
+            {
+                path: 'techniques', element: <Techniques></Techniques>
+            },
+            {
+                path: 'createtechnique', element: <RedirectAuthenticated><CreateTechnique></CreateTechnique></RedirectAuthenticated>
+            },
+            {
+                path: 'searchtechniques', element: <SearchTechnique></SearchTechnique>
+            },
+            {
+                path: 'technique', element: <Technique></Technique>
+            },
+            {
+                path: 'mytechniques', element: <RedirectAuthenticated><MyTechniques></MyTechniques></RedirectAuthenticated>
             },
             {
                 path: "*", element: <Navigate to="/" replace />

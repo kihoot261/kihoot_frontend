@@ -1,3 +1,4 @@
+import { useState } from "react"
 import RegularButton from "./RegularButton"
 
 const FormTitleDescription = ({ titleValue,
@@ -8,8 +9,16 @@ const FormTitleDescription = ({ titleValue,
     validator,
     buttonName }) => {
 
+    const [begoneButton, setBegoneButton] = useState(false);
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        validator.current.allValid() ? setBegoneButton(true) : setBegoneButton(false);
+        onSubmit(e);
+    }
+
     return (
-        <form onSubmit={onSubmit}>
+        <form onSubmit={handleSubmit}>
             <div>
                 <label htmlFor='title'>
                     Título:
@@ -38,13 +47,16 @@ const FormTitleDescription = ({ titleValue,
                     value={descriptionValue}
                     id='description'
                     onChange={onDescriptionChange}
-                    placeholder="Descripción rutina..."
+                    placeholder="Descripción..."
                 />
                 {
                     <div>{validator.current.message('description', descriptionValue, 'required')}</div>
                 }
             </div>
-            <RegularButton title={buttonName} type='submit' />
+            {
+                !begoneButton && (<RegularButton title={buttonName} type='submit' />)
+            }
+
         </form>
     )
 }
