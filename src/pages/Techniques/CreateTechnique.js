@@ -19,7 +19,10 @@ function CreateTechnique() {
     const [titleValue, setTitleValue] = useState("");
     const [descriptionValue, setDescriptionValue] = useState("");
     const [titleDescDefined, setTitleDescDefined] = useState(false);
+    const [tooHeavy, setTooHeavy] = useState(false);
     const navigate = useNavigate();
+    const supabaseMaxFileSize = 50;
+    const maxFileSize = 600;
 
     const validator = useRef(
         new SimpleReactValidator({
@@ -52,14 +55,28 @@ function CreateTechnique() {
     const uploadVideo = async (event) => {
         try {
             setUploading(true);
+            setTooHeavy(false);
             const file = event.target.files[0];
-            const compressedFile = await compressVideoRecorder(file);
-            const fileExt = file.name.split(".").pop();
-            const fileName = `${Date.now()}.${fileExt}`;
-            const filePath = `${fileName}`;
-            const publicUrl = await uploadTechniqueVideo(filePath, compressedFile);
-            setVideoUrl(publicUrl.data);
-            setPath(filePath)
+            if (file.size < maxFileSize * 1024 * 1024) {
+                const compressedFile = await compressVideoRecorder(file);
+                if (compressedFile.size >= supabaseMaxFileSize * 1024 * 1024) {
+                    setTooHeavy(true);
+                    setUploading(false);
+                }
+                else {
+                    const fileExt = file.name.split(".").pop();
+                    const fileName = `${Date.now()}.${fileExt}`;
+                    const filePath = `${fileName}`;
+                    const publicUrl = await uploadTechniqueVideo(filePath, compressedFile);
+                    setVideoUrl(publicUrl.data);
+                    setPath(filePath)
+                }
+            }
+            else {
+                setTooHeavy(true);
+                setUploading(false);
+            }
+
         } catch (error) {
             console.error("Upload error:", error.message);
         } finally {
@@ -129,6 +146,8 @@ function CreateTechnique() {
 
             {uploading && <Loading></Loading>}
 
+            {tooHeavy && <div>El archivo es demasiado grande</div>}
+
             {videoUrl && (
                 <div>
                     <h3>Your uploaded video:</h3>
@@ -141,12 +160,14 @@ function CreateTechnique() {
                     </video>
 
                 </div>
-
             )}
-            <RegularButton
-                title={"Sube técnica"}
-                callback={saveVideo}
-            ></RegularButton>
+            {
+                !tooHeavy && <RegularButton
+                    title={"Sube técnica"}
+                    callback={saveVideo}
+                ></RegularButton>
+            }
+
             <ReturnHome></ReturnHome>
         </div>
     );

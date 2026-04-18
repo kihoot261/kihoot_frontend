@@ -10,20 +10,23 @@ export const compressVideoRecorder = async (file) => {
         video.onloadedmetadata = resolve;
     });
 
-    const stream = video.captureStream();
+    const duration = video.duration;
+    const height = video.videoHeight;
+    const targetBitrate = Math.min(2500000, Math.max(1500000, (height * height * 4) / duration))
+    const stream = video.captureStream(30);
     const chunks = [];
     const mediaRecorder = new MediaRecorder(stream, {
-        mimeType: 'video/webm;codecs=vp9',
-        videoBitsPerSecond: 1000000
+        mimeType: 'video/mp4;codecs=vp9',
+        videoBitsPerSecond: targetBitrate
     });
 
     mediaRecorder.ondataavailable = (e) => chunks.push(e.data);
-    mediaRecorder.onstop = () => URL.revokeObjectURL(video.src);
 
     mediaRecorder.start();
     video.play();
     await new Promise((resolve) => {
         mediaRecorder.onstop = () => {
+            URL.revokeObjectURL(video.src);
             video.pause();
             resolve();
         };

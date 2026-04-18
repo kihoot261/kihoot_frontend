@@ -118,7 +118,10 @@ export const useConfigureGame = (kyuParam, questionsParam, orderParam) => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const { data, error } = await supabase.from('db_kihoot').select('*').in('kyu', kyuParam);
+            const { data, error } = await supabase
+                .from('db_kihoot')
+                .select('*')
+                .in('kyu', kyuParam);
             if (error) console.error('Error fetching data in quizData:', error);
             else setKihoot(data);
         };

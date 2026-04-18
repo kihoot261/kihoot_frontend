@@ -4,7 +4,7 @@ import Loading from "./Loading";
 
 const Header = () => {
     const { session, getUserData } = UserAuth();
-    const [userName, setUserName] = useState('usuari aleatori');
+    const [userName, setUserName] = useState('usuario aleatorio');
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -14,7 +14,7 @@ const Header = () => {
 
         if (!session) {
             setLoading(false);
-            setUserName('usuari aleatori');
+            setUserName('usuario aleatorio');
             return;
         }
         let isCurrent = true;

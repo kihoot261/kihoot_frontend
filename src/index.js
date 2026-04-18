@@ -29,6 +29,8 @@ import CreateTechnique from './pages/Techniques/CreateTechnique';
 import SearchTechnique from './pages/Techniques/SearchTechnique';
 import Technique from './pages/Techniques/Technique';
 import MyTechniques from './pages/Techniques/MyTechniques';
+import Flashcards from './pages/Flashcards/Flashcards';
+import SetupFlashcards from './pages/Flashcards/SetupFlashcards';
 
 const router = createBrowserRouter([
     {
@@ -107,6 +109,12 @@ const router = createBrowserRouter([
             },
             {
                 path: 'mytechniques', element: <RedirectAuthenticated><MyTechniques></MyTechniques></RedirectAuthenticated>
+            },
+            {
+                path: 'setupflashcards', element: <SetupFlashcards></SetupFlashcards>
+            },
+            {
+                path: 'flashcards', element: <Flashcards></Flashcards>
             },
             {
                 path: "*", element: <Navigate to="/" replace />
