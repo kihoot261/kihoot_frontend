@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { UserAuth } from "../utils/AuthContext";
 import Loading from "./Loading";
+import '../styles/components/_header.scss';
 
 const Header = () => {
     const { session, getUserData } = UserAuth();
@@ -46,7 +47,7 @@ const Header = () => {
     }
 
     return (
-        <span>
+        <span className="header-span">
             Hola, {userName}
         </span>
     );

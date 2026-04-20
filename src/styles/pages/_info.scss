@@ -1,0 +1,11 @@
+@use '../utils/mixins' as m;
+
+h2.main-h2-title {
+    padding-top: 4em;
+}
+
+.email {
+    text-align: left;
+    @include m.padding-left-right(1em, 1em);
+    @include m.padding-top-bottom(2em, 2em)
+}

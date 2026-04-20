@@ -1,0 +1,50 @@
+@use '../utils/variables' as vars;
+@use "sass:color";
+
+@mixin mobile {
+  @media (min-width: $mobile) { @content; }
+}
+
+@mixin tablet {
+  @media (min-width: $tablet) { @content; }
+}
+
+@mixin desktop {
+  @media (min-width: $desktop) { @content; }
+}
+
+@mixin center-object() {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin margin-left-right($left, $right) {
+    margin-left: $left;
+    margin-right: $right;
+}
+
+@mixin margin-top-bottom($top, $bot) {
+    margin-top: $top;
+    margin-bottom: $bot;
+}
+
+@mixin padding-top-bottom($top, $bot) {
+    padding-top: $top;
+    padding-bottom: $bot;
+}
+
+@mixin padding-left-right($left, $right) {
+    padding-left: $left;
+    padding-right: $right;
+}
+
+@mixin width-height($width, $height) {
+    width: $width;
+    height: $height;
+}
+
+@mixin padding-margin($padding, $margin) {
+    padding: $padding;
+    margin: $margin;
+}

@@ -1,0 +1,43 @@
+@use '../utils/variables' as v;
+@use '../utils/mixins' as m;
+
+.App.kyoku-kanji-bg {
+    @include m.width-height(100%, 30vh);
+    position: relative;
+    z-index: 1;
+    @include m.margin-top-bottom(1em, 3em);
+
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: url('../../images/kanji-kyoku.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center top;
+        opacity: 0.1;
+        z-index: 1;
+    }
+}
+
+.kihoot-title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: "Yuji Boku", serif;
+    font-weight: 400;
+    color: black;
+    z-index: 3;
+    margin: 0;
+    pointer-events: none;
+}
+
+.App.gradient {
+    background: linear-gradient(to bottom, white 45%, v.$kihoot_gold 200%);
+    min-height: 100vh;
+}
+
+.header-position {
+    padding-top: 10em;
+}

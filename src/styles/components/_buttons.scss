@@ -1,0 +1,33 @@
+@use '../utils/mixins' as m;
+@use '../utils/variables' as v;
+
+.home-button-container {
+    @include m.center-object();
+}
+
+%menu-button {
+    background-color: black;
+    width: fit-content;
+    border-radius: 5% 5% 5% 5% / 10% 10% 10% 10%;
+    border: 1px solid v.$kihoot_gold;
+    padding: 0.7em;
+    @include m.padding-left-right(1em, 1.5em);
+    gap: 1em;
+    display: flex;
+    align-items: center;
+}
+
+.regular {
+    @extend %menu-button;
+    color: white;
+
+    .contents-menu-button {
+        @include m.center-object();
+        gap: 0.7em;
+    }
+}
+
+.home {
+    @extend %menu-button;
+    color: v.$kihoot_gold;
+}
