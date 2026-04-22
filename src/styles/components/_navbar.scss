@@ -3,14 +3,10 @@
 
 nav.iconed-navigation {
     position: relative;
-    z-index: 3;
+    z-index: 1;
 
     ul {
-        display: flex;
-        list-style-type: none;
         gap: 0.5em;
-        flex-direction: column;
-        @include m.padding-margin(0, 0);
-        @include m.center-object();
+        @include m.center-and-vertical();
     }
 }

@@ -2,7 +2,7 @@ import React from 'react'
 
 function RegularButton({ title, callback }) {
     return (
-        <button onClick={callback}>
+        <button className='regular' onClick={callback}>
             {title}
         </button>
     );

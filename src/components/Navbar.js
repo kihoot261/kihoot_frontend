@@ -9,31 +9,31 @@ const Navbar = () => {
     return (
         <nav className='iconed-navigation'>
             <ul>
-                <li className='regular'>
+                <li className='regular-iconed'>
                     <Link to="/setupquiz" className='regular-button-link contents-menu-button'>
                         <FontAwesomeIcon className="fa-lg" icon={faFileLines} />
                         <p>Quiz</p>
                     </Link>
                 </li>
-                <li className='regular'>
+                <li className='regular-iconed'>
                     <Link to="/info" className='regular-button-link contents-menu-button'>
                         <FontAwesomeIcon className="fa-lg" icon={faCircleInfo} />
                         <p>Recursos</p>
                     </Link>
                 </li>
-                <li className='regular'>
+                <li className='regular-iconed'>
                     <Link to="/routines" className= 'regular-button-link contents-menu-button'>
                         <FontAwesomeIcon className="fa-lg" icon={faDumbbell} />
                         <p>Rutinas de entrenamiento</p>
                     </Link>
                 </li>
-                <li className='regular'>
+                <li className='regular-iconed'>
                     <Link to="/techniques" className='regular-button-link contents-menu-button'>
                         <FontAwesomeIcon className="fa-lg" icon={faHandFist} />
                         <p>Técnicas</p>
                     </Link>
                 </li>
-                <li className='regular'>
+                <li className='regular-iconed'>
                     <Link to="/profile" className='regular-button-link contents-menu-button'>
                         <FontAwesomeIcon className="fa-lg" icon={faCircleUser} />
                         <p>Perfil</p>

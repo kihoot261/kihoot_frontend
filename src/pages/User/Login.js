@@ -8,83 +8,86 @@ import RegularButton from '../../components/RegularButton';
 
 function Login() {
 
-  const [emailValue, setEmailValue] = useState('');
-  const [passwordValue, setPasswordvalue] = useState('');
-  const { signInUser } = UserAuth();
-  const navigate = useNavigate();
-  const [failedLogin, setFailedLogin] = useState(false);
+    const [emailValue, setEmailValue] = useState('');
+    const [passwordValue, setPasswordvalue] = useState('');
+    const { signInUser } = UserAuth();
+    const navigate = useNavigate();
+    const [failedLogin, setFailedLogin] = useState(false);
 
-  const validator = useRef(new SimpleReactValidator({
-    messages: errorMessages
-  }));
+    const validator = useRef(new SimpleReactValidator({
+        messages: errorMessages
+    }));
 
-  const handleEmail = (e) => {
-    setEmailValue(e.target.value);
-  };
+    const handleEmail = (e) => {
+        setEmailValue(e.target.value);
+    };
 
-  const handlePassword = (e) => {
-    setPasswordvalue(e.target.value);
-  };
+    const handlePassword = (e) => {
+        setPasswordvalue(e.target.value);
+    };
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    if (validator.current.allValid()) {
-      try {
-        const result = await signInUser(emailValue, passwordValue);
-        if (result.success) {
-          navigate('/');
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        if (validator.current.allValid()) {
+            try {
+                const result = await signInUser(emailValue, passwordValue);
+                if (result.success) {
+                    navigate('/');
+                }
+                else {
+                    setFailedLogin(true);
+                }
+            }
+            catch (error) {
+                console.error('error en handleRegister de Register.js', error);
+            }
         }
         else {
-          setFailedLogin(true);
+            validator.current.showMessages();
         }
-      }
-      catch (error) {
-        console.error('error en handleRegister de Register.js', error);
-      }
-    }
-    else {
-      validator.current.showMessages();
+
     }
 
-  }
+    return (
+        <>
+            <h2>Iniciar sesión</h2>
+            <div className='main-form-container'>
+                <form onSubmit={handleLogin} className='regular-form-container'>
+                    <div className='input-and-label-container'>
+                        <label htmlFor='email'>Email: </label>
+                        <input type="text"
+                            value={emailValue}
+                            id='email'
+                            onChange={handleEmail}
+                            placeholder="Email...">
+                        </input>
+                        <div>
+                            {validator.current.message('email', emailValue, 'required|email')}
+                        </div>
+                    </div>
+                    <div className='input-and-label-container'>
+                        <label htmlFor='password'>Contraseña: </label>
+                        <input type="password"
+                            value={passwordValue}
+                            onChange={handlePassword}
+                            id='password'
+                            placeholder='Contrasenya...'>
+                        </input>
+                        <div>
+                            {validator.current.message('password', passwordValue, 'required')}
+                            {
+                                failedLogin &&
+                                <span>Nombre de usuario o contraseña incorrectos</span>
+                            }
+                        </div>
+                    </div>
+                    <RegularButton type='submit' title='Envia'></RegularButton>
+                </form>
+            </div>
+            <ReturnHome></ReturnHome>
+        </>
 
-  return (
-    <div>
-      <form onSubmit={handleLogin}>
-        <div>
-          <label htmlFor='email'>Email: </label>
-          <input type="text"
-            value={emailValue}
-            id='email'
-            onChange={handleEmail}
-            placeholder="Email...">
-          </input>
-          <div>
-            {validator.current.message('email', emailValue, 'required|email')}
-          </div>
-        </div>
-        <div>
-          <label htmlFor='password'>Contraseña: </label>
-          <input type="password"
-            value={passwordValue}
-            onChange={handlePassword}
-            id='password'
-            placeholder='Contrasenya...'>
-          </input>
-          <div>
-            {validator.current.message('password', passwordValue, 'required')}
-            {
-              failedLogin &&
-              <span>Nombre de usuario o contraseña incorrectos</span>
-            }
-          </div>
-        </div>
-        <RegularButton type='submit' title='Envia'></RegularButton>
-
-      </form>
-      <ReturnHome></ReturnHome>
-    </div>
-  )
+    )
 }
 
 export default Login

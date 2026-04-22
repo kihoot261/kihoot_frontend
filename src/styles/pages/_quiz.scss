@@ -1,0 +1,56 @@
+@use '../utils/mixins' as m;
+@use '../utils/variables' as v;
+
+.score-ingame-container {
+    @include m.grid-distribution(3);
+}
+
+.game-titles {
+    color: black;
+}
+
+.game-titles--correct {
+    color: v.$kihoot_green;
+}
+
+.game-titles--incorrect {
+    color: v.$kihoot_red;
+}
+
+.quiz-image {
+    border: 1px solid v.$kihoot_red;
+    border-radius: 5%;
+
+    @include m.mobile {
+        @include m.width-height(40%, auto);
+    }
+
+    @include m.tablet {
+        @include m.width-height(30%, auto);
+    }
+
+    @include m.desktop {
+        @include m.width-height(20%, auto);
+    }
+}
+
+.quiz-questions-main-container {
+    @include m.padding-top-bottom(1em, 1em);
+}
+
+.quiz-questions-buttons-container {
+    @include m.center-and-vertical();
+    row-gap: 1em;
+    @include m.padding-top-bottom(1em, 1em);
+
+    @include m.tablet {
+        @include m.grid-distribution(2);
+        gap: 1em;
+        @include m.padding-left-right(40%, 40%);
+    }
+}
+
+.write-quiz-answer-container{
+    @include m.center-and-vertical();
+    gap: 1em;
+}

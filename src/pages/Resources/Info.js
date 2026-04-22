@@ -18,7 +18,6 @@ function Info() {
                         Puedes enviarme un email a: <a href='mailto:kihoot261@gmail.com'>kihoot261@gmail.com</a> en caso de tener una sugerencia o ver un error
                     </p>
                 </div>
-
                 <ReturnHome></ReturnHome>
             </div>
 

@@ -5,20 +5,32 @@
     @include m.center-object();
 }
 
-%menu-button {
-    background-color: black;
-    width: fit-content;
-    border-radius: 5% 5% 5% 5% / 10% 10% 10% 10%;
-    border: 1px solid v.$kihoot_gold;
+%basic-button-sizing {
+    border-radius: 0.5em;
     padding: 0.7em;
-    @include m.padding-left-right(1em, 1.5em);
-    gap: 1em;
     display: flex;
     align-items: center;
+    z-index: 1;
 }
 
-.regular {
-    @extend %menu-button;
+%general-button {
+    background-color: black;
+    border: 1px solid v.$kihoot_gold;
+    width: fit-content;
+}
+
+%iconed-button {
+    @include m.padding-left-right(1em, 1.5em);
+    gap: 1em;
+}
+
+%white-bg-general-button {
+    background-color: white;
+    @include m.width-height(7rem, auto);
+}
+
+.regular-iconed {
+    @extend %general-button, %basic-button-sizing, %iconed-button;
     color: white;
 
     .contents-menu-button {
@@ -27,7 +39,32 @@
     }
 }
 
+.regular {
+    @extend %general-button, %basic-button-sizing;
+    color: white;
+}
+
 .home {
-    @extend %menu-button;
+    @extend %general-button, %basic-button-sizing, %iconed-button;
     color: v.$kihoot_gold;
+    @include m.margin-top-bottom(2em, 2em);
+}
+
+.quiz {
+    @extend %white-bg-general-button, %basic-button-sizing;
+    justify-content: center;
+    border: 1px solid black;
+}
+
+.kyu {
+    @extend %white-bg-general-button, %basic-button-sizing;
+    gap: 1em;
+    border: 1px solid black;
+}
+
+.red-corner {
+    @extend %white-bg-general-button, %basic-button-sizing;
+    justify-content: center;
+    border: 1px solid v.$kihoot_red;
+    @include m.width-height(10rem, auto);
 }

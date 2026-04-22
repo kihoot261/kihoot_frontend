@@ -1,4 +1,5 @@
 @use '../utils/mixins' as m;
+@use '../utils/variables' as v;
 
 body {
     display: flex;
@@ -22,4 +23,44 @@ a.regular-button-link:link,
 a.regular-button-link:visited {
     color: white;
     text-decoration: none;
+}
+
+h2 {
+    padding-top: 3em;
+}
+
+input {
+    border: 1px solid v.$kihoot_grey;
+    padding: 0.7em;
+    border-radius: 0.5em;
+}
+
+input::placeholder {
+    color: v.$kihoot_second_grey;
+}
+
+ul {
+    list-style-type: none;
+}
+
+.main-form-container {
+    @include m.center-object();
+    @include m.padding-top-bottom(2em, 2em);
+}
+
+.regular-form-container {
+    border: 1px solid v.$kihoot_grey;
+    border-radius: 0.5em;
+    width: fit-content;
+    padding: 1em;
+    @include m.center-and-vertical();
+    gap: 1em;
+}
+
+.input-and-label-container {
+    display: flex;
+    align-items: start;
+    justify-content: left;
+    flex-direction: column;
+    width: 100%;
 }

@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import ReturnHome from '../../components/ReturnHome';
 import { useLocation } from 'react-router';
 import { UserAuth } from '../../utils/AuthContext';
+import '../../styles/pages/_results.scss'
 
 function Results() {
 
@@ -32,9 +33,17 @@ function Results() {
 
     return (
         <>
-            <h1 className='result-display'>
-                Porcentaje de aciertos: {(corrects / total * 100).toFixed(2)}%
-            </h1>
+            <div className='results-container kanku-bg'>
+                <h1>
+                    Porcentaje de aciertos: <span className='results--ratio'>{(corrects / total * 100).toFixed(2)}%</span>
+                </h1>
+                <h1>
+                    Número aciertos: <span className='results--correct'>{corrects}</span>
+                </h1>
+                <h1>
+                    Número de fallos: <span className='results--incorrect'>{total - corrects}</span>
+                </h1>
+            </div>
             <ReturnHome></ReturnHome>
         </>
     )

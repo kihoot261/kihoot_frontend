@@ -1,16 +1,16 @@
-@use '../utils/variables' as vars;
+@use '../utils/variables' as v;
 @use "sass:color";
 
 @mixin mobile {
-  @media (min-width: $mobile) { @content; }
+  @media (min-width: v.$phone) { @content; }
 }
 
 @mixin tablet {
-  @media (min-width: $tablet) { @content; }
+  @media (min-width: v.$tablet) { @content; }
 }
 
 @mixin desktop {
-  @media (min-width: $desktop) { @content; }
+  @media (min-width: v.$desktop) { @content; }
 }
 
 @mixin center-object() {
@@ -47,4 +47,14 @@
 @mixin padding-margin($padding, $margin) {
     padding: $padding;
     margin: $margin;
+}
+
+@mixin center-and-vertical() {
+    @include center-object();
+    flex-direction: column;
+}
+
+@mixin grid-distribution($cols) {
+    display: grid;
+    grid-template-columns: repeat($cols, 1fr);
 }

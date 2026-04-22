@@ -157,71 +157,72 @@ function MyProfile() {
 
     return (
         <>
-            {!editMode &&
-                <>
-                    <div>
-                        <p>Nombre: {userData.name}</p>
-                        <p>Apellidos: {userData.surnames}</p>
-                        <p>Nombre usuario: {userData.username}</p>
-                        <p>Email: {session?.user?.user_metadata?.email}</p>
-                        <p>Partidas jugadas: {userData.games_played}</p>
-                        <p>Número aciertos: {userData.n_successes}</p>
-                        <p>Número fallos: {userData.n_failures}</p>
-                        <p>Ratio aciertos/fallos: {userData.ratio}%</p>
-                    </div>
-                    <div>
-                        <RegularButton title='Mis cosas' callback={() => navigate('/mythings')}></RegularButton>
-                        <RegularButton title='Editar mis datos' callback={handleEditMode}></RegularButton>
-                        <RegularButton title='Cerrar sessión' callback={handleSignOut}></RegularButton>
-                    </div>
-                </>
-            }
-            {editMode &&
-                <>
-                    <form onSubmit={returnViewMode}>
+            {!editMode ?
+                (
+                    <>
                         <div>
-                            <label for='name'>Canviar nombre: </label>
-                            <input type="text"
-                                id='name'
-                                value={nameValue}
-                                onChange={handleChangeName}
-                                placeholder="Nuevo nombre..."></input>
+                            <p>Nombre: {userData.name}</p>
+                            <p>Apellidos: {userData.surnames}</p>
+                            <p>Nombre usuario: {userData.username}</p>
+                            <p>Email: {session?.user?.user_metadata?.email}</p>
+                            <p>Partidas jugadas: {userData.games_played}</p>
+                            <p>Número aciertos: {userData.n_successes}</p>
+                            <p>Número fallos: {userData.n_failures}</p>
+                            <p>Ratio aciertos/fallos: {userData.ratio}%</p>
+                        </div>
+                        <div>
+                            <RegularButton title='Mis cosas' callback={() => navigate('/mythings')}></RegularButton>
+                            <RegularButton title='Editar mis datos' callback={handleEditMode}></RegularButton>
+                            <RegularButton title='Cerrar sessión' callback={handleSignOut}></RegularButton>
+                        </div>
+                    </>
+                ) : (
+                    <>
+                        <form onSubmit={returnViewMode}>
                             <div>
-                                {validator.current.message('name', nameValue, 'required')}
+                                <label for='name'>Canviar nombre: </label>
+                                <input type="text"
+                                    id='name'
+                                    value={nameValue}
+                                    onChange={handleChangeName}
+                                    placeholder="Nuevo nombre..."></input>
+                                <div>
+                                    {validator.current.message('name', nameValue, 'required')}
+                                </div>
                             </div>
-                        </div>
 
-                        <div>
-                            <label for='surname'>Canviar apellidos: </label>
-                            <input type="text"
-                                id='surname'
-                                value={surnamesValue}
-                                onChange={handleChangeSurnames}
-                                placeholder="Nuevo/s apellidos..."></input>
                             <div>
-                                {validator.current.message('surname', surnamesValue, 'required')}
+                                <label for='surname'>Canviar apellidos: </label>
+                                <input type="text"
+                                    id='surname'
+                                    value={surnamesValue}
+                                    onChange={handleChangeSurnames}
+                                    placeholder="Nuevo/s apellidos..."></input>
+                                <div>
+                                    {validator.current.message('surname', surnamesValue, 'required')}
+                                </div>
                             </div>
-                        </div>
 
-                        <div>
-                            <label for='username'>Canviar nombre usuario: </label>
-                            <input type="text"
-                                id='username'
-                                value={usernameValue}
-                                onChange={handleChangeUsername}
-                                placeholder="Nuevo nombre usuario..."></input>
                             <div>
-                                {validator.current.message('username', usernameValue, 'required|min:5')}
+                                <label for='username'>Canviar nombre usuario: </label>
+                                <input type="text"
+                                    id='username'
+                                    value={usernameValue}
+                                    onChange={handleChangeUsername}
+                                    placeholder="Nuevo nombre usuario..."></input>
+                                <div>
+                                    {validator.current.message('username', usernameValue, 'required|min:5')}
+                                </div>
                             </div>
-                        </div>
 
-                        <div>
-                            <RegularButton title='Cambia contraseña' callback={changePassword}></RegularButton>
-                            {/* <button onClick={deleteUser}>Eliminar perfil</button> */}
-                        </div>
-                        <RegularButton title='Actualiza' type='submit'></RegularButton>
-                    </form>
-                </>
+                            <div>
+                                <RegularButton title='Cambia contraseña' callback={changePassword}></RegularButton>
+                                {/* <button onClick={deleteUser}>Eliminar perfil</button> */}
+                            </div>
+                            <RegularButton title='Actualiza' type='submit'></RegularButton>
+                        </form>
+                    </>
+                )
             }
             <ReturnHome></ReturnHome>
         </>

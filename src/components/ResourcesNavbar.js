@@ -8,7 +8,7 @@ const ResourcesNavbar = () => {
     return (
         <nav className='iconed-navigation'>
             <ul>
-                <li className='regular'>
+                <li className='regular-iconed'>
                     <Link to="/setupflashcards" className='regular-button-link contents-menu-button'>
                         <FontAwesomeIcon className="fa-lg" icon={faClipboardQuestion} />
                         <p>Flashcards</p>

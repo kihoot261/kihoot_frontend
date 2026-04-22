@@ -1,0 +1,45 @@
+@use '../utils/mixins' as m;
+@use '../utils/variables' as v;
+
+.access-profile-container {
+    @include m.center-and-vertical();
+    row-gap: 3em;
+    @include m.padding-top-bottom(30%, 30%);
+
+    @include m.tablet {
+        @include m.padding-top-bottom(10%, 10%);
+    }
+}
+
+.bridge-bg {
+    position: relative;
+    z-index: 0;
+    @include m.margin-top-bottom(10%, 10%);
+
+    @include m.mobile {
+        @include m.padding-top-bottom(10%, 10%);
+        @include m.margin-top-bottom(30%, 30%);
+        @include m.width-height(100%, 35vh);
+    }
+
+    @include m.mobile {
+        @include m.margin-top-bottom(20%, 20%);
+    }
+
+    @include m.desktop {
+        @include m.width-height(100%, 20vh);
+        @include m.margin-top-bottom(10%, 10%);
+    }
+
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: url('../../images/bridge.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        opacity: 0.1;
+        z-index: 0;
+    }
+}
