@@ -1,0 +1,19 @@
+@use '../utils/mixins' as m;
+@use '../utils/variables' as v;
+
+.exercices-main-container {
+    @include m.center-and-vertical();
+}
+
+.exercices-count-container {
+    margin-top: 1em;
+}
+
+.single-exercices-container {
+    @include m.grid-distribution(2);
+    padding-bottom: 0.5em;
+}
+
+.exercice-name {
+    @include m.center-object();
+}

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import RegularButton from './RegularButton';
+import '../styles/pages/_technique.scss';
 
 const FormComment = ({ message, onMessageChange, onSubmit, buttonName }) => {
 
@@ -16,9 +17,9 @@ const FormComment = ({ message, onMessageChange, onSubmit, buttonName }) => {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className='main-comment-container'>
             <div>
-                <label htmlFor='comment'>
+                <label htmlFor='comment' className='single-comment'>
                     Comentario:
                 </label>
                 <textarea
@@ -30,9 +31,12 @@ const FormComment = ({ message, onMessageChange, onSubmit, buttonName }) => {
                     placeholder="Comentario..."
                 />
             </div>
-            {
-                visibleButton && <RegularButton title={buttonName} type='submit' />
-            }
+            <div>
+                {
+                    visibleButton && <RegularButton title={buttonName} type='submit' />
+                }
+            </div>
+
 
         </form>
     )

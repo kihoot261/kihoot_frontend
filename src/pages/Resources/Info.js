@@ -7,7 +7,7 @@ function Info() {
 
     return (
         <div className='App gradient'>
-            <div className='App kyoku-kanji-bg'>
+            <div className='kanji-kyoku-bg'>
                 <h2 className='main-h2-title'>Info</h2>
             </div>
             <div>

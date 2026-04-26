@@ -10,6 +10,7 @@ import Loading from "../../components/Loading";
 import FormTitleDescription from "../../components/FormTitleDescription";
 import FormExercice from "../../components/FormExercice";
 import { checkNaturals } from "../../utils/methods";
+import '../../styles/pages/_createroutine.scss'
 
 function CreateRoutine() {
     const emptyExercice = {
@@ -126,7 +127,6 @@ function CreateRoutine() {
             <h2>Crear rutina entrenamiento</h2>
 
             <div>
-                <h3>Información de la rutina</h3>
                 <FormTitleDescription
                     titleValue={titleValue}
                     descriptionValue={descriptionValue}
@@ -139,7 +139,7 @@ function CreateRoutine() {
             </div>
 
             {routineDefined && (
-                <>
+                <div>
                     <FormExercice
                         nameValue={nameValue}
                         descriptionValue={descriptionExerciceValue}
@@ -160,13 +160,16 @@ function CreateRoutine() {
                         exercises={exercises}
                         onRemoveExercise={removeExercise}
                     ></FormExercice>
-                    {exercises.length > 0 && (
-                        <RegularButton
-                            title="Guarda rutina"
-                            callback={saveRoutine}
-                        ></RegularButton>
-                    )}
-                </>
+                    <div className="exercices-main-container">
+                        {
+                            exercises.length > 0 && (
+                                <RegularButton
+                                    title="Guarda rutina"
+                                    callback={saveRoutine}
+                                ></RegularButton>)
+                        }
+                    </div>
+                </div>
             )}
 
             <ReturnHome></ReturnHome>

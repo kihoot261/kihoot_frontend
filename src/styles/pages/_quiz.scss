@@ -19,7 +19,7 @@
 
 .quiz-image {
     border: 1px solid v.$kihoot_red;
-    border-radius: 5%;
+    border-radius: 0.5em;
 
     @include m.mobile {
         @include m.width-height(40%, auto);

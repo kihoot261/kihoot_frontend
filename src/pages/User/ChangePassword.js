@@ -62,9 +62,10 @@ function ChangePassword() {
 
   return (
     <>
-      <h1>Cambia la contraseña</h1>
-      <form onSubmit={changePassword}>
-        <div>
+      <h2>Cambia la contraseña</h2>
+      <div className='main-form-container'>
+        <form onSubmit={changePassword} className='regular-form-container'>
+        <div className='input-and-label-container'>
           <label htmlFor='oldPassword'>Antigua contraseña: </label>
           <input type="password"
             value={oldPassword}
@@ -80,7 +81,7 @@ function ChangePassword() {
           </div>
         </div>
 
-        <div>
+        <div className='input-and-label-container'>
           <label htmlFor='newPassword'>Nueva contraseña: </label>
           <input type="password"
             value={newPassword}
@@ -92,7 +93,7 @@ function ChangePassword() {
           </div>
         </div>
 
-        <div>
+        <div className='input-and-label-container'>
           <label htmlFor='repeatPassword'>Repite nueva contraseña: </label>
           <input type="password"
             value={repeatPassword}
@@ -110,6 +111,8 @@ function ChangePassword() {
 
         <RegularButton type='submit' title='Cambiar contrasenya'></RegularButton>
       </form>
+      </div>
+      
       <ReturnHome></ReturnHome>
     </>
   )

@@ -1,25 +1,6 @@
 @use '../utils/variables' as v;
 @use '../utils/mixins' as m;
 
-.App.kyoku-kanji-bg {
-    @include m.width-height(100%, 30vh);
-    position: relative;
-    z-index: 1;
-    @include m.margin-top-bottom(1em, 3em);
-
-    &::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background-image: url('../../images/kanji-kyoku.png');
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: center top;
-        opacity: 0.1;
-        z-index: 1;
-    }
-}
-
 .kihoot-title {
     position: absolute;
     top: 50%;

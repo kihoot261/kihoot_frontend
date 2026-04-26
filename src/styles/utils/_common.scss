@@ -16,7 +16,11 @@ a.regular-button-link {
 a:link,
 a:visited {
     color: black;
-    text-decoration: none;
+    text-decoration: underline;
+}
+
+a:hover {
+    color: v.$kihoot_second_grey;
 }
 
 a.regular-button-link:link,
@@ -25,18 +29,29 @@ a.regular-button-link:visited {
     text-decoration: none;
 }
 
+a.regular-button-link:hover {
+    color: v.$kihoot_gold;
+}
+
 h2 {
     padding-top: 3em;
 }
 
-input {
+input,
+textarea,
+video {
     border: 1px solid v.$kihoot_grey;
     padding: 0.7em;
     border-radius: 0.5em;
+    font-family: 'Roboto';
+    width: 100%;
 }
 
-input::placeholder {
+input::placeholder,
+textarea::placeholder,
+video::placeholder  {
     color: v.$kihoot_second_grey;
+    font-family: 'Roboto';
 }
 
 ul {
@@ -44,17 +59,26 @@ ul {
 }
 
 .main-form-container {
-    @include m.center-object();
+    @include m.center-and-vertical();
     @include m.padding-top-bottom(2em, 2em);
+    width: 100%;
 }
 
-.regular-form-container {
+%card-aspect {
     border: 1px solid v.$kihoot_grey;
     border-radius: 0.5em;
     width: fit-content;
     padding: 1em;
+}
+
+.regular-form-container {
+    @extend %card-aspect;
     @include m.center-and-vertical();
     gap: 1em;
+
+    @include m.tablet {
+        width: 60%;
+    }
 }
 
 .input-and-label-container {
@@ -63,4 +87,111 @@ ul {
     justify-content: left;
     flex-direction: column;
     width: 100%;
+}
+
+.data--green {
+    color: v.$kihoot_green;
+}
+
+.data--red {
+    color: v.$kihoot_red;
+}
+
+.data--blue {
+    color: blue;
+}
+
+.many-buttons-container {
+    @include m.center-and-vertical();
+    row-gap: 1em;
+}
+
+.screen-for-buttons-container {
+    @include m.padding-top-bottom(30%, 30%);
+
+    @include m.tablet {
+        @include m.padding-top-bottom(10%, 10%);
+    }
+}
+
+.bridge-bg {
+    @include m.bridge();
+}
+
+.kanku-bg {
+    @include m.kanku();
+}
+
+.osu-bg {
+    @include m.osu();
+}
+
+.dragon-bg {
+    @include m.dragon();
+}
+
+.kanji-kyoku-bg {
+    @include m.kanji-kyoku();
+}
+
+.mawashi-bg {
+    @include m.mawashi();
+}
+
+.tsuki-bg {
+    @include m.tsuki();
+}
+
+.title-desc-container {
+    display: grid;
+    justify-items: start;
+}
+
+.username-text {
+    padding-top: 2em;
+}
+
+.info-card-container {
+    @extend %card-aspect;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    @include m.mobile {
+        width: fit-content;
+        gap: 2em;
+    }
+}
+
+.main-cards-container {
+    @include m.center-and-vertical();
+    padding-top: 2em;
+    gap: 1em;
+
+    @include m.desktop {
+        @include m.grid-distribution(2);
+        place-items: center;
+        width: 100%;
+        @include m.padding-left-right(20%, 20%);
+    }
+}
+
+.exercice-container {
+    @extend %card-aspect;
+    padding: 2em;
+}
+
+.main-exercices-container {
+    @include m.center-and-vertical();
+    padding-top: 2em;
+    gap: 1em;
+}
+
+.desc-exercice-container {
+    @include m.center-and-vertical();
+    @include m.padding-top-bottom(2em, 2em);
+}
+
+.video-container {
+    max-height: 50%;
 }

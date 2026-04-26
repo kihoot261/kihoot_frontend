@@ -9,7 +9,7 @@ function Techniques() {
 
     return (
         <>
-            <div>
+            <div className='many-buttons-container screen-for-buttons-container mawashi-bg'>
                 <RegularButton title='Crear técnica' callback={() => navigate('/createtechnique')}></RegularButton>
                 <RegularButton title='Buscar técnicas' callback={() => navigate('/searchtechniques')}></RegularButton>
             </div>

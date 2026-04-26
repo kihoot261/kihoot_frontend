@@ -2,10 +2,13 @@ import React, { useCallback, useEffect, useState } from 'react';
 import ReturnHome from '../../components/ReturnHome';
 import { UserAuth } from '../../utils/AuthContext';
 import Loading from '../../components/Loading';
-import RegularButton from '../../components/RegularButton';
 import { confirm } from '../../components/MyDialog';
 import { useNavigate } from 'react-router';
 import TituloDescripción from '../../components/TituloDescripcion';
+import RedCornerIconButton from '../../components/RedCornerIconButton';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrashCan, faBookmark } from '@fortawesome/free-solid-svg-icons';
+import BlackCornerWhiteBgButton from '../../components/BlackCornerWhiteBgButton';
 
 function MyRoutines() {
 
@@ -52,7 +55,7 @@ function MyRoutines() {
         const result = await confirm({
             message: 'Seguro que quieres eliminar ' + title_routine + '?'
         });
-        
+
         if (result === true) {
             try {
                 await deleteRoutine(id_routine);
@@ -81,14 +84,23 @@ function MyRoutines() {
         <>
             <div>
                 <h2>Creadas por mi</h2>
-                <div>
+                <div className='main-cards-container'>
                     {
                         myRoutines.map((routine) => {
                             return (
-                                <div key={routine.id} onClick={() => navigate('/routine', { state: { id_routine: routine.id } })}>
-                                    <TituloDescripción titulo={routine.title} desc={routine.description}></TituloDescripción>
-                                    <RegularButton title='Eliminar rutina' callback={(e) => eraseRoutine(e, routine.id, routine.title)}></RegularButton>
-                                    <p>Creado por: {routine.username}</p>
+                                <div className='info-card-container' key={routine.id} onClick={() => navigate('/routine', { state: { id_routine: routine.id } })}>
+                                    <div className='title-desc-container'>
+                                        <TituloDescripción
+                                            titulo={routine.title}
+                                            desc={routine.description}>
+                                        </TituloDescripción>
+                                    </div>
+                                    <div>
+                                        <RedCornerIconButton
+                                            title={<FontAwesomeIcon icon={faTrashCan} />}
+                                            callback={(e) => eraseRoutine(e, routine.id, routine.title)}>
+                                        </RedCornerIconButton>
+                                    </div>
                                 </div>
                             )
                         })
@@ -97,13 +109,23 @@ function MyRoutines() {
             </div>
             <div>
                 <h2>Guardadas</h2>
-                <div>
+                <div className='main-cards-container'>
                     {
                         savedRoutines.map((routine) => {
                             return (
-                                <div key={routine.id} onClick={() => navigate('/routine', { state: { id_routine: routine.id } })}>
-                                    <TituloDescripción titulo={routine.title} desc={routine.description}></TituloDescripción>
-                                    <RegularButton title='Quitar de favoritos' callback={(e) => handleUnfavourite(e, routine.id)}></RegularButton>
+                                <div className='info-card-container' key={routine.id} onClick={() => navigate('/routine', { state: { id_routine: routine.id } })}>
+                                    <div className='title-desc-container'>
+                                        <TituloDescripción
+                                            titulo={routine.title}
+                                            desc={routine.description}>
+                                        </TituloDescripción>
+                                    </div>
+                                    <div>
+                                        <BlackCornerWhiteBgButton
+                                            title={<FontAwesomeIcon icon={faBookmark} />}
+                                            callback={(e) => handleUnfavourite(e, routine.id)}>
+                                        </BlackCornerWhiteBgButton>
+                                    </div>
                                 </div>
                             )
                         })

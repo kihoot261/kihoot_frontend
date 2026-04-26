@@ -2,9 +2,9 @@ import React from 'react'
 
 const TituloDescripción = ({ titulo, desc }) => {
     return (
-        <div>
-            <h3>Titulo: {titulo}</h3>
-            <p>Descripción: {desc}</p>
+        <div className='title-desc-container'>
+            <h3>{titulo}</h3>
+            <p>{desc}</p>
         </div>
 
     )

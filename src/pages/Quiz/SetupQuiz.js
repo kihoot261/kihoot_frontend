@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import ReturnHome from '../../components/ReturnHome';
 import { useNavigate } from 'react-router';
 import QuizButton from '../../components/QuizButton';
@@ -69,7 +69,6 @@ function SetupQuiz() {
     }
 
     const goToConfigureGame = () => {
-        console.log(startGame)
         if (!startGame) navigate('/quiz', { state: { kyu: kyu, time: time, mode: mode, questions: questions, order: order } });
     }
 
@@ -137,15 +136,6 @@ function SetupQuiz() {
 
     kyus.push('sho-dan', 'ni-dan');
 
-    useEffect(() => {
-        if (order && questions !== null) {
-            setVisibilityMode(false);
-            setVisibilityTime(false);
-            setVisibilityOrder(false);
-            setOrder(false);
-        }
-    }, [order, questions])
-
     return (
         <>
             <h2>
@@ -156,7 +146,7 @@ function SetupQuiz() {
 
                 <div className='grouping-sections-container'>
                     <div className='quiz-buttons-container'>
-                        <h3>
+                        <h3 className='quiz-header'>
                             Kyu
                         </h3>
                         <ul className='double-grid-container'>
@@ -168,20 +158,20 @@ function SetupQuiz() {
                 <div className='grouping-sections-container'>
                     <div className='quiz-buttons-container'
                         style={{ visibility: visibilityQuestions ? 'visible' : 'hidden' }}>
-                        <h3>
+                        <h3 className='quiz-header'>
                             Número de preguntas
                         </h3>
                         <ul className='double-grid-container'>
-                            <QuizButton title='10' disabled={chekNumQuestions(1)} callback={() => handleQuestions(10)}></QuizButton>
-                            <QuizButton title='20' disabled={chekNumQuestions(2)} callback={() => handleQuestions(20)}></QuizButton>
-                            <QuizButton title='50' disabled={chekNumQuestions(5)} callback={() => handleQuestions(50)}></QuizButton>
+                            <QuizButton title='10' disabledCondition={chekNumQuestions(1)} callback={() => handleQuestions(10)}></QuizButton>
+                            <QuizButton title='20' disabledCondition={chekNumQuestions(2)} callback={() => handleQuestions(20)}></QuizButton>
+                            <QuizButton title='50' disabledCondition={chekNumQuestions(5)} callback={() => handleQuestions(50)}></QuizButton>
                             <QuizButton title='Todas' callback={() => handleQuestions(null)}></QuizButton>
                         </ul>
                     </div>
 
                     <div className='quiz-buttons-container'
                         style={{ visibility: visibilityMode ? 'visible' : 'hidden' }}>
-                        <h3>
+                        <h3 className='quiz-header'>
                             Modo
                         </h3>
                         <ul className='double-grid-container'>
@@ -194,18 +184,18 @@ function SetupQuiz() {
                 <div className='grouping-sections-container'>
                     <div className='quiz-buttons-container'
                         style={{ visibility: visibilityOrder ? 'visible' : 'hidden' }}>
-                        <h3>
+                        <h3 className='quiz-header'>
                             Orden
                         </h3>
                         <ul className='double-grid-container'>
-                            <QuizButton title='Ordenado' callback={() => handleOrder(true)} disabled={questions !== null}></QuizButton>
+                            <QuizButton title='Ordenado' callback={() => handleOrder(true)} disabledCondition={questions !== null}></QuizButton>
                             <QuizButton title='Aleatorio' callback={() => handleOrder(false)}></QuizButton>
                         </ul>
                     </div>
 
                     <div className='quiz-buttons-container'
                         style={{ visibility: visibilityTime ? 'visible' : 'hidden' }}>
-                        <h3>
+                        <h3 className='quiz-header'>
                             Tiempo
                         </h3>
                         <ul className='double-grid-container'>

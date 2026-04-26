@@ -1,0 +1,16 @@
+@use '../utils/mixins' as m;
+
+ul.reps-series-container {
+    display: block;
+    list-style-type: disc;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    @include m.margin-top-bottom(1em, 1em);
+    margin-left: 2em;
+
+    li.reps-series-elem {
+        float: left;
+    }
+}

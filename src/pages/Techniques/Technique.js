@@ -5,12 +5,19 @@ import Loading from '../../components/Loading';
 import ReturnHome from '../../components/ReturnHome';
 import RegularButton from '../../components/RegularButton';
 import FormComment from '../../components/FormComment';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
 
 function Technique() {
     const [technique, setTechnique] = useState(null);
     const location = useLocation();
     const { id_technique } = location.state;
-    const { session, getTechniqueById, createComment, deleteComment, getUserData, getCommentsById } = UserAuth();
+    const { session,
+        getTechniqueById,
+        createComment,
+        deleteComment,
+        getUserData,
+        getCommentsById } = UserAuth();
     const [message, setMessage] = useState('');
     const [comments, setComments] = useState(null);
 
@@ -94,48 +101,55 @@ function Technique() {
     }
 
     return (
-        <>
-            <div>
-                <h1>{technique.title}</h1>
+        <div className='main-exercices-container'>
+            <h2>{technique.title}</h2>
+            <div className='desc-exercice-container'>
                 <h3>Descripción: </h3>
                 <p>{technique.description}</p>
-                <video
-                    src={technique.source}
-                    controls
-                    style={{ maxHeight: "400px" }}
-                >
-                    Your browser does not support the video tag.
-                </video>
-                <p>Creado por: {technique.username}</p>
             </div>
-            <div>
-                {
-                    session && <FormComment
-                        message={message}
-                        onMessageChange={(e) => setMessage(e.target.value)}
-                        onSubmit={sendComment}
-                        buttonName={'->'}>
-                    </FormComment>
-                }
+            <div className='technique-container'>
+                <div className='exercice-container'>
+                    <video
+                        src={technique.source}
+                        controls
+                        className="video-container"
+                    >
+                        Your browser does not support the video tag.
+                    </video>
+                    <p>Creado por: {technique.username}</p>
+                    {
+                        session && <FormComment
+                            message={message}
+                            onMessageChange={(e) => setMessage(e.target.value)}
+                            onSubmit={sendComment}
+                            buttonName={<FontAwesomeIcon icon={faAngleRight} />}>
+                        </FormComment>
+                    }
+                </div>
+                <div className='main-public-comments-container'>
+                    <h3>Comentarios</h3>
+                    <div>
+                        {
+                            comments.map((comment) => {
+                                return (
+                                    <div key={comment.id} className='comments-section'>
+                                        <h3 className='single-comment'>{comment.username}</h3>
+                                        <p className='single-comment'>{comment.message}</p>
+                                        {
+                                            checkOwner(comment.id_user) &&
+                                            <RegularButton title='Eliminar comentario' callback={(e) => eraseComment(e, comment.id)}></RegularButton>
+                                        }
+                                    </div>
+                                )
+                            })
+                        }
+                    </div>
+
+                </div>
             </div>
-            <div>
-                {
-                    comments.map((comment) => {
-                        return (
-                            <div key={comment.id}>
-                                <h3>{comment.username}</h3>
-                                <p>{comment.message}</p>
-                                {
-                                    checkOwner(comment.id_user) &&
-                                    <RegularButton title='Eliminar comentario' callback={(e) => eraseComment(e, comment.id)}></RegularButton>
-                                }
-                            </div>
-                        )
-                    })
-                }
-            </div>
+
             <ReturnHome></ReturnHome>
-        </>
+        </div>
 
     )
 }

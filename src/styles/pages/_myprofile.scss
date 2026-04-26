@@ -1,0 +1,84 @@
+@use '../utils/mixins' as m;
+@use '../utils/variables' as v;
+
+.control-my-profile-container {
+    @include m.center-and-vertical();
+}
+
+.dragon-bg-mod {
+    @include m.mobile {
+        &::before {
+            background-size: contain;
+        }
+    }
+}
+
+.my-profile-container {
+    @include m.grid-distribution(2);
+    padding-bottom: 3em;
+
+    @include m.tablet {
+        @include m.padding-left-right(10%, 10%);
+    }
+
+    @include m.desktop {
+        @include m.padding-left-right(0, 0);
+    }
+}
+
+.block-my-profile-container {
+    @include m.center-and-vertical();
+    z-index: 1;
+
+    @include m.tablet {
+        @include m.grid-distribution(2);
+        @include m.margin-left-right(20%, 20%);
+    }
+}
+
+.block-my-stats-container {
+    @include m.center-and-vertical();
+    z-index: 1;
+
+    @include m.tablet {
+        @include m.margin-left-right(10%, 10%);
+        gap: 3em;
+    }
+}
+
+.single-info-container {
+    @include m.center-and-vertical();
+    @include m.margin-left-right(50%, 50%);
+    align-items: start;
+    width: 70%;
+}
+
+.red-line-separator {
+    border: 1px solid v.$kihoot_red;
+    width: 70%;
+
+    @include m.tablet {
+        width: 100%;
+    }
+}
+
+.ratio-games-container {
+    @include m.center-and-vertical();
+    gap: 2em;
+
+    @include m.tablet {
+        @include m.grid-distribution(2);
+    }
+}
+
+.correct-incorrect-container {
+    @include m.grid-distribution(2);
+
+    @include m.tablet {
+        gap: 5em;
+    }
+}
+
+h3.myprofile-header {
+    @include m.padding-top-bottom(0.5em, 0.5em);
+}

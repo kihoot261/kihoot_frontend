@@ -1,0 +1,37 @@
+@use '../utils/mixins' as m;
+@use '../utils/variables' as v;
+
+.flashcard-container {
+    @include m.center-object();
+
+    @include m.mobile {
+        margin-top: 20%;
+    }
+
+    @include m.tablet {
+        margin-top: 10%;
+    }
+
+    @include m.desktop {
+        margin-top: 5%;
+    }
+}
+
+.flashcard-inner-container {
+    background-color: white;
+    z-index: 1;
+    @include m.center-object();
+    border-radius: 0.5em;
+    width: fit-content;
+    height: auto;
+    @include m.padding-left-right(3em, 3em);
+    @include m.padding-top-bottom(1em, 2em);
+
+    &--question {
+        border: 1px solid v.$kihoot_red;
+    }
+
+    &--answer {
+        border: 1px solid v.$kihoot_green;
+    }
+}

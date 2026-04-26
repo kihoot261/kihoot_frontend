@@ -2,6 +2,8 @@ import React from 'react'
 import { useNavigate } from 'react-router'
 import ReturnHome from '../../components/ReturnHome'
 import RegularButton from '../../components/RegularButton'
+import '../../styles/pages/_mythings.scss';
+
 
 function MyThings() {
 
@@ -10,7 +12,7 @@ function MyThings() {
     return (
         <>
             <h2>Mis cosas</h2>
-            <ul>
+            <div className='many-buttons-container screen-for-buttons-container bridge-bg'>
                 <RegularButton title='Mis rutinas' callback={() => navigate('/myroutines')}></RegularButton>
                 <RegularButton title='Mis técnicas' callback={() => navigate('/mytechniques')}></RegularButton>
                 {
@@ -21,7 +23,7 @@ function MyThings() {
                 */
                 }
 
-            </ul>
+            </div>
             <ReturnHome></ReturnHome>
         </>
     )

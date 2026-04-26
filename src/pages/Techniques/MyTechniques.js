@@ -5,7 +5,10 @@ import ReturnHome from '../../components/ReturnHome';
 import TituloDescripción from '../../components/TituloDescripcion';
 import Loading from '../../components/Loading';
 import { confirm } from '../../components/MyDialog';
-import RegularButton from '../../components/RegularButton';
+import RedCornerIconButton from '../../components/RedCornerIconButton';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrashCan, faBookmark } from '@fortawesome/free-solid-svg-icons';
+import BlackCornerWhiteBgButton from '../../components/BlackCornerWhiteBgButton';
 
 function MyTechniques() {
     const [myTechniques, setMyTechniques] = useState(null);
@@ -83,15 +86,26 @@ function MyTechniques() {
         <>
             <div>
                 <h2>Creadas por mi</h2>
-                <div>
+                <div className='main-cards-container'>
                     {
                         myTechniques.map((technique) => {
                             return (
-                                <div key={technique.id} onClick={() => navigate('/technique', { state: { id_technique: technique.id } })}>
-                                    <TituloDescripción titulo={technique.title} desc={technique.description}></TituloDescripción>
-                                    <RegularButton title='Eliminar técnica' callback={(e) => eraseTechnique(e, technique.id, technique.title, technique.path)}></RegularButton>
-                                    <p>Creado por: {technique.username}</p>
+                                <div className='info-card-container' key={technique.id} onClick={() => navigate('/technique', { state: { id_technique: technique.id } })}>
+                                    <div className='title-desc-container'>
+                                        <TituloDescripción
+                                            titulo={technique.title}
+                                            desc={technique.description}>
+                                        </TituloDescripción>
+                                        <p>{technique.username}</p>
+                                    </div>
+                                    <div>
+                                        <RedCornerIconButton
+                                            title={<FontAwesomeIcon icon={faTrashCan} />}
+                                            callback={(e) => eraseTechnique(e, technique.id, technique.title, technique.path)}>
+                                        </RedCornerIconButton>
+                                    </div>
                                 </div>
+
                             )
                         })
                     }
@@ -99,14 +113,24 @@ function MyTechniques() {
             </div>
             <div>
                 <h2>Guardadas</h2>
-                <div>
+                <div className='main-cards-container'>
                     {
                         savedTechniques.map((technique) => {
                             return (
-                                <div key={technique.id} onClick={() => navigate('/technique', { state: { id_technique: technique.id } })}>
-                                    <TituloDescripción titulo={technique.title} desc={technique.description}></TituloDescripción>
-                                    <RegularButton title='Quitar de favoritos' callback={(e) => handleUnfavourite(e, technique.id)}></RegularButton>
-                                    <p>Creado por: {technique.username}</p>
+                                <div className='info-card-container' key={technique.id} onClick={() => navigate('/technique', { state: { id_technique: technique.id } })}>
+                                    <div className='title-desc-container'>
+                                        <TituloDescripción
+                                            titulo={technique.title}
+                                            desc={technique.description}>
+                                        </TituloDescripción>
+                                    </div>
+                                    <div>
+                                        <BlackCornerWhiteBgButton
+                                            title={<FontAwesomeIcon icon={faBookmark} />}
+                                            callback={(e) => handleUnfavourite(e, technique.id)}>
+                                        </BlackCornerWhiteBgButton>
+
+                                    </div>
                                 </div>
                             )
                         })

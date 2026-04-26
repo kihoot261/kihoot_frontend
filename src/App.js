@@ -15,7 +15,7 @@ function App() {
             {
                 showOnlyOnHome ?
                     <div className='App gradient'>
-                        <div className='App kyoku-kanji-bg'>
+                        <div className='kanji-kyoku-bg'>
                             <h1 className='yuji-boku-regular kihoot-title'>Kihoot</h1>
                             <div className='header-position'>
                                 <Header></Header>

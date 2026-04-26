@@ -15,10 +15,10 @@ function Profile() {
             <h2>Acceder al perfil</h2>
             {!session ?
                 (
-                    <ul className='access-profile-container bridge-bg'>
+                    <div className='many-buttons-container screen-for-buttons-container bridge-bg'>
                         <RegularButton title='Inicia sesión' callback={() => navigate('/login')}></RegularButton>
                         <RegularButton title='Registrarse' callback={() => navigate('/register')}></RegularButton>
-                    </ul>
+                    </div>
                 ) : (
                     <Navigate to={'/myprofile'}></Navigate>
                 )

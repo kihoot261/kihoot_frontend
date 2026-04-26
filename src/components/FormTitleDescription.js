@@ -18,46 +18,49 @@ const FormTitleDescription = ({ titleValue,
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div>
-                <label htmlFor='title'>
-                    Título:
-                </label>
-                <input
-                    type="text"
-                    value={titleValue}
-                    id='title'
-                    onChange={onTitleChange}
-                    placeholder="Titulo..."
-                />
-                {
-                    <div>{validator.current.message('title', titleValue, 'required')}</div>
-                }
-            </div>
+        <div className='main-form-container'>
+            <form onSubmit={handleSubmit} className='regular-form-container'>
+                <div className='input-and-label-container'>
+                    <label htmlFor='title'>
+                        Título:
+                    </label>
+                    <input
+                        type="text"
+                        value={titleValue}
+                        id='title'
+                        onChange={onTitleChange}
+                        placeholder="Titulo..."
+                    />
+                    {
+                        <div className="data--red">{validator.current.message('title', titleValue, 'required')}</div>
+                    }
+                </div>
 
-            <div>
-                <label htmlFor='description'>
-                    Descripción:
-                </label>
-                <textarea
-                    type="text"
-                    name='description'
-                    rows={5}
-                    cols={30}
-                    value={descriptionValue}
-                    id='description'
-                    onChange={onDescriptionChange}
-                    placeholder="Descripción..."
-                />
+                <div className='input-and-label-container'>
+                    <label htmlFor='description'>
+                        Descripción:
+                    </label>
+                    <textarea
+                        type="text"
+                        name='description'
+                        rows={5}
+                        cols={30}
+                        value={descriptionValue}
+                        id='description'
+                        onChange={onDescriptionChange}
+                        placeholder="Descripción..."
+                    />
+                    {
+                        <div className="data--red">{validator.current.message('description', descriptionValue, 'required')}</div>
+                    }
+                </div>
                 {
-                    <div>{validator.current.message('description', descriptionValue, 'required')}</div>
+                    !begoneButton && (<RegularButton title={buttonName} type='submit' />)
                 }
-            </div>
-            {
-                !begoneButton && (<RegularButton title={buttonName} type='submit' />)
-            }
 
-        </form>
+            </form>
+        </div>
+
     )
 }
 

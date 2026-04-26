@@ -26,7 +26,7 @@
 
 %white-bg-general-button {
     background-color: white;
-    @include m.width-height(7rem, auto);
+    border: 1px solid black;
 }
 
 .regular-iconed {
@@ -44,6 +44,10 @@
     color: white;
 }
 
+.regular:hover {
+    color: v.$kihoot_gold;
+}
+
 .home {
     @extend %general-button, %basic-button-sizing, %iconed-button;
     color: v.$kihoot_gold;
@@ -53,13 +57,22 @@
 .quiz {
     @extend %white-bg-general-button, %basic-button-sizing;
     justify-content: center;
-    border: 1px solid black;
+    @include m.width-height(7rem, auto);
 }
 
 .kyu {
     @extend %white-bg-general-button, %basic-button-sizing;
     gap: 1em;
-    border: 1px solid black;
+    @include m.width-height(7rem, auto);
+}
+
+.save {
+    @extend %white-bg-general-button, %general-button, %basic-button-sizing;
+}
+
+.kyu:hover,
+.quiz:hover {
+    border: 2px solid black;
 }
 
 .red-corner {
@@ -67,4 +80,15 @@
     justify-content: center;
     border: 1px solid v.$kihoot_red;
     @include m.width-height(10rem, auto);
+}
+
+.red-corner:hover {
+    border: 2px solid v.$kihoot_red;
+}
+
+.red-corner-icon {
+    @extend %basic-button-sizing, %general-button, %white-bg-general-button;
+    justify-content: center;
+    border: 1px solid v.$kihoot_red;
+    color: v.$kihoot_red;
 }

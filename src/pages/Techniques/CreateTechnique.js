@@ -8,6 +8,7 @@ import FormTitleDescription from "../../components/FormTitleDescription";
 import RegularButton from "../../components/RegularButton";
 import { useNavigate } from "react-router";
 import { compressVideoRecorder } from "../../utils/methods";
+import '../../styles/pages/_createtechnique.scss'
 
 function CreateTechnique() {
     const [uploading, setUploading] = useState(false);
@@ -121,7 +122,6 @@ function CreateTechnique() {
             <h2>Subir Video Técnica</h2>
 
             <div>
-                <h3>Información de la técnica</h3>
                 <FormTitleDescription
                     titleValue={titleValue}
                     descriptionValue={descriptionValue}
@@ -134,39 +134,43 @@ function CreateTechnique() {
                     buttonName={"Sube video"}
                 />
             </div>
+            <div className="main-form-container video-positioning">
+                {titleDescDefined && (
+                    <input className="regular-form-container"
+                        type="file"
+                        accept="video/*"
+                        onChange={uploadVideo}
+                        disabled={uploading}
+                    />
+                )}
 
-            {titleDescDefined && (
-                <input
-                    type="file"
-                    accept="video/*"
-                    onChange={uploadVideo}
-                    disabled={uploading}
-                />
-            )}
+                {uploading && <Loading></Loading>}
 
-            {uploading && <Loading></Loading>}
+                {tooHeavy && <div>El archivo es demasiado grande</div>}
 
-            {tooHeavy && <div>El archivo es demasiado grande</div>}
+                {videoUrl && (
+                    <div className="regular-form-container video-spacing">
+                        <h3>Your uploaded video:</h3>
+                        <video
+                            src={videoUrl}
+                            controls
+                            className="video-container"
+                        >
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                )}
+            </div>
 
-            {videoUrl && (
-                <div>
-                    <h3>Your uploaded video:</h3>
-                    <video
-                        src={videoUrl}
-                        controls
-                        style={{ maxHeight: "400px" }}
-                    >
-                        Your browser does not support the video tag.
-                    </video>
+            <div className="exercices-main-container">
+                {
+                    !tooHeavy && <RegularButton
+                        title={"Sube técnica"}
+                        callback={saveVideo}
+                    ></RegularButton>
+                }
+            </div>
 
-                </div>
-            )}
-            {
-                !tooHeavy && <RegularButton
-                    title={"Sube técnica"}
-                    callback={saveVideo}
-                ></RegularButton>
-            }
 
             <ReturnHome></ReturnHome>
         </div>

@@ -35,13 +35,13 @@ function Results() {
         <>
             <div className='results-container kanku-bg'>
                 <h1>
-                    Porcentaje de aciertos: <span className='results--ratio'>{(corrects / total * 100).toFixed(2)}%</span>
+                    Porcentaje de aciertos: <span className='data--blue'>{(corrects / total * 100).toFixed(2)}%</span>
                 </h1>
                 <h1>
-                    Número aciertos: <span className='results--correct'>{corrects}</span>
+                    Número aciertos: <span className='data--green'>{corrects}</span>
                 </h1>
                 <h1>
-                    Número de fallos: <span className='results--incorrect'>{total - corrects}</span>
+                    Número de fallos: <span className='data--red'>{total - corrects}</span>
                 </h1>
             </div>
             <ReturnHome></ReturnHome>

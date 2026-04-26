@@ -7,6 +7,11 @@ import RegularButton from '../../components/RegularButton';
 import ReturnHome from '../../components/ReturnHome';
 import { confirm } from '../../components/MyDialog';
 import { useIsAdmin } from '../../utils/useIsAdmin';
+import '../../styles/pages/_routine.scss';
+import BlackCornerWhiteBgButton from '../../components/BlackCornerWhiteBgButton';
+import RedCornerIconButton from '../../components/RedCornerIconButton';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrashCan, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 
 function Routine() {
     const location = useLocation();
@@ -76,34 +81,49 @@ function Routine() {
 
     return (
         <>
-            <div>
-                <h1>{routine.title}</h1>
+            <h2>{routine.title}</h2>
+            <div className='desc-exercice-container'>
                 <h3>Descripción: </h3>
                 <p>{routine.description}</p>
                 {
-                    ownsRoutine && <RegularButton title='Editar rutina' callback={() => navigate('/editroutine', { state: { id_routine: routine.id } })}></RegularButton>
+                    ownsRoutine &&
+                    <BlackCornerWhiteBgButton
+                        title={<FontAwesomeIcon icon={faPenToSquare} />}
+                        callback={() => navigate('/editroutine', { state: { id_routine: routine.id } })}>
+                    </BlackCornerWhiteBgButton>
                 }
             </div>
             <div>
                 <h3>Ejercicios</h3>
-                <div>
+                <div className='main-exercices-container'>
                     {
                         exercices.map((exercice) => {
                             return (
-                                <div key={exercice.id}>
+                                <div key={exercice.id} className='exercice-container'>
                                     <TituloDescripción titulo={exercice.title} desc={exercice.description}></TituloDescripción>
-                                    <ul style={{ display: 'block', width: 'fit-content', marginLeft: '45%' }}>
-                                        <li>Repeticiones: {exercice.reps}</li>
-                                        <li>Series: {exercice.series}</li>
-                                        <li>Descanso: {exercice.rest}</li>
+                                    <ul className='reps-series-container'>
+                                        <li className='reps-series-elem'>Repeticiones: {exercice.reps}</li>
+                                        <li className='reps-series-elem'>Series: {exercice.series}</li>
+                                        <li className='reps-series-elem'>Descanso: {exercice.rest}</li>
                                     </ul>
-                                    {exercice.source && <p>Video explicativo: <a href={exercice.source}>{exercice.source}</a></p>}
-                                    {!exercice.source && <p>Video explicativo: -</p>}
+                                    {
+                                        exercice.source ?
+                                            <p>Video explicativo:
+                                                <a href={exercice.source}>{exercice.source}</a>
+                                            </p>
+                                            : <p>Video explicativo: -</p>
+                                    }
                                     {
                                         ownsRoutine &&
                                         <>
-                                            <RegularButton title='Eliminar ejercicio' callback={() => eraseExercise(exercice.id, exercice.title)}></RegularButton>
-                                            <RegularButton title='Editar ejercicio' callback={() => navigate('/editexercise', { state: { id_exercice: exercice.id, id_routine: routine.id } })}></RegularButton>
+                                            <RedCornerIconButton
+                                                title={<FontAwesomeIcon icon={faTrashCan} />}
+                                                callback={() => eraseExercise(exercice.id, exercice.title)}>
+                                            </RedCornerIconButton>
+                                            <BlackCornerWhiteBgButton
+                                                title={<FontAwesomeIcon icon={faPenToSquare} />}
+                                                callback={() => navigate('/editexercise', { state: { id_exercice: exercice.id, id_routine: routine.id } })}>
+                                            </BlackCornerWhiteBgButton>
                                         </>
 
                                     }
@@ -112,9 +132,12 @@ function Routine() {
                         })
                     }
                 </div>
-                {
-                    ownsRoutine && <RegularButton title='Añadir ejercicio' callback={() => navigate('/addsingleexercise', { state: { id_routine: id_routine } })}></RegularButton>
-                }
+                <div className="exercices-main-container">
+                    {
+                        ownsRoutine && <RegularButton title='Añadir ejercicio' callback={() => navigate('/addsingleexercise', { state: { id_routine: id_routine } })}></RegularButton>
+                    }
+                </div>
+
 
             </div>
             <ReturnHome></ReturnHome>

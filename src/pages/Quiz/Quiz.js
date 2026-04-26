@@ -80,10 +80,13 @@ function Quiz() {
 
     const displayResult = () => {
         if (!answerCorrect) {
-            return <>
-                <h3 className='game-titles--incorrect'>Incorrecto!</h3>
-                <h3>Correct answer is: {fixAnswer(quizData.questions[displayQuestion].correctAnswer)}</h3>
-            </>
+            return (
+                <>
+                    <h3 className='game-titles--incorrect'>Incorrecto!</h3>
+                    <h3>Correct answer is: {fixAnswer(quizData.questions[displayQuestion].correctAnswer)}</h3>
+                </>
+            )
+
         }
         else {
             return <h3 className='game-titles--correct'>Correcto!</h3>;

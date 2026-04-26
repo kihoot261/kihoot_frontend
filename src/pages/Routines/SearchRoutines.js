@@ -2,9 +2,11 @@ import React, { useCallback, useEffect, useState } from 'react'
 import ReturnHome from '../../components/ReturnHome'
 import { UserAuth } from '../../utils/AuthContext';
 import Loading from '../../components/Loading';
-import RegularButton from '../../components/RegularButton';
 import { useNavigate } from 'react-router';
 import TituloDescripción from '../../components/TituloDescripcion';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBookmark } from '@fortawesome/free-regular-svg-icons';
+import BlackCornerWhiteBgButton from '../../components/BlackCornerWhiteBgButton';
 
 function SearchRoutines() {
 
@@ -62,7 +64,7 @@ function SearchRoutines() {
         if (!session) {
             setShownRoutines(routines);
         }
-        if(routines.length === 0) {
+        if (routines.length === 0) {
             setShownRoutines([]);
         }
         else {
@@ -90,31 +92,38 @@ function SearchRoutines() {
     }
 
     return (
-        <>
-            <div>
-                <h2>
-                    Busca rutinas de entrenamiento
-                </h2>
-                <div>
-                    {
-                        shownRoutines.map((routine) => {
-                            return (
-                                <div key={routine.id} onClick={() => navigate('/routine', { state: { id_routine: routine.id } })}>
-                                    <TituloDescripción titulo={routine.title} desc={routine.description}></TituloDescripción>
-                                    <p>Creado por: {routine.username}</p>
+        <div>
+            <h2>
+                Busca rutinas de entrenamiento
+            </h2>
+            <div className='main-cards-container'>
+                {
+                    shownRoutines.map((routine) => {
+                        return (
+                            <div className='info-card-container' key={routine.id} onClick={() => navigate('/routine', { state: { id_routine: routine.id } })}>
+                                <div className='title-desc-container'>
+                                    <TituloDescripción
+                                        titulo={routine.title}
+                                        desc={routine.description}>
+                                    </TituloDescripción>
+                                    <p className='username-text'>{routine.username}</p>
+                                </div>
+                                <div>
                                     {
                                         session &&
-                                        <RegularButton title='Guardar rutina' callback={(e) => saveTheRoutine(e, routine.id)}></RegularButton>
+                                        <BlackCornerWhiteBgButton
+                                            title={<FontAwesomeIcon icon={faBookmark} />}
+                                            callback={(e) => saveTheRoutine(e, routine.id)}>
+                                        </BlackCornerWhiteBgButton>
                                     }
-
                                 </div>
-                            )
-                        })
-                    }
-                </div>
+                            </div>
+                        )
+                    })
+                }
             </div>
             <ReturnHome></ReturnHome>
-        </>
+        </div>
     )
 }
 

@@ -6,6 +6,7 @@ import Loading from '../../components/Loading';
 import RegularButton from '../../components/RegularButton';
 import SimpleReactValidator from 'simple-react-validator';
 import { errorMessages } from '../../utils/errorMessages';
+import '../../styles/pages/_myprofile.scss';
 
 function MyProfile() {
 
@@ -20,6 +21,16 @@ function MyProfile() {
     const validator = useRef(new SimpleReactValidator({
         messages: errorMessages
     }));
+
+    const separateEmail = (email) => {
+        const parts = email.split("@");
+        return parts;
+    }
+
+    const email = separateEmail(session?.user?.user_metadata?.email);
+
+    const part1 = email[0] + '@';
+    const part2 = email[1];
 
     const handleChangeName = (e) => {
         setNameValue(e.target.value);
@@ -159,69 +170,109 @@ function MyProfile() {
         <>
             {!editMode ?
                 (
-                    <>
-                        <div>
-                            <p>Nombre: {userData.name}</p>
-                            <p>Apellidos: {userData.surnames}</p>
-                            <p>Nombre usuario: {userData.username}</p>
-                            <p>Email: {session?.user?.user_metadata?.email}</p>
-                            <p>Partidas jugadas: {userData.games_played}</p>
-                            <p>Número aciertos: {userData.n_successes}</p>
-                            <p>Número fallos: {userData.n_failures}</p>
-                            <p>Ratio aciertos/fallos: {userData.ratio}%</p>
+                    <div className='dragon-bg dragon-bg-mod'>
+                        <div className='my-profile-container'>
+                            <div className='block-my-profile-container'>
+                                <div className='single-info-container'>
+                                    <h3 className='myprofile-header'>Nombre</h3>
+                                    <p>{userData.name}</p>
+                                    <div className='red-line-separator'></div>
+                                </div>
+                                <div className='single-info-container'>
+                                    <h3 className='myprofile-header'>Apellidos</h3>
+                                    <p>{userData.surnames}</p>
+                                    <div className='red-line-separator'></div>
+                                </div>
+                                <div className='single-info-container'>
+                                    <h3 className='myprofile-header'>Alias</h3>
+                                    <p>{userData.username}</p>
+                                    <div className='red-line-separator'></div>
+                                </div>
+                                <div className='single-info-container'>
+                                    <h3 className='myprofile-header'>Email</h3>
+                                    <p>{part1}</p>
+                                    <p>{part2}</p>
+                                </div>
+                            </div>
+                            <div className='block-my-stats-container'>
+                                <div className='ratio-games-container'>
+                                    <div>
+                                        <h1 className='data--blue'>{userData.ratio}%</h1>
+                                        <p>Ratio aciertos/fallos</p>
+                                    </div>
+                                    <div>
+                                        <h1>{userData.games_played}</h1>
+                                        <p>Partidas jugadas</p>
+                                    </div>
+                                </div>
+                                <div className='correct-incorrect-container'>
+                                    <div>
+                                        <h3 className='data--green'>{userData.n_successes}</h3>
+                                        <p>Aciertos</p>
+                                    </div>
+                                    <div>
+                                        <h3 className='data--red'>{userData.n_failures}</h3>
+                                        <p>Fallos</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div>
+                        <div className='control-my-profile-container many-buttons-container'>
                             <RegularButton title='Mis cosas' callback={() => navigate('/mythings')}></RegularButton>
                             <RegularButton title='Editar mis datos' callback={handleEditMode}></RegularButton>
                             <RegularButton title='Cerrar sessión' callback={handleSignOut}></RegularButton>
                         </div>
-                    </>
+                    </div>
                 ) : (
                     <>
-                        <form onSubmit={returnViewMode}>
-                            <div>
-                                <label for='name'>Canviar nombre: </label>
-                                <input type="text"
-                                    id='name'
-                                    value={nameValue}
-                                    onChange={handleChangeName}
-                                    placeholder="Nuevo nombre..."></input>
-                                <div>
-                                    {validator.current.message('name', nameValue, 'required')}
+                        <h2>Edita mis datos</h2>
+                        <div className='main-form-container'>
+                            <form onSubmit={returnViewMode} className='regular-form-container'>
+                                <div className='input-and-label-container'>
+                                    <label htmlFor='name'>Canviar nombre: </label>
+                                    <input type="text"
+                                        id='name'
+                                        value={nameValue}
+                                        onChange={handleChangeName}
+                                        placeholder="Nuevo nombre..."></input>
+                                    <div>
+                                        {validator.current.message('name', nameValue, 'required')}
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div>
-                                <label for='surname'>Canviar apellidos: </label>
-                                <input type="text"
-                                    id='surname'
-                                    value={surnamesValue}
-                                    onChange={handleChangeSurnames}
-                                    placeholder="Nuevo/s apellidos..."></input>
-                                <div>
-                                    {validator.current.message('surname', surnamesValue, 'required')}
+                                <div className='input-and-label-container'>
+                                    <label htmlFor='surname'>Canviar apellidos: </label>
+                                    <input type="text"
+                                        id='surname'
+                                        value={surnamesValue}
+                                        onChange={handleChangeSurnames}
+                                        placeholder="Nuevo/s apellidos..."></input>
+                                    <div>
+                                        {validator.current.message('surname', surnamesValue, 'required')}
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div>
-                                <label for='username'>Canviar nombre usuario: </label>
-                                <input type="text"
-                                    id='username'
-                                    value={usernameValue}
-                                    onChange={handleChangeUsername}
-                                    placeholder="Nuevo nombre usuario..."></input>
-                                <div>
-                                    {validator.current.message('username', usernameValue, 'required|min:5')}
+                                <div className='input-and-label-container'>
+                                    <label htmlFor='username'>Canviar nombre usuario: </label>
+                                    <input type="text"
+                                        id='username'
+                                        value={usernameValue}
+                                        onChange={handleChangeUsername}
+                                        placeholder="Nuevo nombre usuario..."></input>
+                                    <div>
+                                        {validator.current.message('username', usernameValue, 'required|min:5')}
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div>
-                                <RegularButton title='Cambia contraseña' callback={changePassword}></RegularButton>
-                                {/* <button onClick={deleteUser}>Eliminar perfil</button> */}
-                            </div>
-                            <RegularButton title='Actualiza' type='submit'></RegularButton>
-                        </form>
+                                <div>
+                                    <RegularButton title='Cambia contraseña' callback={changePassword}></RegularButton>
+                                    {/* <button onClick={deleteUser}>Eliminar perfil</button> */}
+                                </div>
+                                <RegularButton title='Actualiza' type='submit'></RegularButton>
+                            </form>
+                        </div>
                     </>
+
                 )
             }
             <ReturnHome></ReturnHome>

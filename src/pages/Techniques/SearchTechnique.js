@@ -3,8 +3,10 @@ import { useNavigate } from 'react-router';
 import { UserAuth } from '../../utils/AuthContext';
 import Loading from '../../components/Loading';
 import TituloDescripción from '../../components/TituloDescripcion';
-import RegularButton from '../../components/RegularButton';
 import ReturnHome from '../../components/ReturnHome';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBookmark } from '@fortawesome/free-regular-svg-icons';
+import BlackCornerWhiteBgButton from '../../components/BlackCornerWhiteBgButton';
 
 function SearchTechnique() {
 
@@ -95,16 +97,21 @@ function SearchTechnique() {
                 <h2>
                     Técnicas
                 </h2>
-                <div>
+                <div className='main-cards-container'>
                     {
                         shownTechniques.map((technique) => {
                             return (
-                                <div key={technique.id} onClick={() => navigate('/technique', { state: { id_technique: technique.id } })}>
-                                    <TituloDescripción titulo={technique.title} desc={technique.description}></TituloDescripción>
-                                    <p>Creado por: {technique.username}</p>
+                                <div className='info-card-container' key={technique.id} onClick={() => navigate('/technique', { state: { id_technique: technique.id } })}>
+                                    <div className='title-desc-container'>
+                                        <TituloDescripción titulo={technique.title} desc={technique.description}></TituloDescripción>
+                                        <p className='username-text'>{technique.username}</p>
+                                    </div>
                                     {
                                         session &&
-                                        <RegularButton title='Guardar técnica' callback={(e) => saveTheTechnique(e, technique.id)}></RegularButton>
+                                        <BlackCornerWhiteBgButton
+                                            title={<FontAwesomeIcon icon={faBookmark} />}
+                                            callback={(e) => saveTheTechnique(e, technique.id)}>
+                                        </BlackCornerWhiteBgButton>
                                     }
 
                                 </div>

@@ -140,7 +140,8 @@ function EditExercice() {
         if (sourceValue !== '') {
             changeSource(e);
         }
-        navigate('/routine', { state: { id_routine: id_routine } });
+        navigate('/myroutines');
+        //id_routine ? navigate('/routine', { state: { id_routine: id_routine } }) : navigate('/');
     }
 
     return (
