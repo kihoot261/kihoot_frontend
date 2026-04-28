@@ -1,5 +1,5 @@
 import React from 'react'
-import '../styles/components/_buttons.scss'
+import '../../styles/components/_buttons.scss'
 
 function QuizButton({ title, callback, disabledCondition=false }) {
     return (

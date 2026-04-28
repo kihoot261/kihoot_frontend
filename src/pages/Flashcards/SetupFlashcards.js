@@ -1,8 +1,8 @@
 import React from 'react'
-import RegularButton from '../../components/RegularButton'
 import { useNavigate } from 'react-router'
-import ReturnHome from '../../components/ReturnHome';
+import ReturnHome from '../../components/buttons/ReturnHome';
 import '../../styles/pages/_setupflashcards.scss';
+import RegularButton from '../../components/buttons/RegularButton';
 
 function SetupFlashcards() {
     const navigate = useNavigate();

@@ -1,14 +1,14 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import ReturnHome from "../../components/ReturnHome";
+import ReturnHome from "../../components/buttons/ReturnHome";
 import { v4 as uuidv4 } from "uuid";
 import { UserAuth } from "../../utils/AuthContext";
 import { useNavigate } from "react-router";
 import SimpleReactValidator from "simple-react-validator";
 import { errorMessages } from "../../utils/errorMessages";
-import RegularButton from "../../components/RegularButton";
+import RegularButton from "../../components/buttons/RegularButton";
 import Loading from "../../components/Loading";
-import FormTitleDescription from "../../components/FormTitleDescription";
-import FormExercice from "../../components/FormExercice";
+import FormTitleDescription from "../../components/forms/FormTitleDescription";
+import FormExercice from "../../components/forms/FormExercice";
 import { checkNaturals } from "../../utils/methods";
 import '../../styles/pages/_createroutine.scss'
 

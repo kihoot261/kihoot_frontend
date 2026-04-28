@@ -2,9 +2,9 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { useLocation } from 'react-router';
 import { UserAuth } from '../../utils/AuthContext';
 import Loading from '../../components/Loading';
-import ReturnHome from '../../components/ReturnHome';
-import RegularButton from '../../components/RegularButton';
-import FormComment from '../../components/FormComment';
+import ReturnHome from '../../components/buttons/ReturnHome';
+import RegularButton from '../../components/buttons/RegularButton';
+import FormComment from '../../components/forms/FormComment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
 

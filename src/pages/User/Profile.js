@@ -1,8 +1,8 @@
 import React from 'react'
-import ReturnHome from '../../components/ReturnHome';
+import ReturnHome from '../../components/buttons/ReturnHome';
 import { UserAuth } from '../../utils/AuthContext';
 import { Navigate, useNavigate } from 'react-router';
-import RegularButton from '../../components/RegularButton';
+import RegularButton from '../../components/buttons/RegularButton';
 import '../../styles/pages/_profile.scss';
 
 function Profile() {

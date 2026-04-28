@@ -1,5 +1,5 @@
 import { useState } from "react"
-import RegularButton from "./RegularButton"
+import RegularButton from "../buttons/RegularButton";
 
 const FormTitleDescription = ({ titleValue,
     descriptionValue,

@@ -3,6 +3,10 @@
 
 .exercices-main-container {
     @include m.center-and-vertical();
+
+    &--spaced {
+        margin-top: 2em;
+    }
 }
 
 .exercices-count-container {

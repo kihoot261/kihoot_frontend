@@ -14,3 +14,26 @@ ul.reps-series-container {
         float: left;
     }
 }
+
+.exercice-card-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    @include m.mobile {
+        width: fit-content;
+        gap: 2em;
+    }
+}
+
+.desc-exercice-container-editable {
+    @include m.center-object();
+    gap: 1em;
+    @include m.padding-top-bottom(2em, 2em);
+}
+
+.edit-and-delete-container {
+    gap: 1em;
+    display: flex;
+    flex-direction: column;
+}

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import RegularButton from './RegularButton';
-import '../styles/pages/_technique.scss';
+import RegularButton from '../buttons/RegularButton';
+import '../../styles/pages/_technique.scss';
 
 const FormComment = ({ message, onMessageChange, onSubmit, buttonName }) => {
 

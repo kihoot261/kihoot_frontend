@@ -1,10 +1,6 @@
 @use '../utils/mixins' as m;
 @use '../utils/variables' as v;
 
-.home-button-container {
-    @include m.center-object();
-}
-
 %basic-button-sizing {
     border-radius: 0.5em;
     padding: 0.7em;
@@ -14,8 +10,6 @@
 }
 
 %general-button {
-    background-color: black;
-    border: 1px solid v.$kihoot_gold;
     width: fit-content;
 }
 
@@ -24,14 +18,29 @@
     gap: 1em;
 }
 
+%black-bg-general-button {
+    background-color: black;
+    border: 1px solid v.$kihoot_gold;
+    color: white;
+}
+
+%bg-white-color-black {
+   background-color: white;
+   color: black; 
+}
+
 %white-bg-general-button {
-    background-color: white;
+    @extend %bg-white-color-black;
     border: 1px solid black;
 }
 
+%white-bg-general-button-red-corner {
+    @extend %bg-white-color-black;
+    border: 1px solid v.$kihoot_red;
+}
+
 .regular-iconed {
-    @extend %general-button, %basic-button-sizing, %iconed-button;
-    color: white;
+    @extend %general-button, %basic-button-sizing, %iconed-button, %black-bg-general-button;
 
     .contents-menu-button {
         @include m.center-object();
@@ -40,8 +49,7 @@
 }
 
 .regular {
-    @extend %general-button, %basic-button-sizing;
-    color: white;
+    @extend %general-button, %basic-button-sizing, %black-bg-general-button;
 }
 
 .regular:hover {
@@ -49,9 +57,13 @@
 }
 
 .home {
-    @extend %general-button, %basic-button-sizing, %iconed-button;
+    @extend %general-button, %basic-button-sizing, %iconed-button, %black-bg-general-button;
     color: v.$kihoot_gold;
     @include m.margin-top-bottom(2em, 2em);
+}
+
+.home:hover {
+    border: 2px solid v.$kihoot_gold;
 }
 
 .quiz {
@@ -71,24 +83,24 @@
 }
 
 .kyu:hover,
-.quiz:hover {
+.quiz:hover,
+.save:hover {
     border: 2px solid black;
 }
 
 .red-corner {
-    @extend %white-bg-general-button, %basic-button-sizing;
+    @extend %white-bg-general-button-red-corner, %basic-button-sizing;
     justify-content: center;
-    border: 1px solid v.$kihoot_red;
     @include m.width-height(10rem, auto);
 }
 
-.red-corner:hover {
-    border: 2px solid v.$kihoot_red;
+.red-corner-icon {
+    @extend %basic-button-sizing, %general-button, %white-bg-general-button-red-corner;
+    justify-content: center;
+    color: v.$kihoot_red;
 }
 
-.red-corner-icon {
-    @extend %basic-button-sizing, %general-button, %white-bg-general-button;
-    justify-content: center;
-    border: 1px solid v.$kihoot_red;
-    color: v.$kihoot_red;
+.red-corner:hover,
+.red-corner-icon:hover {
+    border: 2px solid v.$kihoot_red;
 }

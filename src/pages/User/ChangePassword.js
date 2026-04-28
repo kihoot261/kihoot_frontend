@@ -3,9 +3,9 @@ import { UserAuth } from '../../utils/AuthContext';
 import { supabase } from '../../api/supabase';
 import { useNavigate } from 'react-router';
 import SimpleReactValidator from 'simple-react-validator';
-import RegularButton from '../../components/RegularButton';
 import { errorMessages } from '../../utils/errorMessages';
-import ReturnHome from '../../components/ReturnHome';
+import ReturnHome from '../../components/buttons/ReturnHome';
+import RegularButton from '../../components/buttons/RegularButton';
 
 function ChangePassword() {
 

@@ -3,15 +3,15 @@ import SimpleReactValidator from 'simple-react-validator';
 import { errorMessages } from '../../utils/errorMessages';
 import { useLocation, useNavigate } from 'react-router';
 import { UserAuth } from '../../utils/AuthContext';
-import ReturnHome from '../../components/ReturnHome';
-import FormTitleDescription from '../../components/FormTitleDescription';
+import ReturnHome from '../../components/buttons/ReturnHome';
+import FormTitleDescription from '../../components/forms/FormTitleDescription';
 
 function EditRoutine() {
     const [title, setTitle] = useState('');
     const [desc, setDesc] = useState('');
     const location = useLocation();
     const { id_routine } = location.state;
-    const {changeRoutineTitle, changeRoutineDescription} = UserAuth();
+    const { changeRoutineTitle, changeRoutineDescription } = UserAuth();
     const validator = useRef(new SimpleReactValidator({
         messages: errorMessages
     }));
@@ -22,7 +22,7 @@ function EditRoutine() {
         if (validator.current.fieldValid('title')) {
             try {
                 await changeRoutineTitle(title, id_routine);
-                navigate('/routine', {state: {id_routine: id_routine}});
+                navigate('/routine', { state: { id_routine: id_routine } });
             }
             catch (error) {
                 console.error('error en changeTitle de EditRoutine.js', error);
@@ -38,7 +38,7 @@ function EditRoutine() {
         if (validator.current.fieldValid('description')) {
             try {
                 await changeRoutineDescription(desc, id_routine);
-                navigate('/routine', {state: {id_routine: id_routine}});
+                navigate('/routine', { state: { id_routine: id_routine } });
             }
             catch (error) {
                 console.error('error en changeDescription de EditRoutine.js', error);
@@ -56,19 +56,19 @@ function EditRoutine() {
         if (desc !== '') {
             changeDescription(e);
         }
-        navigate('/routine', {state: {id_routine: id_routine}});
+        navigate('/routine', { state: { id_routine: id_routine } });
     }
     return (
         <>
             <FormTitleDescription
-                    titleValue={title}
-                    descriptionValue={desc}
-                    onTitleChange={(e) => setTitle(e.target.value)}
-                    onDescriptionChange={(e) => setDesc(e.target.value)}
-                    onSubmit={returnViewMode}
-                    validator={validator}
-                    buttonName={'Actualiza'}
-                />
+                titleValue={title}
+                descriptionValue={desc}
+                onTitleChange={(e) => setTitle(e.target.value)}
+                onDescriptionChange={(e) => setDesc(e.target.value)}
+                onSubmit={returnViewMode}
+                validator={validator}
+                buttonName={'Actualiza'}
+            />
             <ReturnHome></ReturnHome>
         </>
     )

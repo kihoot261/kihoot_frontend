@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import ReturnHome from '../../components/ReturnHome';
+import ReturnHome from '../../components/buttons/ReturnHome';
 import { useNavigate } from 'react-router';
-import QuizButton from '../../components/QuizButton';
-import '../../styles/pages/_setupquiz.scss'
-import KyuButton from '../../components/KyuButton';
-import RedCornerButton from '../../components/RedCornerButton';
+import QuizButton from '../../components/buttons/QuizButton';
+import '../../styles/pages/_setupquiz.scss';
+import RedCornerButton from '../../components/buttons/RedCornerButton';
+import KyuButton from '../../components/buttons/KyuButton';
 
 function SetupQuiz() {
     const [kyu, setKyu] = useState([]);

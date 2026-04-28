@@ -1,7 +1,7 @@
-import RedCornerIconButton from "./RedCornerIconButton";
-import RegularButton from "./RegularButton";
+import RegularButton from "../buttons/RegularButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX } from "@fortawesome/free-solid-svg-icons";
+import RedCornerIconButton from "../buttons/RedCornerIconButton";
 
 const FormExercice = ({
     nameValue,

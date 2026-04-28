@@ -58,6 +58,10 @@ ul {
     list-style-type: none;
 }
 
+.home-button-container {
+    @include m.center-object();
+}
+
 .main-form-container {
     @include m.center-and-vertical();
     @include m.padding-top-bottom(2em, 2em);
@@ -75,10 +79,6 @@ ul {
     @extend %card-aspect;
     @include m.center-and-vertical();
     gap: 1em;
-
-    @include m.tablet {
-        width: 60%;
-    }
 }
 
 .input-and-label-container {

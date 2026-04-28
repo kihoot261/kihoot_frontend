@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react'
 import SimpleReactValidator from 'simple-react-validator';
 import { errorMessages } from '../../utils/errorMessages';
-import FormExercice from '../../components/FormExercice';
+import FormExercice from '../../components/forms/FormExercice';
 import { useLocation, useNavigate } from 'react-router';
 import { checkNaturals } from '../../utils/methods';
 import { UserAuth } from '../../utils/AuthContext';

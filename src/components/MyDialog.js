@@ -1,6 +1,6 @@
 import React from 'react';
 import { confirmable, createConfirmation } from 'react-confirm';
-import RegularButton from './RegularButton';
+import RegularButton from './buttons/RegularButton';
 
 const MyDialog = (props) => {
     const { proceed, message } = props;

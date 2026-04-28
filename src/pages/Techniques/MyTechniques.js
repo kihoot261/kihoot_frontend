@@ -1,14 +1,14 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router';
 import { UserAuth } from '../../utils/AuthContext';
-import ReturnHome from '../../components/ReturnHome';
+import ReturnHome from '../../components/buttons/ReturnHome';
 import TituloDescripción from '../../components/TituloDescripcion';
 import Loading from '../../components/Loading';
 import { confirm } from '../../components/MyDialog';
-import RedCornerIconButton from '../../components/RedCornerIconButton';
+import RedCornerIconButton from '../../components/buttons/RedCornerIconButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan, faBookmark } from '@fortawesome/free-solid-svg-icons';
-import BlackCornerWhiteBgButton from '../../components/BlackCornerWhiteBgButton';
+import BlackCornerWhiteBgButton from '../../components/buttons/BlackCornerWhiteBgButton';
 
 function MyTechniques() {
     const [myTechniques, setMyTechniques] = useState(null);

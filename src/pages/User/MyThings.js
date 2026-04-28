@@ -1,7 +1,7 @@
-import React from 'react'
-import { useNavigate } from 'react-router'
-import ReturnHome from '../../components/ReturnHome'
-import RegularButton from '../../components/RegularButton'
+import React from 'react';
+import { useNavigate } from 'react-router';
+import ReturnHome from '../../components/buttons/ReturnHome';
+import RegularButton from '../../components/buttons/RegularButton';
 import '../../styles/pages/_mythings.scss';
 
 

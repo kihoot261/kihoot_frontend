@@ -3,10 +3,10 @@ import { useNavigate } from 'react-router';
 import { UserAuth } from '../../utils/AuthContext';
 import Loading from '../../components/Loading';
 import TituloDescripción from '../../components/TituloDescripcion';
-import ReturnHome from '../../components/ReturnHome';
+import ReturnHome from '../../components/buttons/ReturnHome';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookmark } from '@fortawesome/free-regular-svg-icons';
-import BlackCornerWhiteBgButton from '../../components/BlackCornerWhiteBgButton';
+import BlackCornerWhiteBgButton from '../../components/buttons/BlackCornerWhiteBgButton';
 
 function SearchTechnique() {
 

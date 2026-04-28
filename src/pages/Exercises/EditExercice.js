@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import FormExercice from '../../components/FormExercice';
+import FormExercice from '../../components/forms/FormExercice';
 import SimpleReactValidator from 'simple-react-validator';
 import { errorMessages } from '../../utils/errorMessages';
 import { useLocation, useNavigate } from 'react-router';
@@ -13,7 +13,7 @@ function EditExercice() {
     const [seriesValue, setSeriesValue] = useState(-1);
     const [restValue, setRestValue] = useState(-1);
     const location = useLocation();
-    const { id_exercice, id_routine } = location.state;
+    const { id_exercice: exId /*, id_routine: routId*/ } = location.state || {};
     const validator = useRef(new SimpleReactValidator({
         messages: errorMessages
     }));
@@ -23,14 +23,18 @@ function EditExercice() {
         changeExerciseReps,
         changeExerciseSeries,
         changeExerciseRest,
-        changeExerciseSource } = UserAuth()
+        changeExerciseSource } = UserAuth();
+
+    const goBackToRoutine = () => {
+        navigate('/myroutines');
+    }
 
     const changeName = async (e) => {
         e.preventDefault();
         if (validator.current.fieldValid('name')) {
             try {
-                await changeExerciseName(nameValue, id_exercice);
-                navigate('/routine', { state: { id_routine: id_routine } });
+                await changeExerciseName(nameValue, exId);
+                goBackToRoutine();
             }
             catch (error) {
                 console.error('error en changeName de EditExercice.js', error);
@@ -45,8 +49,8 @@ function EditExercice() {
         e.preventDefault();
         if (validator.current.fieldValid('description')) {
             try {
-                await changeExerciseDescription(descriptionExerciceValue, id_exercice);
-                navigate('/routine', { state: { id_routine: id_routine } });
+                await changeExerciseDescription(descriptionExerciceValue, exId);
+                goBackToRoutine();
             }
             catch (error) {
                 console.error('error en changeDescription de EditExercice.js', error);
@@ -61,8 +65,8 @@ function EditExercice() {
         e.preventDefault();
         if (validator.current.fieldValid('reps')) {
             try {
-                await changeExerciseReps(repsValue, id_exercice);
-                navigate('/routine', { state: { id_routine: id_routine } });
+                await changeExerciseReps(repsValue, exId);
+                goBackToRoutine();
             }
             catch (error) {
                 console.error('error en changeReps de EditExercice.js', error);
@@ -77,8 +81,8 @@ function EditExercice() {
         e.preventDefault();
         if (validator.current.fieldValid('series')) {
             try {
-                await changeExerciseSeries(seriesValue, id_exercice);
-                navigate('/routine', { state: { id_routine: id_routine } });
+                await changeExerciseSeries(seriesValue, exId);
+                goBackToRoutine();
             }
             catch (error) {
                 console.error('error en changeSeries de EditExercice.js', error);
@@ -93,8 +97,8 @@ function EditExercice() {
         e.preventDefault();
         if (validator.current.fieldValid('rest')) {
             try {
-                await changeExerciseRest(restValue, id_exercice);
-                navigate('/routine', { state: { id_routine: id_routine } });
+                await changeExerciseRest(restValue, exId);
+                goBackToRoutine();
             }
             catch (error) {
                 console.error('error en changeRest de EditExercice.js', error);
@@ -109,8 +113,8 @@ function EditExercice() {
         e.preventDefault();
         if (validator.current.fieldValid('source')) {
             try {
-                await changeExerciseSource(sourceValue, id_exercice);
-                navigate('/routine', { state: { id_routine: id_routine } });
+                await changeExerciseSource(sourceValue, exId);
+                goBackToRoutine();
             }
             catch (error) {
                 console.error('error en changeSource de EditExercice.js', error);
@@ -140,8 +144,7 @@ function EditExercice() {
         if (sourceValue !== '') {
             changeSource(e);
         }
-        navigate('/myroutines');
-        //id_routine ? navigate('/routine', { state: { id_routine: id_routine } }) : navigate('/');
+        else goBackToRoutine();
     }
 
     return (

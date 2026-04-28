@@ -1,14 +1,14 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import ReturnHome from "../../components/ReturnHome";
+import ReturnHome from "../../components/buttons/ReturnHome";
 import Loading from "../../components/Loading";
 import { UserAuth } from "../../utils/AuthContext";
 import SimpleReactValidator from "simple-react-validator";
 import { errorMessages } from "../../utils/errorMessages";
-import FormTitleDescription from "../../components/FormTitleDescription";
-import RegularButton from "../../components/RegularButton";
+import FormTitleDescription from "../../components/forms/FormTitleDescription";
 import { useNavigate } from "react-router";
 import { compressVideoRecorder } from "../../utils/methods";
-import '../../styles/pages/_createtechnique.scss'
+import '../../styles/pages/_createtechnique.scss';
+import RegularButton from "../../components/buttons/RegularButton";
 
 function CreateTechnique() {
     const [uploading, setUploading] = useState(false);

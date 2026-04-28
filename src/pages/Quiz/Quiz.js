@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useConfigureGame } from '../../api/quizData';
-import ReturnHome from '../../components/ReturnHome';
+import ReturnHome from '../../components/buttons/ReturnHome';
 import Loading from '../../components/Loading';
 import { useLocation, useNavigate } from 'react-router';
-import RegularButton from '../../components/RegularButton';
 import '../../styles/pages/_quiz.scss';
-import RedCornerButton from '../../components/RedCornerButton';
+import RedCornerButton from '../../components/buttons/RedCornerButton';
+import RegularButton from '../../components/buttons/RegularButton';
 
 function Quiz() {
 

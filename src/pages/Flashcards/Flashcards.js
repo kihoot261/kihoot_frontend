@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router';
 import { useConfigureFlashcards } from '../../api/flashcardsData';
-import ReturnHome from '../../components/ReturnHome';
+import ReturnHome from '../../components/buttons/ReturnHome';
 import Loading from '../../components/Loading';
 import '../../styles/pages/_flashcards.scss';
 

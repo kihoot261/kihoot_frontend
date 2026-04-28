@@ -2,7 +2,7 @@ import React from 'react'
 import { useNavigate } from 'react-router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHouse } from '@fortawesome/free-solid-svg-icons';
-import '../styles/components/_buttons.scss'
+import '../../styles/components/_buttons.scss'
 
 const ReturnHome = () => {
 

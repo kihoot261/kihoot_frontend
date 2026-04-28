@@ -1,5 +1,5 @@
 import React from 'react'
-import ReturnHome from '../../components/ReturnHome';
+import ReturnHome from '../../components/buttons/ReturnHome';
 import '../../styles/pages/_info.scss';
 import ResourcesNavbar from '../../components/ResourcesNavbar';
 
