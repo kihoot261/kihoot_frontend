@@ -36,9 +36,29 @@ export const compressVideoRecorder = async (file) => {
     return new Blob(chunks, { type: 'video/webm' });
 };
 
+const getYearMonthDay = (today) => {
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+}
+
+export const getMinDate = () => {
+    const today = new Date();
+    return getYearMonthDay(today)
+}
+
+export const diffBetweenDates = (date1, date2) => {
+    const endDate = new Date(date1);
+    const startDate = new Date(date2);
+    return (endDate - startDate) / (1000 * 60 * 60 * 24);
+}
+
 const utils = {
     checkNaturals,
-    compressVideoRecorder
+    compressVideoRecorder,
+    getMinDate,
+    diffBetweenDates
 };
 
 export default utils;

@@ -57,7 +57,6 @@ const FormTitleDescription = ({ titleValue,
                 {
                     !begoneButton && (<RegularButton title={buttonName} type='submit' />)
                 }
-
             </form>
         </div>
 

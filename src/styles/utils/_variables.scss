@@ -9,3 +9,11 @@ $kihoot_second_grey : #979797;
 $phone: 360px;
 $tablet: 768px;
 $desktop: 1440px;
+
+:export {
+    kihoot_gold: $kihoot_gold;
+    kihoot_red: $kihoot_red;
+    kihoot_green: $kihoot_green;
+    kihoot_grey: $kihoot_grey;
+    kihoot_second_grey: $kihoot_second_grey;
+}

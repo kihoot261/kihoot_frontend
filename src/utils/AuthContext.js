@@ -1,7 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { supabase } from "../api/supabase";
 
-
 const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
@@ -11,7 +10,6 @@ export const AuthContextProvider = ({ children }) => {
 
     //register, logout and login
     const signUpUser = async (email, password, name, surnames, username) => {
-
         const { data, error } = await supabase.auth.signUp({
             email: email,
             password: password,
@@ -21,7 +19,6 @@ export const AuthContextProvider = ({ children }) => {
                 }
             }
         });
-
         if (error) {
             console.error('Error in signUpUser during signup:', error);
             return { success: false, error: error };
@@ -62,22 +59,15 @@ export const AuthContextProvider = ({ children }) => {
     };
 
     const signInUser = async (email, password) => {
-        try {
-            const { data, error } = await supabase.auth.signInWithPassword({
-                email: email,
-                password: password
-            });
-            if (error) {
-                console.error('error en signInUser de AuthContext', error);
-                return { success: false, error: error }
-            }
-            return { success: true, data }
-        }
-
-        catch (error) {
+        const { data, error } = await supabase.auth.signInWithPassword({
+            email: email,
+            password: password
+        });
+        if (error) {
             console.error('error en signInUser de AuthContext', error);
             return { success: false, error: error }
         }
+        return { success: true, data }
     }
 
     const signOutUser = () => {
@@ -123,48 +113,34 @@ export const AuthContextProvider = ({ children }) => {
     };
 
     const changeSurnamesUser = async (surnamesUser) => {
-        if (!surnamesUser || typeof surnamesUser !== 'string' || surnamesUser.trim() === '') {
-            console.error('Invalid name provided');
-            return { success: false, error: 'Name must be a non-empty string' };
+        const { error: profileError } = await supabase
+            .from('profiles')
+            .update({ surnames: surnamesUser.trim() })
+            .eq('id', session?.user.id);
+
+        if (profileError) {
+            console.error('Error updating profile:', profileError);
+            return { success: false, error: profileError };
         }
 
         else {
-            const { error: profileError } = await supabase
-                .from('profiles')
-                .update({ surnames: surnamesUser.trim() })
-                .eq('id', session?.user.id);
-
-            if (profileError) {
-                console.error('Error updating profile:', profileError);
-                return { success: false, error: profileError };
-            }
-
-            else {
-                return { success: true };
-            }
+            return { success: true };
         }
     }
 
     const changeUsernameUser = async (usernameUser) => {
-        if (!usernameUser || typeof usernameUser !== 'string' || usernameUser.trim() === '') {
-            console.error('Invalid name provided');
-            return { success: false, error: 'Name must be a non-empty string' };
+        const { error: profileError } = await supabase
+            .from('profiles')
+            .update({ username: usernameUser.trim() })
+            .eq('id', session?.user.id);
+
+        if (profileError) {
+            console.error('Error updating profile:', profileError);
+            return { success: false, error: profileError };
         }
 
         else {
-            const { error: profileError } = await supabase
-                .from('profiles')
-                .update({ username: usernameUser.trim() })
-                .eq('id', session?.user.id);
-
-            if (profileError) {
-                console.error('Error updating profile:', profileError);
-                return { success: false, error: profileError };
-            }
-
-            else {
-                return { success: true };
-            }
+            return { success: true };
         }
     }
 
@@ -251,41 +227,30 @@ export const AuthContextProvider = ({ children }) => {
     }
 
     const searchRoutines = async () => {
-        try {
-            const { data: routines, error: routinesError } = await supabase
-                .from('trainings')
-                .select('*')
-            if (routinesError) {
-                console.error('Error in searchRoutines during routine search:', routinesError);
-                return { success: false, error: routinesError };
-            }
-            else {
-                return { success: true, data: routines }
-            }
+        const { data: routines, error: routinesError } = await supabase
+            .from('trainings')
+            .select('*')
+        if (routinesError) {
+            console.error('Error in searchRoutines during routine search:', routinesError);
+            return { success: false, error: routinesError };
         }
-        catch (error) {
-            console.error('Error searching routines in AuthContext:', error);
-            return { success: false, error };
+        else {
+            return { success: true, data: routines }
+
         }
     }
 
     const getMyRoutines = async () => {
-        try {
-            const { data: routines, error: routinesError } = await supabase
-                .from('trainings')
-                .select('*')
-                .eq('id_user', session?.user.id)
-            if (routinesError) {
-                console.error('Error in getMyRoutines during routine search in AuthContext:', routinesError);
-                return { success: false, error: routinesError };
-            }
-            else {
-                return { success: true, data: routines }
-            }
+        const { data: routines, error: routinesError } = await supabase
+            .from('trainings')
+            .select('*')
+            .eq('id_user', session?.user.id)
+        if (routinesError) {
+            console.error('Error in getMyRoutines during routine search in AuthContext:', routinesError);
+            return { success: false, error: routinesError };
         }
-        catch (error) {
-            console.error('Error getMyRoutines in AuthContext:', error);
-            return { success: false, error };
+        else {
+            return { success: true, data: routines }
         }
     }
 
@@ -345,91 +310,64 @@ export const AuthContextProvider = ({ children }) => {
     }
 
     const saveRoutine = async (id_routine) => {
-        try {
-            const { error: routineError } = await supabase
-                .from('saved_trainings')
-                .insert(
-                    {
-                        id_user: session?.user.id,
-                        id_training: id_routine
-                    }
-                )
-                .select()
-            if (routineError) {
-                console.error('Error in saveRoutine during routine save:', routineError);
-                return { success: false, error: routineError };
-            }
-            else {
-                return { success: true };
-            }
+        const { error: routineError } = await supabase
+            .from('saved_trainings')
+            .insert(
+                {
+                    id_user: session?.user.id,
+                    id_training: id_routine
+                }
+            )
+            .select()
+        if (routineError) {
+            console.error('Error in saveRoutine during routine save:', routineError);
+            return { success: false, error: routineError };
         }
-
-        catch (error) {
-            console.error('Error saving routine in AuthContext:', error);
-            return { success: false, error };
+        else {
+            return { success: true };
         }
     }
 
     const unsaveRoutine = async (id_routine) => {
-        try {
-            const { error: routineError } = await supabase
-                .from('saved_trainings')
-                .delete()
-                .eq('id_training', id_routine)
-                .eq('id_user', session?.user.id)
-            if (routineError) {
-                console.error('Error in unsaveRoutine during routine unfavourite:', routineError);
-                return { success: false, error: routineError };
-            }
-            else {
-                return { success: true };
-            }
+        const { error: routineError } = await supabase
+            .from('saved_trainings')
+            .delete()
+            .eq('id_training', id_routine)
+            .eq('id_user', session?.user.id)
+        if (routineError) {
+            console.error('Error in unsaveRoutine during routine unfavourite:', routineError);
+            return { success: false, error: routineError };
         }
-
-        catch (error) {
-            console.error('Error saving routine in AuthContext:', error);
-            return { success: false, error };
+        else {
+            return { success: true };
         }
     }
 
     const deleteRoutine = async (id_routine) => {
-        try {
-            const { error: routineError } = await supabase
-                .from('trainings')
-                .delete()
-                .eq('id', id_routine)
-            if (routineError) {
-                console.error('Error in delete during routine deletion:', routineError);
-                return { success: false, error: routineError };
-            }
-            else {
-                return { success: true };
-            }
+        const { error: routineError } = await supabase
+            .from('trainings')
+            .delete()
+            .eq('id', id_routine)
+        if (routineError) {
+            console.error('Error in delete during routine deletion:', routineError);
+            return { success: false, error: routineError };
         }
-
-        catch (error) {
-            console.error('Error deleting routine in AuthContext:', error);
-            return { success: false, error };
+        else {
+            return { success: true };
         }
     }
 
     const getRoutineById = async (id_routine) => {
-        try {
-            const { data: routine, error: routinesError } = await supabase
-                .from('trainings')
-                .select('*')
-                .eq('id', id_routine)
-            if (routinesError) {
-                console.error('Error in getRoutineById during routine search in AuthContext:', routinesError);
-                return { success: false, error: routinesError };
-            }
-            else {
-                return { success: true, data: routine }
-            }
+        const { data: routine, error: routinesError } = await supabase
+            .from('trainings')
+            .select('*')
+            .eq('id', id_routine)
+        if (routinesError) {
+            console.error('Error in getRoutineById during routine search in AuthContext:', routinesError);
+            return { success: false, error: routinesError };
         }
-        catch (error) {
-            console.error('Error getRoutineById in AuthContext:', error);
-            return { success: false, error };
+        else {
+            return { success: true, data: routine }
         }
     }
 
@@ -469,22 +407,16 @@ export const AuthContextProvider = ({ children }) => {
 
     //exercises
     const getExercicesFromRoutineById = async (id_routine) => {
-        try {
-            const { data: exercices, error: exercicesError } = await supabase
-                .from('training_exercises')
-                .select('*')
-                .eq('id_training', id_routine)
-            if (exercicesError) {
-                console.error('Error in getExercicesFromRoutineById during routine search in AuthContext:', exercicesError);
-                return { success: false, error: exercicesError };
-            }
-            else {
-                return { success: true, data: exercices }
-            }
+        const { data: exercices, error: exercicesError } = await supabase
+            .from('training_exercises')
+            .select('*')
+            .eq('id_training', id_routine)
+        if (exercicesError) {
+            console.error('Error in getExercicesFromRoutineById during routine search in AuthContext:', exercicesError);
+            return { success: false, error: exercicesError };
         }
-        catch (error) {
-            console.error('Error getExercicesFromRoutineById in AuthContext:', error);
-            return { success: false, error };
+        else {
+            return { success: true, data: exercices }
         }
     }
 
@@ -585,23 +517,16 @@ export const AuthContextProvider = ({ children }) => {
     }
 
     const deleteExercise = async (id_exercice) => {
-        try {
-            const { error: exerciceError } = await supabase
-                .from('training_exercises')
-                .delete()
-                .eq('id', id_exercice)
-            if (exerciceError) {
-                console.error('Error in delete during exercise deletion:', exerciceError);
-                return { success: false, error: exerciceError };
-            }
-            else {
-                return { success: true };
-            }
+        const { error: exerciceError } = await supabase
+            .from('training_exercises')
+            .delete()
+            .eq('id', id_exercice)
+        if (exerciceError) {
+            console.error('Error in delete during exercise deletion:', exerciceError);
+            return { success: false, error: exerciceError };
         }
-
-        catch (error) {
-            console.error('Error deleting routine in AuthContext:', error);
-            return { success: false, error };
+        else {
+            return { success: true };
         }
     }
 
@@ -675,21 +600,15 @@ export const AuthContextProvider = ({ children }) => {
     }
 
     const searchTechniques = async () => {
-        try {
-            const { data: techniques, error: techniquesError } = await supabase
-                .from('techniques')
-                .select('*')
-            if (techniquesError) {
-                console.error('Error in searchedTechniques during techniques search:', techniquesError);
-                return { success: false, error: techniquesError };
-            }
-            else {
-                return { success: true, data: techniques }
-            }
+        const { data: techniques, error: techniquesError } = await supabase
+            .from('techniques')
+            .select('*')
+        if (techniquesError) {
+            console.error('Error in searchedTechniques during techniques search:', techniquesError);
+            return { success: false, error: techniquesError };
         }
-        catch (error) {
-            console.error('Error searching techniques in AuthContext:', error);
-            return { success: false, error };
+        else {
+            return { success: true, data: techniques }
         }
     }
 
@@ -726,90 +645,65 @@ export const AuthContextProvider = ({ children }) => {
     }
 
     const saveTechnique = async (id_technique) => {
-        try {
-            const { error: techniquesError } = await supabase
-                .from('saved_techniques')
-                .insert(
-                    {
-                        id_user: session?.user.id,
-                        id_technique: id_technique
-                    }
-                )
-                .select()
-            if (techniquesError) {
-                console.error('Error in saveTechnique during technique save:', techniquesError);
-                return { success: false, error: techniquesError };
-            }
-            else {
-                return { success: true };
-            }
+        const { error: techniquesError } = await supabase
+            .from('saved_techniques')
+            .insert(
+                {
+                    id_user: session?.user.id,
+                    id_technique: id_technique
+                }
+            )
+            .select()
+        if (techniquesError) {
+            console.error('Error in saveTechnique during technique save:', techniquesError);
+            return { success: false, error: techniquesError };
+        }
+        else {
+            return { success: true };
         }
 
-        catch (error) {
-            console.error('Error saving technique in AuthContext:', error);
-            return { success: false, error };
-        }
     }
 
     const unsaveTechnique = async (id_technique) => {
-        try {
-            const { error: techniquesError } = await supabase
-                .from('saved_techniques')
-                .delete()
-                .eq('id_technique', id_technique)
-                .eq('id_user', session?.user.id)
-            if (techniquesError) {
-                console.error('Error in unsaveTechnique during technique unfavourite:', techniquesError);
-                return { success: false, error: techniquesError };
-            }
-            else {
-                return { success: true };
-            }
+        const { error: techniquesError } = await supabase
+            .from('saved_techniques')
+            .delete()
+            .eq('id_technique', id_technique)
+            .eq('id_user', session?.user.id)
+        if (techniquesError) {
+            console.error('Error in unsaveTechnique during technique unfavourite:', techniquesError);
+            return { success: false, error: techniquesError };
         }
-
-        catch (error) {
-            console.error('Error saving technique in AuthContext:', error);
-            return { success: false, error };
+        else {
+            return { success: true };
         }
     }
 
     const getTechniqueById = async (id_technique) => {
-        try {
-            const { data: technique, error: techniquesError } = await supabase
-                .from('techniques')
-                .select('*')
-                .eq('id', id_technique)
-            if (techniquesError) {
-                console.error('Error in getTechniqueById during technique search in AuthContext:', techniquesError);
-                return { success: false, error: techniquesError };
-            }
-            else {
-                return { success: true, data: technique }
-            }
+        const { data: technique, error: techniquesError } = await supabase
+            .from('techniques')
+            .select('*')
+            .eq('id', id_technique)
+        if (techniquesError) {
+            console.error('Error in getTechniqueById during technique search in AuthContext:', techniquesError);
+            return { success: false, error: techniquesError };
         }
-        catch (error) {
-            console.error('Error getTechniqueById in AuthContext:', error);
-            return { success: false, error };
+        else {
+            return { success: true, data: technique }
         }
     }
 
     const getMyTechniques = async () => {
-        try {
-            const { data: techniques, error: techniquesError } = await supabase
-                .from('techniques')
-                .select('*')
-                .eq('id_user', session?.user.id)
-            if (techniquesError) {
-                console.error('Error in getMyTechniques during technique search in AuthContext:', techniquesError);
-                return { success: false, error: techniquesError };
-            }
-            else {
-                return { success: true, data: techniques }
-            }
+        const { data: techniques, error: techniquesError } = await supabase
+            .from('techniques')
+            .select('*')
+            .eq('id_user', session?.user.id)
+        if (techniquesError) {
+            console.error('Error in getMyTechniques during technique search in AuthContext:', techniquesError);
+            return { success: false, error: techniquesError };
         }
-        catch (error) {
-            console.error('Error getMyTechniques in AuthContext:', error);
-            return { success: false, error };
+        else {
+            return { success: true, data: techniques }
         }
     }
 
@@ -828,71 +722,48 @@ export const AuthContextProvider = ({ children }) => {
     }
 
     const deleteVideo = async (filePath) => {
-        try {
-            const { error } = await supabase.storage
-                .from('Katas')
-                .remove([filePath])
-            if (error) {
-                console.error('Error in deleteTechnique during video deletion:', error);
-                return { success: false, error: error };
-            }
-            else {
-                return { success: true }
-            }
-
+        const { error } = await supabase.storage
+            .from('Katas')
+            .remove([filePath])
+        if (error) {
+            console.error('Error in deleteTechnique during video deletion:', error);
+            return { success: false, error: error };
         }
-
-        catch (error) {
-            console.error('Error deleting technique in AuthContext:', error);
-            return { success: false, error };
+        else {
+            return { success: true }
         }
     }
 
     const createComment = async (id_technique, message, username) => {
-        try {
-            const { error: commentError } = await supabase
-                .from('comments')
-                .insert(
-                    {
-                        id_user: session?.user.id,
-                        id_technique: id_technique,
-                        message: message,
-                        username: username
-                    }
-                )
-                .select()
-            if (commentError) {
-                console.error('Error in saveTechnique during technique save:', commentError);
-                return { success: false, error: commentError };
-            }
-            else {
-                return { success: true };
-            }
+        const { error: commentError } = await supabase
+            .from('comments')
+            .insert({
+                id_user: session?.user.id,
+                id_technique: id_technique,
+                message: message,
+                username: username
+            })
+            .select()
+        if (commentError) {
+            console.error('Error in createComment during comment creation:', commentError);
+            return { success: false, error: commentError };
         }
-
-        catch (error) {
-            console.error('Error saving technique in AuthContext:', error);
-            return { success: false, error };
+        else {
+            return { success: true };
         }
     }
 
     const getCommentsById = async (id_technique) => {
-        try {
-            const { data: comments, error: commentError } = await supabase
-                .from('comments')
-                .select('*')
-                .eq('id_technique', id_technique)
-            if (commentError) {
-                console.error('Error in getCommentsById during comments search in AuthContext:', commentError);
-                return { success: false, error: commentError };
-            }
-            else {
-                return { success: true, data: comments }
-            }
+        const { data: comments, error: commentError } = await supabase
+            .from('comments')
+            .select('*')
+            .eq('id_technique', id_technique)
+        if (commentError) {
+            console.error('Error in getCommentsById during comments search in AuthContext:', commentError);
+            return { success: false, error: commentError };
         }
-        catch (error) {
-            console.error('Error getTechniqueById in AuthContext:', error);
-            return { success: false, error };
+        else {
+            return { success: true, data: comments }
         }
     }
 
@@ -908,6 +779,122 @@ export const AuthContextProvider = ({ children }) => {
         else {
             return { success: true }
         }
+    }
+
+
+
+    //diaries
+    const createDiary = async (title, description, metricToCount, targetReps, dateEnd) => {
+        const diaryData = {
+            id_user: session?.user.id,
+            title: title,
+            description: description || null,
+            metric_to_count: metricToCount,
+            completed: false,
+            target_reps: targetReps
+        };
+        diaryData.date_end = dateEnd;
+        diaryData.date_start = new Date();
+        const { errorDiary } = await supabase
+            .from('diaries')
+            .insert(diaryData)
+        if (errorDiary) {
+            console.error('Error in createDiary during insert:', errorDiary);
+            return { success: false, error: errorDiary };
+        }
+        else {
+            return { success: true };
+        }
+    }
+
+    const getMyDiaries = async () => {
+        const { data: diaries, error: diariesError } = await supabase
+            .from('diaries')
+            .select('*')
+            .eq('id_user', session?.user.id)
+        if (diariesError) {
+            console.error('Error in getMyDiaries during technique search in AuthContext:', diariesError);
+            return { success: false, error: diariesError };
+        }
+        else {
+            return { success: true, data: diaries }
+        }
+    }
+
+    const deleteDiary = async (id_diary) => {
+        const { error: diaryError } = await supabase
+            .from('diaries')
+            .delete()
+            .eq('id', id_diary)
+        if (diaryError) {
+            console.error('Error in deleteDiary during diary deletion:', diaryError);
+            return { success: false, error: diaryError };
+        }
+        else {
+            return { success: true };
+        }
+    }
+
+    const getDiaryById = async (id_diary) => {
+        const { data: diary, error: diaryError } = await supabase
+            .from('diaries')
+            .select('*')
+            .eq('id', id_diary)
+        if (diaryError) {
+            console.error('Error in getDiaryById during diary search in AuthContext:', diaryError);
+            return { success: false, error: diaryError };
+        }
+        else {
+            return { success: true, data: diary }
+        }
+    }
+
+    const getDiaryEntries = async (id_diary) => {
+        const { data: entries, error: entriesError } = await supabase
+            .from('diary_entries')
+            .select('*')
+            .eq('diary_id', id_diary)
+        if (entriesError) {
+            console.error('Error in getDiaryEntries during entries search in AuthContext:', entriesError);
+            return { success: false, error: entriesError };
+        }
+        else {
+            return { success: true, data: entries }
+        }
+    }
+
+    const insertDiaryProgress = async (id_diary, reps, note, date) => {
+        const { errorDiary } = await supabase
+            .from('diary_entries')
+            .insert({
+                diary_id: id_diary,
+                date: date,
+                reps: reps,
+                note: note
+            })
+        if (errorDiary) {
+            console.error('Error in insertDiaryProgress during insert:', errorDiary);
+            return { success: false, error: errorDiary };
+        }
+        else {
+            return { success: true };
+        }
+    }
+
+    const closeDiary = async (id_diary) => {
+        const { error: diariesError } = await supabase
+                .from('diaries')
+                .update({ completed: true })
+                .eq('id', id_diary);
+
+            if (diariesError) {
+                console.error('Error updating diary completeness:', diariesError);
+                return { success: false, error: diariesError };
+            }
+
+            else {
+                return { success: true };
+            }
     }
 
     useEffect(() => {
@@ -964,7 +951,14 @@ export const AuthContextProvider = ({ children }) => {
             unsaveTechnique,
             createComment,
             getCommentsById,
-            deleteComment
+            deleteComment,
+            createDiary,
+            getMyDiaries,
+            deleteDiary,
+            getDiaryById,
+            getDiaryEntries,
+            insertDiaryProgress,
+            closeDiary
         }}>
             {children}
         </AuthContext.Provider>

@@ -49,7 +49,7 @@ video {
 
 input::placeholder,
 textarea::placeholder,
-video::placeholder  {
+video::placeholder {
     color: v.$kihoot_second_grey;
     font-family: 'Roboto';
 }
@@ -194,4 +194,39 @@ ul {
 
 .video-container {
     max-height: 50%;
+}
+
+.diary-container {
+    @extend %card-aspect;
+    gap: 1em;
+
+    @include m.mobile {
+        @include m.center-and-vertical();
+    }
+
+    @include m.tablet {
+        flex-direction: row;
+    }
+}
+
+.confirm-deletion-container {
+    @include m.center-object();
+    gap: 2em;
+}
+
+.deletion-text {
+    margin-bottom: 1em;
+}
+
+.deletion-screen {
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    position: fixed;
+    background: white;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    z-index: 999;
 }

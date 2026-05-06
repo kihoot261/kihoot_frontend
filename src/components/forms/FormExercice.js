@@ -133,7 +133,7 @@ const FormExercice = ({
                             <h3>Ejercicios guardados ({exercises.length})</h3>
                             {
                                 exercises.map(exercise => (
-                                    <div className="single-exercices-container">
+                                    <div className="single-exercices-container" key={exercise.id}>
                                         <p key={exercise.id} className="exercice-name">
                                             {exercise.title}
                                         </p>

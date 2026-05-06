@@ -15,11 +15,11 @@ function MyThings() {
             <div className='many-buttons-container screen-for-buttons-container bridge-bg'>
                 <RegularButton title='Mis rutinas' callback={() => navigate('/myroutines')}></RegularButton>
                 <RegularButton title='Mis técnicas' callback={() => navigate('/mytechniques')}></RegularButton>
+                <RegularButton title='Mis diarios' callback={() => navigate('/diaries')}></RegularButton>
                 {
             
                     /*
                     <RegularButton title='Mis eventos'></RegularButton>
-                    <RegularButton title='Mis diarios'></RegularButton>
                 */
                 }
 

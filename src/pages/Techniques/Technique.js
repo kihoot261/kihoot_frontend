@@ -92,7 +92,7 @@ function Technique() {
             fetchTechnique();
         }
         if (!comments) {
-            fetchComments()
+            fetchComments();
         }
     }, [session, technique, comments, fetchComments, fetchTechnique])
 

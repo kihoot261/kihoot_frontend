@@ -87,7 +87,7 @@ function CreateRoutine() {
                 Array.from(exercises),
             );
         } catch (error) {
-            console.error("error en changeSurnames de MyProfile.js", error);
+            console.error("error en saveRoutine de CreateRoutine.js", error);
         }
         navigate("/routines");
     };

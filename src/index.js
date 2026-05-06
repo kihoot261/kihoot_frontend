@@ -9,7 +9,6 @@ import SetupQuiz from './pages/Quiz/SetupQuiz';
 import Results from './pages/Quiz/Results'
 import Login from './pages/User/Login';
 import Register from './pages/User/Register';
-import RedirectAuthenticated from './components/RedirectAuthenticated';
 import MyProfile from './pages/User/MyProfile';
 import ChangePassword from './pages/User/ChangePassword';
 import { Navigate } from 'react-router';
@@ -30,6 +29,12 @@ import Technique from './pages/Techniques/Technique';
 import MyTechniques from './pages/Techniques/MyTechniques';
 import Flashcards from './pages/Flashcards/Flashcards';
 import SetupFlashcards from './pages/Flashcards/SetupFlashcards';
+import CreateDiary from './pages/Diaries/CreateDiary';
+import MyDiaries from './pages/Diaries/MyDiaries';
+import Diaries from './pages/Diaries/Diaries';
+import RedirectAuthenticated from './utils/RedirectAuthenticated';
+import Diary from './pages/Diaries/Diary';
+import DiaryEntry from './pages/Diaries/DiaryEntry';
 
 const router = createBrowserRouter([
     {
@@ -114,6 +119,21 @@ const router = createBrowserRouter([
             },
             {
                 path: 'flashcards', element: <Flashcards></Flashcards>
+            },
+            {
+                path: 'creatediary', element: <RedirectAuthenticated><CreateDiary></CreateDiary></RedirectAuthenticated>
+            },
+            {
+                path: 'mydiaries', element: <RedirectAuthenticated><MyDiaries></MyDiaries></RedirectAuthenticated>
+            },
+            {
+                path: 'diaries', element: <RedirectAuthenticated><Diaries></Diaries></RedirectAuthenticated>
+            },
+            {
+                path: 'diary', element: <RedirectAuthenticated><Diary></Diary></RedirectAuthenticated>
+            },
+            {
+                path: 'diaryentry', element: <RedirectAuthenticated><DiaryEntry></DiaryEntry></RedirectAuthenticated>
             },
             {
                 path: "*", element: <Navigate to="/" replace />

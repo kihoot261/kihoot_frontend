@@ -1,6 +1,6 @@
 import React from 'react'
 import { UserAuth } from '../utils/AuthContext'
-import Loading from './Loading';
+import Loading from '../components/Loading';
 import { Navigate } from 'react-router';
 
 const RedirectAuthenticated = ({ children }) => {
