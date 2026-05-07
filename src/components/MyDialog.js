@@ -1,7 +1,7 @@
 import React from 'react';
 import { confirmable, createConfirmation } from 'react-confirm';
 import RegularButton from './buttons/RegularButton';
-import RedCornerIconButton from './buttons/RedCornerIconButton';
+import RedCornerFlexButton from './buttons/RedCornerFlexButton';
 
 const MyDialog = (props) => {
     const { proceed, message } = props;
@@ -11,7 +11,7 @@ const MyDialog = (props) => {
             <div>
                 <p className='deletion-text'>{message}</p>
                 <div className='confirm-deletion-container'>
-                    <RedCornerIconButton title='Si' callback={() => proceed(true)}></RedCornerIconButton>
+                    <RedCornerFlexButton title='Si' callback={() => proceed(true)}></RedCornerFlexButton>
                     <RegularButton title='No' callback={() => proceed(false)}></RegularButton>
                 </div>
 

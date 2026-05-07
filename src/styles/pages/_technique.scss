@@ -1,4 +1,5 @@
 @use '../utils/mixins' as m;
+@use '../utils/variables' as v;
 
 .main-comment-container {
     display: grid;
@@ -13,6 +14,18 @@
 
 .main-public-comments-container {
     margin-top: 2em;
+    @include m.center-and-vertical();
+}
+
+.comments-section-main-container {
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid v.$kihoot_grey;
+    border-radius: 0.5em;
+    width: fit-content;
+    padding: 1em;
+    gap: 1em;
+    @include m.margin-top-bottom(1em, 1em);
 }
 
 .comments-section {
@@ -23,5 +36,9 @@
 }
 
 .single-comment {
+    max-width: fit-content;
     float: left;
+    white-space: pre-wrap;
+    width: fit-content;
+    text-align: left;
 }

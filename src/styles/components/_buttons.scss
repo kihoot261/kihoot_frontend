@@ -39,6 +39,11 @@
     border: 1px solid v.$kihoot_red;
 }
 
+%red-button {
+    @extend %white-bg-general-button-red-corner, %basic-button-sizing;
+    justify-content: center;
+}
+
 .regular-iconed {
     @extend %general-button, %basic-button-sizing, %iconed-button, %black-bg-general-button;
 
@@ -89,14 +94,17 @@
 }
 
 .red-corner {
-    @extend %white-bg-general-button-red-corner, %basic-button-sizing;
-    justify-content: center;
+    @extend %red-button;
     @include m.width-height(10rem, auto);
 }
 
+.red-corner-flex {
+    @extend %red-button;
+    @include m.width-height(fit-content, auto);
+}
+
 .red-corner-icon {
-    @extend %basic-button-sizing, %general-button, %white-bg-general-button-red-corner;
-    justify-content: center;
+    @extend %general-button, %red-button;
     color: v.$kihoot_red;
 }
 

@@ -64,7 +64,7 @@ function Register() {
             <div className='main-form-container'>
                 <form onSubmit={handleRegister} className='regular-form-container'>
                     <div className='input-and-label-container'>
-                        <label for='email'>Email: </label>
+                        <label htmlFor='email'>Email: </label>
                         <input type="text"
                             value={emailValue}
                             onChange={handleEmail}
@@ -77,7 +77,7 @@ function Register() {
                     </div>
 
                     <div className='input-and-label-container'>
-                        <label for='password'>Contraseña: </label>
+                        <label htmlFor='password'>Contraseña: </label>
                         <input type="password"
                             value={passwordValue}
                             onChange={handlePassword}
@@ -90,7 +90,7 @@ function Register() {
                     </div>
 
                     <div className='input-and-label-container'>
-                        <label for='name'>Nombre: </label>
+                        <label htmlFor='name'>Nombre: </label>
                         <input type="text"
                             value={nameValue}
                             onChange={handleName}
@@ -103,7 +103,7 @@ function Register() {
                     </div>
 
                     <div className='input-and-label-container'>
-                        <label for='surname'>Apellido/s: </label>
+                        <label htmlFor='surname'>Apellido/s: </label>
                         <input type="text"
                             value={surnameValue}
                             onChange={handleSurname}
@@ -116,7 +116,7 @@ function Register() {
                     </div>
 
                     <div className='input-and-label-container'>
-                        <label for='username'>Nombre de usuario: </label>
+                        <label htmlFor='username'>Nombre de usuario: </label>
                         <input type="text"
                             value={usernameValue}
                             id='username'

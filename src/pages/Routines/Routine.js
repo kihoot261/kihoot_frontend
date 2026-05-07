@@ -12,6 +12,7 @@ import BlackCornerWhiteBgButton from '../../components/buttons/BlackCornerWhiteB
 import RedCornerIconButton from '../../components/buttons/RedCornerIconButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+import RedCornerFlexButton from '../../components/buttons/RedCornerFlexButton';
 
 function Routine() { // podriamos cambiarlo a usar params, como en los botones
     const location = useLocation();
@@ -19,7 +20,8 @@ function Routine() { // podriamos cambiarlo a usar params, como en los botones
     const { session,
         getRoutineById,
         getExercicesFromRoutineById,
-        deleteExercise } = UserAuth();
+        deleteExercise,
+        deleteRoutine } = UserAuth();
     const [routine, setRoutine] = useState(null);
     const [exercices, setExercices] = useState(null);
     const [ownsRoutine, setOwnsRoutine] = useState(false);
@@ -64,6 +66,23 @@ function Routine() { // podriamos cambiarlo a usar params, como en los botones
         }
     }
 
+    const eraseRoutine = async (e, id_routine, title_routine) => {
+        e.preventDefault();
+        const result = await confirm({
+            message: 'Seguro que quieres eliminar ' + title_routine + '?'
+        });
+
+        if (result === true) {
+            try {
+                await deleteRoutine(id_routine);
+                navigate('/');
+            }
+            catch (error) {
+                console.error('error en eraseExercise de MyRoutines.js', error);
+            }
+        }
+    }
+
     useEffect(() => {
         if (session === undefined || id_routine === null) {
             return;
@@ -77,7 +96,6 @@ function Routine() { // podriamos cambiarlo a usar params, como en los botones
     }, [fetchRoutine, fetchExercises, exercices, session, routine, id_routine]);
 
     if (routine === null || exercices === null) {
-        console.log('admin: ', isAdmin)
         return <Loading></Loading>
     }
 
@@ -91,7 +109,7 @@ function Routine() { // podriamos cambiarlo a usar params, como en los botones
                 </div>
                 <div>
                     {
-                        ownsRoutine &&
+                        (ownsRoutine || isAdmin) &&
                         <BlackCornerWhiteBgButton
                             title={<FontAwesomeIcon icon={faPenToSquare} />}
                             callback={() => navigate('/editroutine', { state: { id_routine: routine.id } })}>
@@ -127,7 +145,7 @@ function Routine() { // podriamos cambiarlo a usar params, como en los botones
                                         </ul>
                                         <div>
                                             {
-                                                ownsRoutine &&
+                                                (ownsRoutine || isAdmin) &&
                                                 <div className='edit-and-delete-container'>
                                                     <RedCornerIconButton
                                                         title={<FontAwesomeIcon icon={faTrashCan} />}
@@ -149,11 +167,15 @@ function Routine() { // podriamos cambiarlo a usar params, como en los botones
                 </div>
                 <div className="exercices-main-container exercices-main-container--spaced">
                     {
-                        ownsRoutine && <RegularButton title='Añadir ejercicio' callback={() => navigate('/addsingleexercise', { state: { id_routine: id_routine } })}></RegularButton>
+                        (ownsRoutine || isAdmin) &&
+                        (
+                            <div className='main-exercices-container'>
+                                <RegularButton title='Añadir ejercicio' callback={() => navigate('/addsingleexercise', { state: { id_routine: id_routine } })}></RegularButton>
+                                <RedCornerFlexButton title='Eliminar rutina' callback={(e) => eraseRoutine(e, routine.id, routine.title)}></RedCornerFlexButton>
+                            </div>
+                        )
                     }
                 </div>
-
-
             </div>
             <ReturnHome></ReturnHome>
         </>

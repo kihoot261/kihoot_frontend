@@ -1,12 +1,16 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { useLocation } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import { UserAuth } from '../../utils/AuthContext';
 import Loading from '../../components/Loading';
 import ReturnHome from '../../components/buttons/ReturnHome';
-import RegularButton from '../../components/buttons/RegularButton';
 import FormComment from '../../components/forms/FormComment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import { useIsAdmin } from '../../utils/useIsAdmin';
+import { confirm } from '../../components/MyDialog';
+import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import RedCornerIconButton from '../../components/buttons/RedCornerIconButton';
+import RedCornerFlexButton from '../../components/buttons/RedCornerFlexButton';
 
 function Technique() {
     const [technique, setTechnique] = useState(null);
@@ -17,9 +21,13 @@ function Technique() {
         createComment,
         deleteComment,
         getUserData,
-        getCommentsById } = UserAuth();
+        getCommentsById,
+        deleteVideo,
+        deleteTechnique } = UserAuth();
     const [message, setMessage] = useState('');
     const [comments, setComments] = useState(null);
+    const isAdmin = useIsAdmin();
+    const navigate = useNavigate();
 
     const fetchTechnique = useCallback(async () => {
         try {
@@ -80,6 +88,26 @@ function Technique() {
         }
     }
 
+    const eraseTechnique = async (e, id_technique, title_technique, path_technique) => {
+        e.preventDefault();
+        const result = await confirm({
+            message: 'Seguro que quieres eliminar ' + title_technique + '?'
+        });
+
+        if (result === true) {
+            try {
+                const deletedVideo = await deleteVideo(path_technique);
+                if (deletedVideo) {
+                    await deleteTechnique(id_technique);
+                }
+                navigate('/');
+            }
+            catch (error) {
+                console.error('error en eraseTechnique de MyTechniques.js', error);
+            }
+        }
+    }
+
     const checkOwner = (id) => {
         return session?.user.id === id;
     }
@@ -132,19 +160,32 @@ function Technique() {
                         {
                             comments.map((comment) => {
                                 return (
-                                    <div key={comment.id} className='comments-section'>
-                                        <h3 className='single-comment'>{comment.username}</h3>
+                                    <div key={comment.id} className='comments-section-main-container'>
+                                        <div className='comments-section'>
+                                            <h3 className='single-comment'>{comment.username}</h3>
                                         <p className='single-comment'>{comment.message}</p>
+                                        </div>
+                                        
                                         {
-                                            checkOwner(comment.id_user) &&
-                                            <RegularButton title='Eliminar comentario' callback={(e) => eraseComment(e, comment.id)}></RegularButton>
+                                            (checkOwner(comment.id_user) || isAdmin) &&
+                                            <div>
+                                                <RedCornerIconButton
+                                                    title={<FontAwesomeIcon icon={faTrashCan} />}
+                                                    callback={(e) => eraseComment(e, comment.id)}>
+                                                </RedCornerIconButton>
+                                            </div>
                                         }
                                     </div>
                                 )
                             })
                         }
                     </div>
-
+                    <div className='home-button-container'>
+                        <RedCornerFlexButton
+                            title='Eliminar técnica'
+                            callback={(e) => eraseTechnique(e, technique.id, technique.title, technique.path)}>
+                        </RedCornerFlexButton>
+                    </div>
                 </div>
             </div>
 
