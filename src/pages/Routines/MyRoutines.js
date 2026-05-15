@@ -46,7 +46,7 @@ function MyRoutines() {
         e.preventDefault();
         try {
             await unsaveRoutine(id_routine);
-            navigate('/');
+            navigate('/mythings');
         }
         catch (error) {
             console.error('error en handleUnfavourite de MyRoutines.js', error);
@@ -62,10 +62,10 @@ function MyRoutines() {
         if (result === true) {
             try {
                 await deleteRoutine(id_routine);
-                navigate('/');
+                navigate('/mythings');
             }
             catch (error) {
-                console.error('error en eraseExercise de MyRoutines.js', error);
+                console.error('error en eraseRoutine de MyRoutines.js', error);
             }
         }
     }

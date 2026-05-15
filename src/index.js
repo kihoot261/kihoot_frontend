@@ -35,6 +35,11 @@ import Diaries from './pages/Diaries/Diaries';
 import RedirectAuthenticated from './utils/RedirectAuthenticated';
 import Diary from './pages/Diaries/Diary';
 import DiaryEntry from './pages/Diaries/DiaryEntry';
+import Events from './pages/Events/Events';
+import CreateEvent from './pages/Events/CreateEvent';
+import SearchEvents from './pages/Events/SearchEvents';
+import MyEvents from './pages/Events/MyEvents';
+import Event from './pages/Events/Event';
 
 const router = createBrowserRouter([
     {
@@ -134,6 +139,22 @@ const router = createBrowserRouter([
             },
             {
                 path: 'diaryentry', element: <RedirectAuthenticated><DiaryEntry></DiaryEntry></RedirectAuthenticated>
+            },
+            {
+                path: 'events', element: <Events></Events>
+            },
+            {
+                path: 'createevent', element: <RedirectAuthenticated><CreateEvent></CreateEvent></RedirectAuthenticated>
+            },
+            {
+                path: 'searchevents', element: <SearchEvents></SearchEvents>
+            },
+
+            {
+                path: 'myevents', element: <RedirectAuthenticated><MyEvents></MyEvents></RedirectAuthenticated>
+            },
+            {
+                path: 'event', element: <Event></Event>
             },
             {
                 path: "*", element: <Navigate to="/" replace />

@@ -1,0 +1,72 @@
+@use '../utils/mixins' as m;
+@use '../utils/variables' as v;
+
+.event-container {
+    text-align: left;
+    @include m.padding-left-right(10%, 10%);
+    column-gap: 2em;
+    position: relative;
+    width: 100%;
+    height: auto;
+    z-index: 0;
+}
+
+.event-field-and-icon {
+    display: flex;
+    gap: 0.5em;
+    position: relative;
+    z-index: 0;
+    @include m.padding-top-bottom(0.2em, 0.2em);
+}
+
+.event-subinfo-container {
+    padding-bottom: 1em;
+}
+
+.event-info-container {
+    padding-bottom: 2em;
+    text-align: left;
+
+    @include m.tablet {
+        @include m.grid-distribution(2);
+        row-gap: 1em;
+        place-items: center;
+        place-content: center;
+        @include m.margin-left-right(10%, 10%);
+    }
+}
+
+.participant-list-container {
+    border: 1px solid v.$kihoot_grey;
+    border-radius: 1em;
+    width: fit-content;
+    @include m.padding-left-right(0.5em, 0.5em);
+    @include m.padding-top-bottom(0.5em, 0.5em);
+    @include m.margin-left-right(auto, auto);
+    text-align: left;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 10;
+    transform: translate(-50%, -50%);
+    background-color: white;
+
+    .participants-list {
+        @include m.padding-left-right(10%, 10%);
+        list-style-type: disc;
+        margin: 0.5em;
+    }
+
+    .asistentes-title {
+        margin-top: 0.5em;
+    }
+
+    .title-and-quitbutton {
+        @include m.center-object();
+        gap: 1em;
+    }
+}
+
+.events-buttons {
+    margin-bottom: 1em;
+}

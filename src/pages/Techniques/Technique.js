@@ -163,9 +163,8 @@ function Technique() {
                                     <div key={comment.id} className='comments-section-main-container'>
                                         <div className='comments-section'>
                                             <h3 className='single-comment'>{comment.username}</h3>
-                                        <p className='single-comment'>{comment.message}</p>
+                                            <p className='single-comment'>{comment.message}</p>
                                         </div>
-                                        
                                         {
                                             (checkOwner(comment.id_user) || isAdmin) &&
                                             <div>

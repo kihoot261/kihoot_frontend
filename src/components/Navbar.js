@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import '../styles/components/_navbar.scss';
 import '../styles/utils/_common.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleInfo, faFileLines, faDumbbell, faHandFist, faCircleUser } from '@fortawesome/free-solid-svg-icons';
+import { faCircleInfo, faFileLines, faDumbbell, faHandFist, faCircleUser, faCalendar } from '@fortawesome/free-solid-svg-icons';
 
 const Navbar = () => {
     return (
@@ -25,6 +25,12 @@ const Navbar = () => {
                     <Link to="/routines" className= 'regular-button-link contents-menu-button'>
                         <FontAwesomeIcon className="fa-lg" icon={faDumbbell} />
                         <p>Rutinas de entrenamiento</p>
+                    </Link>
+                </li>
+                <li className='regular-iconed'>
+                    <Link to="/events" className= 'regular-button-link contents-menu-button'>
+                        <FontAwesomeIcon className="fa-lg" icon={faCalendar} />
+                        <p>Eventos</p>
                     </Link>
                 </li>
                 <li className='regular-iconed'>

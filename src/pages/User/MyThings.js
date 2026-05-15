@@ -16,13 +16,7 @@ function MyThings() {
                 <RegularButton title='Mis rutinas' callback={() => navigate('/myroutines')}></RegularButton>
                 <RegularButton title='Mis técnicas' callback={() => navigate('/mytechniques')}></RegularButton>
                 <RegularButton title='Mis diarios' callback={() => navigate('/diaries')}></RegularButton>
-                {
-            
-                    /*
-                    <RegularButton title='Mis eventos'></RegularButton>
-                */
-                }
-
+                <RegularButton title='Mis eventos' callback={() => navigate('/myevents')}></RegularButton>
             </div>
             <ReturnHome></ReturnHome>
         </>

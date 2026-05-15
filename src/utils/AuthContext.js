@@ -236,7 +236,6 @@ export const AuthContextProvider = ({ children }) => {
         }
         else {
             return { success: true, data: routines }
-
         }
     }
 
@@ -312,12 +311,10 @@ export const AuthContextProvider = ({ children }) => {
     const saveRoutine = async (id_routine) => {
         const { error: routineError } = await supabase
             .from('saved_trainings')
-            .insert(
-                {
-                    id_user: session?.user.id,
-                    id_training: id_routine
-                }
-            )
+            .insert({
+                id_user: session?.user.id,
+                id_training: id_routine
+            })
             .select()
         if (routineError) {
             console.error('Error in saveRoutine during routine save:', routineError);
@@ -883,18 +880,178 @@ export const AuthContextProvider = ({ children }) => {
 
     const closeDiary = async (id_diary) => {
         const { error: diariesError } = await supabase
-                .from('diaries')
-                .update({ completed: true })
-                .eq('id', id_diary);
+            .from('diaries')
+            .update({ completed: true })
+            .eq('id', id_diary);
 
-            if (diariesError) {
-                console.error('Error updating diary completeness:', diariesError);
-                return { success: false, error: diariesError };
+        if (diariesError) {
+            console.error('Error updating diary completeness:', diariesError);
+            return { success: false, error: diariesError };
+        }
+
+        else {
+            return { success: true };
+        }
+    }
+
+
+
+    //events
+    const createEvent = async (title, description, dateStart, dateEnd, timeStart, timeEnd) => {
+        const { data: event, error: errorEvent } = await supabase
+            .from('events')
+            .insert({
+                id_user: session?.user.id,
+                title: title,
+                description: description,
+                date_start: dateStart,
+                date_end: dateEnd,
+                time_start: timeStart,
+                time_end: timeEnd
+            })
+            .select()
+        if (errorEvent) {
+            console.error('Error in createEvent during insert:', errorEvent);
+            return { success: false, error: errorEvent };
+        }
+        else {
+            return { success: true, data: event };
+        }
+    }
+
+    const addParticipant = async (id_event, id_user, username, creator = false) => {
+        const { errorEvent } = await supabase
+            .from('participants')
+            .insert({
+                id_user: id_user,
+                id_event: id_event,
+                username: username,
+                creator: creator
+            })
+        if (errorEvent) {
+            console.error('Error in createEvent during insert:', errorEvent);
+            return { success: false, error: errorEvent };
+        }
+        else {
+            return { success: true };
+        }
+    }
+
+    const searchEvents = async () => {
+        const { data: events, error: eventsErrors } = await supabase
+            .from('events')
+            .select('*')
+        if (eventsErrors) {
+            console.error('Error in searchEvent during event search:', eventsErrors);
+            return { success: false, error: eventsErrors };
+        }
+        else {
+            return { success: true, data: events }
+        }
+    }
+
+    const getSavedEvents = async () => {
+        try {
+            const { data: events, error: eventsErrors } = await supabase
+                .from('participants')
+                .select('*')
+                .eq('id_user', session?.user.id)
+                .eq('creator', false)
+            if (eventsErrors) {
+                console.error('Error in getSavedEvents during routine search in AuthContext:', eventsErrors);
+                return { success: false, error: eventsErrors };
             }
-
             else {
-                return { success: true };
+                let array_ids = [];
+                for (const e of events) {
+                    array_ids.push(e.id_event)
+                }
+                const { data, error } = await supabase
+                    .from('events')
+                    .select('*')
+                    .in('id', array_ids);
+                if (error) {
+                    console.error('Error fetching saved events in AuthContext:', error);
+                    return null;
+                }
+                return { success: true, data: data }
             }
+        }
+        catch (error) {
+            console.error('Error getSavedEvents in AuthContext:', error);
+            return { success: false, error };
+        }
+    }
+
+    const getEventById = async (id_event) => {
+        const { data: event, error: eventError } = await supabase
+            .from('events')
+            .select('*')
+            .eq('id', id_event)
+        if (eventError) {
+            console.error('Error in getEventById during event search in AuthContext:', eventError);
+            return { success: false, error: eventError };
+        }
+        else {
+            return { success: true, data: event }
+        }
+    }
+
+    const getParticipantsById = async (id_event) => {
+        const { data: events, error: eventError } = await supabase
+            .from('participants')
+            .select('*')
+            .eq('id_event', id_event)
+        if (eventError) {
+            console.error('Error in getParticipantsById during participant search in AuthContext:', eventError);
+            return { success: false, error: eventError };
+        }
+        else {
+            return { success: true, data: events }
+        }
+    }
+
+    const deleteParticipant = async(id_event) => {
+        const { error: eventError } = await supabase
+            .from('participants')
+            .delete('*')
+            .eq('id_event', id_event)
+            .eq('id_user', session?.user.id)
+        if (eventError) {
+            console.error('Error in deleteParticipant during participant delete in AuthContext:', eventError);
+            return { success: false, error: eventError };
+        }
+        else {
+            return { success: true }
+        }
+    }
+
+    const deleteEvent = async(id_event) => {
+        const { error: eventError } = await supabase
+            .from('events')
+            .delete('*')
+            .eq('id', id_event)
+        if (eventError) {
+            console.error('Error in deleteEvent during event delete in AuthContext:', eventError);
+            return { success: false, error: eventError };
+        }
+        else {
+            return { success: true }
+        }
+    }
+
+    const getMyEvents = async() => {
+        const { data: events, error: eventError } = await supabase
+            .from('events')
+            .select('*')
+            .eq('id_user', session?.user.id)
+        if (eventError) {
+            console.error('Error in getMyEvents during event search in AuthContext:', eventError);
+            return { success: false, error: eventError };
+        }
+        else {
+            return { success: true, data: events }
+        }
     }
 
     useEffect(() => {
@@ -958,7 +1115,16 @@ export const AuthContextProvider = ({ children }) => {
             getDiaryById,
             getDiaryEntries,
             insertDiaryProgress,
-            closeDiary
+            closeDiary,
+            createEvent,
+            addParticipant,
+            searchEvents,
+            getSavedEvents,
+            getEventById,
+            getParticipantsById,
+            deleteParticipant,
+            deleteEvent,
+            getMyEvents
         }}>
             {children}
         </AuthContext.Provider>
