@@ -1,6 +1,7 @@
 @use '../utils/mixins' as m;
 @use '../utils/variables' as v;
 
+//quiz
 .score-ingame-container {
     @include m.grid-distribution(3);
 }
@@ -53,4 +54,54 @@
 .write-quiz-answer-container{
     @include m.center-and-vertical();
     gap: 1em;
+}
+
+//setupquiz
+.main-quizsetup-container {
+    @include m.center-and-vertical();
+
+    @include m.desktop {
+        @include m.grid-distribution(3);
+        grid-auto-rows: 1fr;
+        gap: 5em;
+        @include m.padding-left-right(30%, 30%);
+    }
+
+    .grouping-sections-container {
+        @include m.center-and-vertical();
+
+        .quiz-buttons-container {
+            @include m.center-and-vertical();
+            z-index: 1;
+        }
+    }
+}
+
+.double-grid-container {
+    @include m.grid-distribution(2);
+    gap: 1em;
+    @include m.padding-left-right(30%, 30%);
+}
+
+h3.quiz-header {
+    @include m.padding-top-bottom(1em, 1em);
+}
+
+.startgame-container {
+    @include m.center-object();
+}
+
+//results
+.results-container {
+    row-gap: 5em;
+    @include m.grid-distribution(1);
+    @include m.padding-top-bottom(30%, 30%);
+
+    @include m.tablet {
+        @include m.padding-top-bottom(10%, 10%);
+    }
+}
+
+.kanku-bg {
+    @include m.kanku();
 }

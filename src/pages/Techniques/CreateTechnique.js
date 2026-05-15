@@ -7,7 +7,7 @@ import { errorMessages } from "../../utils/errorMessages";
 import FormTitleDescription from "../../components/forms/FormTitleDescription";
 import { useNavigate } from "react-router";
 import { compressVideoRecorder } from "../../utils/methods";
-import '../../styles/pages/_createtechnique.scss';
+import '../../styles/pages/_techniques.scss';
 import RegularButton from "../../components/buttons/RegularButton";
 
 function CreateTechnique() {

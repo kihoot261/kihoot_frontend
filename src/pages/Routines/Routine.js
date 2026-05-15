@@ -7,7 +7,7 @@ import RegularButton from '../../components/buttons/RegularButton';
 import ReturnHome from '../../components/buttons/ReturnHome';
 import { confirm } from '../../components/MyDialog';
 import { useIsAdmin } from '../../utils/useIsAdmin';
-import '../../styles/pages/_routine.scss';
+import '../../styles/pages/_routines.scss';
 import BlackCornerWhiteBgButton from '../../components/buttons/BlackCornerWhiteBgButton';
 import RedCornerIconButton from '../../components/buttons/RedCornerIconButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

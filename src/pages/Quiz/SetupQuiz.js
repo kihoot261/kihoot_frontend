@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import ReturnHome from '../../components/buttons/ReturnHome';
 import { useNavigate } from 'react-router';
 import QuizButton from '../../components/buttons/QuizButton';
-import '../../styles/pages/_setupquiz.scss';
+import '../../styles/pages/_quiz.scss';
 import RedCornerButton from '../../components/buttons/RedCornerButton';
 import KyuButton from '../../components/buttons/KyuButton';
 

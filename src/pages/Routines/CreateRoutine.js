@@ -10,7 +10,7 @@ import Loading from "../../components/Loading";
 import FormTitleDescription from "../../components/forms/FormTitleDescription";
 import FormExercice from "../../components/forms/FormExercice";
 import { checkNaturals } from "../../utils/methods";
-import '../../styles/pages/_createroutine.scss'
+import '../../styles/pages/_routines.scss'
 
 function CreateRoutine() {
     const emptyExercice = {

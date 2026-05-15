@@ -6,7 +6,7 @@ import Loading from '../../components/Loading';
 import RegularButton from '../../components/buttons/RegularButton';
 import SimpleReactValidator from 'simple-react-validator';
 import { errorMessages } from '../../utils/errorMessages';
-import '../../styles/pages/_myprofile.scss';
+import '../../styles/pages/_profile.scss';
 
 function MyProfile() {
 

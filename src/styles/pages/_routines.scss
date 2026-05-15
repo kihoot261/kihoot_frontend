@@ -1,5 +1,8 @@
 @use '../utils/mixins' as m;
+@use '../utils/variables' as v;
 
+
+//routines
 ul.reps-series-container {
     display: block;
     list-style-type: disc;
@@ -36,4 +39,27 @@ ul.reps-series-container {
     gap: 1em;
     display: flex;
     flex-direction: column;
+}
+
+
+//createroutine
+.exercices-main-container {
+    @include m.center-and-vertical();
+
+    &--spaced {
+        margin-top: 2em;
+    }
+}
+
+.exercices-count-container {
+    margin-top: 1em;
+}
+
+.single-exercices-container {
+    @include m.grid-distribution(2);
+    padding-bottom: 0.5em;
+}
+
+.exercice-name {
+    @include m.center-object();
 }

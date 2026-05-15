@@ -4,7 +4,7 @@ import { useLocation } from 'react-router';
 import { UserAuth } from '../../utils/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Loading from '../../components/Loading';
-import '../../styles/pages/_event.scss';
+import '../../styles/pages/_events.scss';
 import { faCalendar, faClock, faUser, faUserGroup, faX } from '@fortawesome/free-solid-svg-icons';
 import ReturnHome from '../../components/buttons/ReturnHome';
 import RedCornerButton from '../../components/buttons/RedCornerButton';

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import ReturnHome from '../../components/buttons/ReturnHome';
 import { useLocation } from 'react-router';
 import { UserAuth } from '../../utils/AuthContext';
-import '../../styles/pages/_results.scss'
+import '../../styles/pages/_quiz.scss'
 
 function Results() {
 

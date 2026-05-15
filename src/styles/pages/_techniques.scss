@@ -1,6 +1,7 @@
 @use '../utils/mixins' as m;
 @use '../utils/variables' as v;
 
+//technique
 .main-comment-container {
     display: grid;
     grid-template-columns: 90% 10%;
@@ -41,4 +42,13 @@
     white-space: pre-wrap;
     width: fit-content;
     text-align: left;
+}
+
+//createtechnique
+.video-positioning {
+    @include m.padding-top-bottom(0, 2em);
+}
+
+.video-spacing {
+    @include m.margin-top-bottom(2em, 0);
 }
