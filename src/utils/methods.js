@@ -1,3 +1,5 @@
+import { breadcrumbs } from "./breadcrumbsHierarchy";
+
 export const checkNaturals = (nat) => {
     const num = parseInt(nat);
     return num >= 0 ? nat : 0;
@@ -54,11 +56,16 @@ export const diffBetweenDates = (date1, date2) => {
     return (endDate - startDate) / (1000 * 60 * 60 * 24);
 }
 
+export const getBreadcrumb = (path) => {
+    return path in breadcrumbs ? breadcrumbs[path] : '';
+}
+
 const utils = {
     checkNaturals,
     compressVideoRecorder,
     getMinDate,
-    diffBetweenDates
+    diffBetweenDates,
+    getBreadcrumb
 };
 
 export default utils;

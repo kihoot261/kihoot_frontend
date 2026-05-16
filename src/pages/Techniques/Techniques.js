@@ -1,6 +1,5 @@
 import React from 'react'
 import { useNavigate } from 'react-router';
-import ReturnHome from '../../components/buttons/ReturnHome';
 import RegularButton from '../../components/buttons/RegularButton';
 
 function Techniques() {
@@ -13,7 +12,6 @@ function Techniques() {
                 <RegularButton title='Crear técnica' callback={() => navigate('/createtechnique')}></RegularButton>
                 <RegularButton title='Buscar técnicas' callback={() => navigate('/searchtechniques')}></RegularButton>
             </div>
-            <ReturnHome></ReturnHome>
         </>
     )
 }

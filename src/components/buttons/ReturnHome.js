@@ -9,7 +9,7 @@ const ReturnHome = () => {
     const navigate = useNavigate();
 
     return (
-        <div className='home-button-container'>
+        <div>
             <button className='home' onClick={() => navigate('/')}>
                 <FontAwesomeIcon icon={faHouse} className="fa-lg" />
                 <p>Home</p>

@@ -3,7 +3,6 @@ import SimpleReactValidator from 'simple-react-validator';
 import { errorMessages } from '../../utils/errorMessages';
 import { useLocation, useNavigate } from 'react-router';
 import { UserAuth } from '../../utils/AuthContext';
-import ReturnHome from '../../components/buttons/ReturnHome';
 import FormTitleDescription from '../../components/forms/FormTitleDescription';
 
 function EditRoutine() {
@@ -69,7 +68,6 @@ function EditRoutine() {
                 validator={validator}
                 buttonName={'Actualiza'}
             />
-            <ReturnHome></ReturnHome>
         </>
     )
 }

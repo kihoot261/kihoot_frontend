@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react'
-import ReturnHome from '../../components/buttons/ReturnHome';
 import { UserAuth } from '../../utils/AuthContext';
 import { useNavigate } from 'react-router';
 import Loading from '../../components/Loading';
@@ -275,7 +274,6 @@ function MyProfile() {
 
                 )
             }
-            <ReturnHome></ReturnHome>
         </>
     )
 }

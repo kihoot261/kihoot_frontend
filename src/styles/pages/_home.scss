@@ -14,9 +14,13 @@
     pointer-events: none;
 }
 
-.App.gradient {
-    background: linear-gradient(to bottom, white 45%, v.$kihoot_gold 200%);
+.App {
     min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    background: linear-gradient(to bottom, white 45%, v.$kihoot_gold 200%);
 }
 
 .header-position {

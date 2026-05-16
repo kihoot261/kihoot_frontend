@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import ReturnHome from '../../components/buttons/ReturnHome';
 import { useLocation } from 'react-router';
 import { UserAuth } from '../../utils/AuthContext';
 import '../../styles/pages/_quiz.scss'
@@ -44,7 +43,6 @@ function Results() {
                     Número de fallos: <span className='data--red'>{total - corrects}</span>
                 </h1>
             </div>
-            <ReturnHome></ReturnHome>
         </>
     )
 }

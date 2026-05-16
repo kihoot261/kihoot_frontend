@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import BlackCornerWhiteBgButton from '../../components/buttons/BlackCornerWhiteBgButton';
 import { faTrashCan, faBookmark } from '@fortawesome/free-solid-svg-icons';
 import Loading from '../../components/Loading';
-import ReturnHome from '../../components/buttons/ReturnHome';
 import { useNavigate } from 'react-router';
 import { confirm } from '../../components/MyDialog';
 import RedCornerIconButton from '../../components/buttons/RedCornerIconButton';
@@ -134,7 +133,6 @@ function MyEvents() {
                     }
                 </div>
             </div>
-            <ReturnHome></ReturnHome>
         </>
     )
 }

@@ -1,14 +1,13 @@
 import React from 'react'
-import ReturnHome from '../../components/buttons/ReturnHome';
 import '../../styles/pages/_info.scss';
 import ResourcesNavbar from '../../components/ResourcesNavbar';
 
 function Info() {
 
     return (
-        <div className='App gradient'>
+        <div>
             <div className='kanji-kyoku-bg'>
-                <h2 className='main-h2-title'>Info</h2>
+                <h2 className='main-h2-title'>Recursos</h2>
             </div>
             <div>
                 <ResourcesNavbar></ResourcesNavbar>
@@ -18,9 +17,7 @@ function Info() {
                         Puedes enviarme un email a: <a href='mailto:kihoot261@gmail.com'>kihoot261@gmail.com</a> en caso de tener una sugerencia o ver un error
                     </p>
                 </div>
-                <ReturnHome></ReturnHome>
             </div>
-
         </div>
     )
 }

@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import ReturnHome from '../../components/buttons/ReturnHome';
 import { useNavigate } from 'react-router';
 import QuizButton from '../../components/buttons/QuizButton';
 import '../../styles/pages/_quiz.scss';
@@ -212,7 +211,6 @@ function SetupQuiz() {
                     <RedCornerButton title='Comienza la partida' callback={() => goToConfigureGame()}></RedCornerButton>
                 }
             </div>
-            <ReturnHome></ReturnHome>
         </>
     )
 }

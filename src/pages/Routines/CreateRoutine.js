@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import ReturnHome from "../../components/buttons/ReturnHome";
 import { v4 as uuidv4 } from "uuid";
 import { UserAuth } from "../../utils/AuthContext";
 import { useNavigate } from "react-router";
@@ -171,8 +170,6 @@ function CreateRoutine() {
                     </div>
                 </div>
             )}
-
-            <ReturnHome></ReturnHome>
         </div>
     );
 }

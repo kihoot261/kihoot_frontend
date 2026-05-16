@@ -4,7 +4,6 @@ import Loading from '../../components/Loading';
 import { useLocation, useNavigate } from 'react-router';
 import { diffBetweenDates, getMinDate } from '../../utils/methods';
 import BarChart from '../../components/BarChart';
-import ReturnHome from '../../components/buttons/ReturnHome';
 import RegularButton from '../../components/buttons/RegularButton';
 
 function Diary() {
@@ -138,7 +137,6 @@ function Diary() {
                 )
 
             }
-            <ReturnHome></ReturnHome>
         </div>
     )
 }

@@ -4,7 +4,6 @@ import { supabase } from '../../api/supabase';
 import { useNavigate } from 'react-router';
 import SimpleReactValidator from 'simple-react-validator';
 import { errorMessages } from '../../utils/errorMessages';
-import ReturnHome from '../../components/buttons/ReturnHome';
 import RegularButton from '../../components/buttons/RegularButton';
 
 function ChangePassword() {
@@ -112,8 +111,6 @@ function ChangePassword() {
         <RegularButton type='submit' title='Cambiar contrasenya'></RegularButton>
       </form>
       </div>
-      
-      <ReturnHome></ReturnHome>
     </>
   )
 }

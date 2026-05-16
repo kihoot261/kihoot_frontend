@@ -6,7 +6,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import RedCornerIconButton from '../../components/buttons/RedCornerIconButton';
 import { UserAuth } from '../../utils/AuthContext';
-import ReturnHome from '../../components/buttons/ReturnHome';
 import { confirm } from '../../components/MyDialog';
 
 function MyDiaries() {
@@ -82,7 +81,6 @@ function MyDiaries() {
                     })
                 }
             </div>
-            <ReturnHome></ReturnHome>
         </div>
     )
 }

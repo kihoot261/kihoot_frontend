@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import ReturnHome from '../../components/buttons/ReturnHome';
 import { UserAuth } from '../../utils/AuthContext';
 import Loading from '../../components/Loading';
 import { confirm } from '../../components/MyDialog';
@@ -135,7 +134,6 @@ function MyRoutines() {
                     }
                 </div>
             </div>
-            <ReturnHome></ReturnHome>
         </>
     )
 }

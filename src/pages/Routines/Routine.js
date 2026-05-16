@@ -4,7 +4,6 @@ import { UserAuth } from '../../utils/AuthContext';
 import Loading from '../../components/Loading';
 import TituloDescripción from '../../components/TituloDescripcion';
 import RegularButton from '../../components/buttons/RegularButton';
-import ReturnHome from '../../components/buttons/ReturnHome';
 import { confirm } from '../../components/MyDialog';
 import { useIsAdmin } from '../../utils/useIsAdmin';
 import '../../styles/pages/_routines.scss';
@@ -177,7 +176,6 @@ function Routine() { // podriamos cambiarlo a usar params, como en los botones
                     }
                 </div>
             </div>
-            <ReturnHome></ReturnHome>
         </>
 
     )

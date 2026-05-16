@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import ReturnHome from "../../components/buttons/ReturnHome";
 import Loading from "../../components/Loading";
 import { UserAuth } from "../../utils/AuthContext";
 import SimpleReactValidator from "simple-react-validator";
@@ -170,9 +169,6 @@ function CreateTechnique() {
                     ></RegularButton>
                 }
             </div>
-
-
-            <ReturnHome></ReturnHome>
         </div>
     );
 }

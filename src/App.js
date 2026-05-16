@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import Header from './components/Header';
 import './styles/utils/_common.scss';
 import './styles/pages/_home.scss';
+import Footer from './components/Footer';
 
 function App() {
 
@@ -13,8 +14,8 @@ function App() {
     return (
         <>
             {
-                showOnlyOnHome ?
-                    <div className='App gradient'>
+                showOnlyOnHome ? (
+                    <div className='App'>
                         <div className='kanji-kyoku-bg'>
                             <h1 className='yuji-boku-regular kihoot-title'>Kihoot</h1>
                             <div className='header-position'>
@@ -25,10 +26,15 @@ function App() {
                             <Navbar></Navbar>
                         </div>
                     </div>
-                    :
-                    <Header></Header>
+                ) : (
+                    <div className='App'>
+                        <Header></Header>
+                        <Outlet></Outlet>
+                        <Footer></Footer>
+                    </div>
+                )
             }
-            <Outlet></Outlet>
+
         </>
     );
 }

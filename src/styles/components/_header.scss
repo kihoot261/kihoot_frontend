@@ -1,7 +1,24 @@
+@use '../utils/mixins' as m;
+
 .header-span {
     font-size: 0.8em;
+
+    &--home {
+        font-size: 14px;
+    }
+
+    &--general {
+        text-align: right;
+    }
 }
 
 body {
     text-align: center;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    @include m.margin-left-right(10%, 10%);
+    @include m.padding-top-bottom(2em, 0);
 }

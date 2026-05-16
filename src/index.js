@@ -149,7 +149,6 @@ const router = createBrowserRouter([
             {
                 path: 'searchevents', element: <SearchEvents></SearchEvents>
             },
-
             {
                 path: 'myevents', element: <RedirectAuthenticated><MyEvents></MyEvents></RedirectAuthenticated>
             },

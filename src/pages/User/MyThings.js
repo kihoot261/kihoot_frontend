@@ -1,6 +1,5 @@
 import React from 'react';
 import { useNavigate } from 'react-router';
-import ReturnHome from '../../components/buttons/ReturnHome';
 import RegularButton from '../../components/buttons/RegularButton';
 import '../../styles/pages/_profile.scss';
 
@@ -18,7 +17,6 @@ function MyThings() {
                 <RegularButton title='Mis diarios' callback={() => navigate('/diaries')}></RegularButton>
                 <RegularButton title='Mis eventos' callback={() => navigate('/myevents')}></RegularButton>
             </div>
-            <ReturnHome></ReturnHome>
         </>
     )
 }

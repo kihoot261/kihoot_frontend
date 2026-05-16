@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router';
 import { UserAuth } from '../../utils/AuthContext';
 import Loading from '../../components/Loading';
-import ReturnHome from '../../components/buttons/ReturnHome';
 import FormComment from '../../components/forms/FormComment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
@@ -187,8 +186,6 @@ function Technique() {
                     </div>
                 </div>
             </div>
-
-            <ReturnHome></ReturnHome>
         </div>
 
     )

@@ -127,3 +127,7 @@
     @extend %green-button;
     @include m.width-height(10rem, auto);
 }
+
+.green-corner:hover {
+    border: 2px solid v.$kihoot_green;
+}

@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import ReturnHome from '../../components/buttons/ReturnHome'
 import { UserAuth } from '../../utils/AuthContext';
 import Loading from '../../components/Loading';
 import { useNavigate } from 'react-router';
@@ -122,7 +121,6 @@ function SearchRoutines() {
                     })
                 }
             </div>
-            <ReturnHome></ReturnHome>
         </div>
     )
 }

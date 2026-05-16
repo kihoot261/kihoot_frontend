@@ -1,6 +1,5 @@
 import React from 'react'
 import { useNavigate } from 'react-router';
-import ReturnHome from '../../components/buttons/ReturnHome';
 import RegularButton from '../../components/buttons/RegularButton';
 
 function Routines() {
@@ -14,7 +13,6 @@ function Routines() {
                 <RegularButton title='Crear rutina entrenamiento' callback={() => navigate('/createroutine')}></RegularButton>
                 <RegularButton title='Buscar rutinas entrenamiento' callback={() => navigate('/searchroutines')}></RegularButton>
             </div>
-            <ReturnHome></ReturnHome>
         </>
     )
 }

@@ -1,5 +1,4 @@
 import React from 'react'
-import ReturnHome from '../../components/buttons/ReturnHome';
 import { UserAuth } from '../../utils/AuthContext';
 import { Navigate, useNavigate } from 'react-router';
 import RegularButton from '../../components/buttons/RegularButton';
@@ -23,7 +22,6 @@ function Profile() {
                     <Navigate to={'/myprofile'}></Navigate>
                 )
             }
-            <ReturnHome></ReturnHome>
         </>
     )
 }

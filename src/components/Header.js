@@ -2,11 +2,15 @@ import { useState, useEffect } from "react";
 import { UserAuth } from "../utils/AuthContext";
 import Loading from "./Loading";
 import '../styles/components/_header.scss';
+import { useLocation } from "react-router";
+import { getBreadcrumb } from "../utils/methods";
 
 const Header = () => {
     const { session, getUserData } = UserAuth();
     const [userName, setUserName] = useState('usuario aleatorio');
     const [loading, setLoading] = useState(true);
+    const location = useLocation();
+    const breadcrumb = getBreadcrumb(location.pathname);
 
     useEffect(() => {
         if (session === undefined) {
@@ -47,9 +51,24 @@ const Header = () => {
     }
 
     return (
-        <span className="header-span">
-            Hola, {userName}
-        </span>
+        <div>
+            {
+                (location.pathname !== '/') ?
+                    (
+                        <div className="header-container">
+                            <h3 className="header-breadcrumb">{breadcrumb}</h3>
+                            <span className="header-span header-span--general">
+                                Hola, 
+                                <h3>{userName}</h3>
+                            </span>
+                        </div>
+                    ) : (
+                        <span className="header-span header-span--home">
+                            Hola, {userName}
+                        </span>
+                    )
+            }
+        </div>
     );
 };
 

@@ -246,7 +246,7 @@
     z-index: 0;
 
     @include mobile {
-        @include padding-top-bottom(20%, 30%);
+        @include padding-top-bottom(40%, 30%);
         @include margin-top-bottom(10%, 10%);
     }
 

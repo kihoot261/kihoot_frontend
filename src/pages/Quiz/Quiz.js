@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useConfigureGame } from '../../api/quizData';
-import ReturnHome from '../../components/buttons/ReturnHome';
 import Loading from '../../components/Loading';
 import { useLocation, useNavigate } from 'react-router';
 import '../../styles/pages/_quiz.scss';
@@ -162,7 +161,6 @@ function Quiz() {
                     }
                 </div>
             </div>
-            <ReturnHome></ReturnHome>
         </>
 
     )

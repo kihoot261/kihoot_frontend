@@ -1,5 +1,4 @@
 import React, { useState, useRef } from 'react'
-import ReturnHome from '../../components/buttons/ReturnHome';
 import { UserAuth } from '../../utils/AuthContext';
 import { useNavigate } from 'react-router';
 import SimpleReactValidator from 'simple-react-validator';
@@ -130,7 +129,6 @@ function Register() {
                     <RegularButton type='submit' title='Envia'></RegularButton>
                 </form>
             </div>
-            <ReturnHome></ReturnHome>
         </>
     )
 }

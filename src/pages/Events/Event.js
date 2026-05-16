@@ -6,7 +6,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Loading from '../../components/Loading';
 import '../../styles/pages/_events.scss';
 import { faCalendar, faClock, faUser, faUserGroup, faX } from '@fortawesome/free-solid-svg-icons';
-import ReturnHome from '../../components/buttons/ReturnHome';
 import RedCornerButton from '../../components/buttons/RedCornerButton';
 import RedCornerIconButton from '../../components/buttons/RedCornerIconButton';
 import GreenCornerButton from '../../components/buttons/GreenCornerButton';
@@ -202,7 +201,6 @@ function Event() {
                     )
                 }
             </div>
-            <ReturnHome></ReturnHome>
         </div>
     )
 }

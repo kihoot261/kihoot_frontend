@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import ReturnHome from '../../components/buttons/ReturnHome';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookmark } from '@fortawesome/free-regular-svg-icons';
 import BlackCornerWhiteBgButton from '../../components/buttons/BlackCornerWhiteBgButton';
@@ -123,7 +122,6 @@ function SearchEvents() {
                     })
                 }
             </div>
-            <ReturnHome></ReturnHome>
         </div>
     )
 }

@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router';
 import { UserAuth } from '../../utils/AuthContext';
-import ReturnHome from '../../components/buttons/ReturnHome';
 import TituloDescripción from '../../components/TituloDescripcion';
 import Loading from '../../components/Loading';
 import { confirm } from '../../components/MyDialog';
@@ -137,7 +136,6 @@ function MyTechniques() {
                     }
                 </div>
             </div>
-            <ReturnHome></ReturnHome>
         </>
     )
 }
