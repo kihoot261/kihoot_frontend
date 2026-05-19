@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faClipboardQuestion } from '@fortawesome/free-solid-svg-icons';
+import { faCalendar, faClipboardQuestion } from '@fortawesome/free-solid-svg-icons';
 
 
 const ResourcesNavbar = () => {
@@ -12,6 +12,12 @@ const ResourcesNavbar = () => {
                     <Link to="/setupflashcards" className='regular-button-link contents-menu-button'>
                         <FontAwesomeIcon className="fa-lg" icon={faClipboardQuestion} />
                         <p>Flashcards</p>
+                    </Link>
+                </li>
+                <li className='regular-iconed'>
+                    <Link to="/calendar" className='regular-button-link contents-menu-button'>
+                        <FontAwesomeIcon className="fa-lg" icon={faCalendar} />
+                        <p>Calendario</p>
                     </Link>
                 </li>
             </ul>

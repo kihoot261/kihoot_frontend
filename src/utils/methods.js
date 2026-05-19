@@ -60,6 +60,10 @@ export const getBreadcrumb = (path) => {
     return path in breadcrumbs ? breadcrumbs[path] : '';
 }
 
+export const splitDateTime = (toSplit, separator) => {
+    return toSplit.split(separator);
+}
+
 const utils = {
     checkNaturals,
     compressVideoRecorder,

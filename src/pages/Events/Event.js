@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { useIsAdmin } from '../../utils/useIsAdmin';
-import { useLocation } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import { UserAuth } from '../../utils/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Loading from '../../components/Loading';
@@ -9,6 +9,7 @@ import { faCalendar, faClock, faUser, faUserGroup, faX } from '@fortawesome/free
 import RedCornerButton from '../../components/buttons/RedCornerButton';
 import RedCornerIconButton from '../../components/buttons/RedCornerIconButton';
 import GreenCornerButton from '../../components/buttons/GreenCornerButton';
+import { confirm } from '../../components/MyDialog';
 
 function Event() {
     const location = useLocation();
@@ -26,6 +27,7 @@ function Event() {
         getUserData } = UserAuth();
     const [creator, setCreator] = useState('');
     const [showParticipants, setShowParticipants] = useState(false);
+    const navigate = useNavigate();
 
     const fetchEvent = useCallback(async () => {
         try {
@@ -67,22 +69,38 @@ function Event() {
     }
 
     const quitEvent = useCallback(async () => {
-        try {
-            await deleteParticipant(id_event);
+        const result = await confirm({
+            message: 'Seguro que quieres salir del evento' + event.title + '?'
+        });
+
+        if (result === true) {
+            try {
+                await deleteParticipant(id_event);
+                navigate(-1);
+            }
+            catch (error) {
+                console.error('Error deleting participant in Event.js:', error);
+            }
         }
-        catch (error) {
-            console.error('Error deleting participant in Event.js:', error);
-        }
-    }, [deleteParticipant, id_event])
+
+    }, [deleteParticipant, id_event, event, navigate])
 
     const eraseEvent = useCallback(async () => {
-        try {
-            await deleteEvent(id_event);
+        const result = await confirm({
+            message: 'Seguro que quieres eliminar ' + event.title + '?'
+        });
+
+        if (result === true) {
+            try {
+                await deleteEvent(id_event);
+                navigate(-1);
+            }
+            catch (error) {
+                console.error('Error deleting event in Event.js:', error);
+            }
         }
-        catch (error) {
-            console.error('Error deleting event in Event.js:', error);
-        }
-    }, [deleteEvent, id_event])
+
+    }, [deleteEvent, id_event, event, navigate])
 
     const joinEvent = useCallback(async () => {
         try {
@@ -141,7 +159,11 @@ function Event() {
                     <div className='event-field-and-icon'>
                         <FontAwesomeIcon className="fa-lg" icon={faUserGroup} />
                         <p>{participants.length}</p>
-                        <p>({participants[0].username}, {participants[1].username})</p>
+                        {
+                            participants.length === 2 && (
+                                <p>({participants[0].username}, {participants[1].username})</p>
+                            )
+                        }
                         {
                             participants.length > 2 && (
                                 <span onClick={() => displayParticipants()}>...ver más</span>
@@ -187,14 +209,16 @@ function Event() {
                                 )
                             }
                             {
-                                (isParticipant() && !ownsEvent) ? (
-                                    <div className='home-button-container'>
-                                        <RedCornerButton title='Salir del evento' callback={() => quitEvent()}></RedCornerButton>
-                                    </div>
-                                ) : (
-                                    <div className='home-button-container'>
-                                        <GreenCornerButton title='Unirse al evento' callback={() => joinEvent()}></GreenCornerButton>
-                                    </div>
+                                !ownsEvent && (
+                                    isParticipant() ? (
+                                        <div className='home-button-container'>
+                                            <RedCornerButton title='Salir del evento' callback={() => quitEvent()}></RedCornerButton>
+                                        </div>
+                                    ) : (
+                                        <div className='home-button-container'>
+                                            <GreenCornerButton title='Unirse al evento' callback={() => joinEvent()}></GreenCornerButton>
+                                        </div>
+                                    )
                                 )
                             }
                         </div>

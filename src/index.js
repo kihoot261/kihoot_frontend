@@ -40,6 +40,7 @@ import CreateEvent from './pages/Events/CreateEvent';
 import SearchEvents from './pages/Events/SearchEvents';
 import MyEvents from './pages/Events/MyEvents';
 import Event from './pages/Events/Event';
+import CompetitionsCalendar from './pages/Calendar/CompetitionsCalendar';
 
 const router = createBrowserRouter([
     {
@@ -154,6 +155,9 @@ const router = createBrowserRouter([
             },
             {
                 path: 'event', element: <Event></Event>
+            },
+            {
+                path: 'calendar', element: <CompetitionsCalendar></CompetitionsCalendar>
             },
             {
                 path: "*", element: <Navigate to="/" replace />

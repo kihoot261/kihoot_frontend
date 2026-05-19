@@ -1,0 +1,7 @@
+@use '../utils/mixins' as m;
+@use '../utils/variables' as v;
+
+.calendar-container {
+    @include m.margin-top-bottom(2em, 0);
+    flex-direction: column;
+}

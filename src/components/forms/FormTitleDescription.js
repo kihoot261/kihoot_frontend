@@ -50,9 +50,6 @@ const FormTitleDescription = ({ titleValue,
                         onChange={onDescriptionChange}
                         placeholder="Descripción..."
                     />
-                    {
-                        <div className="data--red">{validator.current.message('description', descriptionValue, 'required')}</div>
-                    }
                 </div>
                 {
                     !begoneButton && (<RegularButton title={buttonName} type='submit' />)

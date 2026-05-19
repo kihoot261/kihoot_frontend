@@ -27,6 +27,7 @@
     padding: 1em;
     gap: 1em;
     @include m.margin-top-bottom(1em, 1em);
+    background-color: white;
 }
 
 .comments-section {

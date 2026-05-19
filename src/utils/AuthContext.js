@@ -1054,6 +1054,57 @@ export const AuthContextProvider = ({ children }) => {
         }
     }
 
+
+
+    //calendar
+    const getCalendarEvents = async () => {
+        const { data: events, error: eventsErrors } = await supabase
+            .from('calendar')
+            .select('*')
+        if (eventsErrors) {
+            console.error('Error in getCalendarEvents during calendar events search:', eventsErrors);
+            return { success: false, error: eventsErrors };
+        }
+        else {
+            return { success: true, data: events }
+        }
+    }
+
+    const createCalendarEvent = async (title, description, dateStart, dateEnd, timeStart, timeEnd) => {
+        const { data: event, error: errorEvent } = await supabase
+            .from('calendar')
+            .insert({
+                title: title,
+                description: description,
+                date_start: dateStart,
+                date_end: dateEnd,
+                time_start: timeStart,
+                time_end: timeEnd
+            })
+            .select()
+        if (errorEvent) {
+            console.error('Error in createCalendarEvent during insert:', errorEvent);
+            return { success: false, error: errorEvent };
+        }
+        else {
+            return { success: true, data: event };
+        }
+    }
+
+    const deleteCalendarEvent = async(id_event) => {
+        const { error: eventError } = await supabase
+            .from('calendar')
+            .delete('*')
+            .eq('id', id_event)
+        if (eventError) {
+            console.error('Error in deleteCalendarEvent during calendar event delete in AuthContext:', eventError);
+            return { success: false, error: eventError };
+        }
+        else {
+            return { success: true }
+        }
+    }
+
     useEffect(() => {
         supabase.auth.getSession().then(({ data: { session } }) => {
             setSession(session);
@@ -1124,7 +1175,10 @@ export const AuthContextProvider = ({ children }) => {
             getParticipantsById,
             deleteParticipant,
             deleteEvent,
-            getMyEvents
+            getMyEvents,
+            getCalendarEvents,
+            createCalendarEvent,
+            deleteCalendarEvent
         }}>
             {children}
         </AuthContext.Provider>

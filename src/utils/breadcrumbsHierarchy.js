@@ -27,4 +27,5 @@ export const breadcrumbs = {
     '/createevent': 'Home > Eventos > Crear evento',
     '/searchevents': 'Home > Eventos > Buscar eventos',
     '/myevents': '... > Mis cosas > Mis eventos',
+    '/calendar': 'Home > Recursos > Calendario',
 }
