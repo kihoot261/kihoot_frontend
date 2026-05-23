@@ -138,11 +138,11 @@
 
     @include tablet {
         @include margin-top-bottom(15%, 15%);
+        @include padding-top-bottom(10%, 20%);
     }
 
     @include desktop {
         @include width-height(100%, 20vh);
-        @include margin-top-bottom(10%, 10%);
     }
 
     &::before {
@@ -163,7 +163,6 @@
     z-index: 0;
 
     @include mobile {
-        @include padding-top-bottom(10%, 10%);
         @include margin-top-bottom(10%, 10%);
         @include width-height(100%, 55vh);
     }
@@ -173,7 +172,7 @@
     }
 
     @include desktop {
-        @include width-height(100%, 50vh);
+        @include margin-top-bottom(0, 0);
     }
 
     &::before {
@@ -246,8 +245,8 @@
     z-index: 0;
 
     @include mobile {
-        @include padding-top-bottom(40%, 30%);
-        @include margin-top-bottom(10%, 10%);
+        @include padding-top-bottom(20%, 30%);
+        @include margin-top-bottom(20%, 10%);
     }
 
     @include tablet {
@@ -256,8 +255,7 @@
     }
 
     @include desktop {
-        @include padding-top-bottom(20%, 15%);
-        @include width-height(100%, 30vh);
+        @include padding-top-bottom(15%, 20%);
     }
 
     &::before {
@@ -276,21 +274,20 @@
 @mixin tsuki {
     position: relative;
     z-index: 0;
+    @include width-height(100%, 10vh);
 
     @include mobile {
-        @include padding-top-bottom(20%, 30%);
+        @include padding-top-bottom(30%, 30%);
         @include margin-top-bottom(10%, 10%);
-        @include width-height(100%, 10vh);
     }
 
     @include tablet {
-        @include padding-top-bottom(20%, 20%);
+        @include padding-top-bottom(15%, 30%);
     }
 
     @include desktop {
-        @include padding-top-bottom(10%, 10%);
+        @include padding-top-bottom(5%, 20%);
         @include margin-top-bottom(5%, 5%);
-        @include width-height(100%, 20vh);
     }
 
     &::before {

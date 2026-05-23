@@ -52,4 +52,5 @@
 
 .video-spacing {
     @include m.margin-top-bottom(2em, 0);
+    @include m.margin-left-right(20%, 20%);
 }

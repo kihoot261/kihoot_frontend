@@ -5,6 +5,8 @@ import { useLocation, useNavigate } from 'react-router';
 import '../../styles/pages/_quiz.scss';
 import RedCornerButton from '../../components/buttons/RedCornerButton';
 import RegularButton from '../../components/buttons/RegularButton';
+import ProgressBar from "@ramonak/react-progress-bar";
+import 'animate.css'
 
 function Quiz() {
 
@@ -114,55 +116,53 @@ function Quiz() {
     }
 
     return (
-        <>
-            <div>
-                <h2>Quiz</h2>
-                <div className='score-ingame-container'>
-                    <h3 className='game-titles'>Aciertos: <span className='game-titles--correct'>{amountCorrect}</span></h3>
-                    <h3>Pregunta {displayQuestion + 1}/{quizData.questions.length}</h3>
-                    <h3 className='game-titles'>Fallos: <span className='game-titles--incorrect'>{amountIncorrect}</span></h3>
+        <div>
+            <h2>Quiz</h2>
+            <div className='score-ingame-container'>
+                <h3 className='game-titles'>Aciertos: <span className='game-titles--correct'>{amountCorrect}</span></h3>
+                <h3>Pregunta {displayQuestion + 1}/{quizData.questions.length}</h3>
+                <h3 className='game-titles'>Fallos: <span className='game-titles--incorrect'>{amountIncorrect}</span></h3>
+            </div>
+            <div className='progress-bar'>
+                <ProgressBar completed={(displayQuestion / quizData.questions.length) * 100} bgColor='blue'></ProgressBar>
+            </div>
+            {
+                displayAnswer &&
+                <>
+                    {displayResult()}
+                </>
+            }
+
+            <div key={quizData.questions[displayQuestion].question} className='quiz-questions-main-container animate__delay-1s animate__animated animate__fadeIn'>
+                <img src={quizData.questions[displayQuestion].question} alt='tecnique-img' className='quiz-image'></img>
+                {
+                    time !== null && <div> {isActive ? `${seconds} queden seconds` : "S'ha acabat el temps!"} </div>
+                }
+
+                <div className='quiz-questions-buttons-container'>
+                    {
+                        !mode && quizData.questions[displayQuestion].answers.map((answer, index) => {
+                            return (
+                                <RedCornerButton disabled={!clickable} key={index} title={fixAnswer(answer)} callback={() => handleAnswer(answer)}></RedCornerButton>
+                            )
+                        })
+                    }
                 </div>
 
                 {
-                    displayAnswer &&
-                    <>
-                        {
-                            displayResult()
-                        }
-                    </>
+                    mode && // hay que añadir la posibilidad de que por ejemplo shudan = chudan
+                    <div className='write-quiz-answer-container'>
+                        <p>Nombre técnica: </p>
+                        <input type="text"
+                            value={inputValue}
+                            onChange={handleChange}
+                            placeholder="Tecnica..."></input>
+                        <RegularButton disabled={!clickable} title='Envia' callback={() => handleAnswer(fixInput(inputValue))}></RegularButton>
+                    </div>
                 }
 
-                <div className='quiz-questions-main-container'>
-                    <img src={quizData.questions[displayQuestion].question} alt='tecnique-img' className='quiz-image'></img>
-                    {
-                        time !== null && <div> {isActive ? `${seconds} queden seconds` : "S'ha acabat el temps!"} </div>
-                    }
-
-                    <div className='quiz-questions-buttons-container'>
-                        {
-                            !mode && quizData.questions[displayQuestion].answers.map((answer, index) => {
-                                return (
-                                    <RedCornerButton disabled={!clickable} key={index} title={fixAnswer(answer)} callback={() => handleAnswer(answer)}></RedCornerButton>
-                                )
-                            })
-                        }
-                    </div>
-
-                    {
-                        mode && // hay que añadir la posibilidad de que por ejemplo shudan = chudan
-                        <div className='write-quiz-answer-container'>
-                            <p>Nombre técnica: </p>
-                            <input type="text"
-                                value={inputValue}
-                                onChange={handleChange}
-                                placeholder="Tecnica..."></input>
-                            <RegularButton disabled={!clickable} title='Envia' callback={() => handleAnswer(fixInput(inputValue))}></RegularButton>
-                        </div>
-                    }
-                </div>
             </div>
-        </>
-
+        </div>
     )
 }
 

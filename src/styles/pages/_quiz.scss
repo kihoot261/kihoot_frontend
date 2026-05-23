@@ -18,6 +18,11 @@
     color: v.$kihoot_red;
 }
 
+.progress-bar {
+    @include m.padding-left-right(10%, 10%);
+    @include m.padding-top-bottom(2em, 2em);
+}
+
 .quiz-image {
     border: 1px solid v.$kihoot_red;
     border-radius: 0.5em;
@@ -51,9 +56,11 @@
     }
 }
 
-.write-quiz-answer-container{
+.write-quiz-answer-container {
     @include m.center-and-vertical();
     gap: 1em;
+    width: 100%;
+    @include m.padding-left-right(35%, 35%);
 }
 
 //setupquiz

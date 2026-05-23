@@ -1,18 +1,25 @@
 import React from 'react'
-import { useNavigate } from 'react-router';
-import RegularButton from '../../components/buttons/RegularButton';
+import { Link } from 'react-router';
 
 function Techniques() {
 
-    const navigate = useNavigate();
-
     return (
         <>
-            <div className='many-buttons-container screen-for-buttons-container mawashi-bg'>
-                <RegularButton title='Crear técnica' callback={() => navigate('/createtechnique')}></RegularButton>
-                <RegularButton title='Buscar técnicas' callback={() => navigate('/searchtechniques')}></RegularButton>
-            </div>
+            <h3 className='description-feature'>Crea videos de técnicas para que otros usuarios te ayuden a mejorar, o mira videos de otros usuarios para mejorar y ayudar</h3>
+            <nav className='resources-navigation mawashi-bg'>
+                <div className='regular-iconed'>
+                    <Link to="/createtechnique" className='regular-button-link contents-menu-button'>
+                        <p>Crear técnica</p>
+                    </Link>
+                </div>
+                <div className='regular-iconed'>
+                    <Link to="/searchtechniques" className='regular-button-link contents-menu-button'>
+                        <p>Buscar técnicas</p>
+                    </Link>
+                </div>
+            </nav>
         </>
+
     )
 }
 

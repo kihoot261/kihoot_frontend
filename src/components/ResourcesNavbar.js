@@ -1,26 +1,46 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCalendar, faClipboardQuestion } from '@fortawesome/free-solid-svg-icons';
+import { faBook, faCalendar, faClipboardQuestion, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 
 
 const ResourcesNavbar = () => {
     return (
-        <nav className='iconed-navigation'>
-            <ul>
-                <li className='regular-iconed'>
-                    <Link to="/setupflashcards" className='regular-button-link contents-menu-button'>
-                        <FontAwesomeIcon className="fa-lg" icon={faClipboardQuestion} />
-                        <p>Flashcards</p>
-                    </Link>
-                </li>
-                <li className='regular-iconed'>
-                    <Link to="/calendar" className='regular-button-link contents-menu-button'>
-                        <FontAwesomeIcon className="fa-lg" icon={faCalendar} />
-                        <p>Calendario</p>
-                    </Link>
-                </li>
-            </ul>
+        <nav className='main-navigation'>
+            <div className='resources-navigation-section'>
+                <div className='section-2-resources'>
+                    <div className='regular-iconed'>
+                        <Link to="/setupflashcards" className='regular-button-link contents-menu-button'>
+                            <FontAwesomeIcon className="fa-5x" icon={faClipboardQuestion} />
+                            <p>Flashcards</p>
+                        </Link>
+                    </div>
+                    <div className='regular-iconed'>
+                        <Link to="/calendar" className='regular-button-link contents-menu-button'>
+                            <FontAwesomeIcon className="fa-5x" icon={faCalendar} />
+                            <p>Calendario</p>
+                        </Link>
+                    </div>
+                </div>
+            </div>
+            <div className='resources-navigation-section'>
+                <div className='section-2-resources'>
+                    <div className='regular-iconed'>
+                        <Link to='https://drive.google.com/file/d/1aARJ_t44nUn4o9suCYEJe1kyGFKTV6Xc/view?usp=drive_link' className='regular-button-link contents-menu-button'>
+                            <FontAwesomeIcon className="fa-5x" icon={faBook} />
+                            <p className='regular-button-link'>Referencia pase grados</p>
+                        </Link>
+                    </div>
+                    <div className='regular-iconed'>
+                        <Link to='mailto:kihoot261@gmail.com' className='regular-button-link contents-menu-button'>
+                            <FontAwesomeIcon className="fa-5x" icon={faEnvelope} />
+                            <p className='regular-button-link'>Contacto</p>
+                        </Link>
+                    </div>
+                </div>
+
+            </div>
+
         </nav>
     )
 }

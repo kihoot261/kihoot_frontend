@@ -1,19 +1,26 @@
 import React from 'react'
-import { useNavigate } from 'react-router';
-import RegularButton from '../../components/buttons/RegularButton';
+import { Link } from 'react-router'
 
 function Routines() {
 
-    const navigate = useNavigate();
 
     return (
         <>
-            <h2>Rutinas de entrenamiento</h2>
-            <div className='many-buttons-container screen-for-buttons-container tsuki-bg'>
-                <RegularButton title='Crear rutina entrenamiento' callback={() => navigate('/createroutine')}></RegularButton>
-                <RegularButton title='Buscar rutinas entrenamiento' callback={() => navigate('/searchroutines')}></RegularButton>
-            </div>
+            <h3 className='description-feature'>Crea tus propias rutinas de entrenamiento o consulta y guarda las que otros usuarios han creado</h3>
+            <nav className='resources-navigation tsuki-bg'>
+                <div className='regular-iconed'>
+                    <Link to="/createroutine" className='regular-button-link contents-menu-button'>
+                        <p>Crear rutina entrenamiento</p>
+                    </Link>
+                </div>
+                <div className='regular-iconed'>
+                    <Link to="/searchroutines" className='regular-button-link contents-menu-button'>
+                        <p>Buscar rutinas entrenamiento</p>
+                    </Link>
+                </div>
+            </nav>
         </>
+
     )
 }
 

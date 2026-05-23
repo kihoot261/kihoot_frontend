@@ -1,12 +1,56 @@
 @use '../utils/mixins' as m;
 @use '../utils/variables' as v;
 
-nav.iconed-navigation {
-    position: relative;
+//navbar
+nav.main-navigation {
     z-index: 1;
+    @include m.center-and-vertical();
+    row-gap: 1em;
+    margin-bottom: 5em;
 
-    ul {
-        gap: 0.5em;
-        @include m.center-and-vertical();
+    @include m.desktop {
+        @include m.grid-distribution(1);
+        place-items: center;
+        width: 100%;
+        @include m.padding-left-right(30%, 30%);
+    }
+
+    .main-navigation-section {
+        gap: 1em;
+
+        .section-2-buttons {
+            display: flex;
+            gap: 1em;
+            padding-bottom: 1em;
+            flex-direction: row;
+
+            @include m.desktop {
+                padding-bottom: 0;
+            }
+        }
+
+        .single-long-button {
+            display: block;
+        }
+
+        @include m.desktop {
+            display: flex;
+        }
+    }
+
+    //resources-navbar
+    .resources-navigation-section {
+
+        .section-2-resources {
+            @include m.mobile {
+                @include m.center-and-vertical();
+                gap: 1em;
+            }
+
+            @include m.tablet {
+                display: flex;
+                flex-direction: row;
+            }
+        }
     }
 }

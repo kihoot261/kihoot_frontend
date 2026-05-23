@@ -99,7 +99,7 @@ function SearchRoutines() {
                 {
                     shownRoutines.map((routine) => {
                         return (
-                            <div className='info-card-container' key={routine.id} onClick={() => navigate('/routine', { state: { id_routine: routine.id } })}>
+                            <div className='info-card-container animate__animated animate__backInLeft' key={routine.id} onClick={() => navigate('/routine', { state: { id_routine: routine.id } })}>
                                 <div className='title-desc-container'>
                                     <TituloDescripción
                                         titulo={routine.title}

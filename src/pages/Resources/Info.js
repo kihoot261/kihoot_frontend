@@ -9,15 +9,7 @@ function Info() {
             <div className='kanji-kyoku-bg'>
                 <h2 className='main-h2-title'>Recursos</h2>
             </div>
-            <div>
-                <ResourcesNavbar></ResourcesNavbar>
-                <div className='email'>
-                    <a href='https://drive.google.com/file/d/1aARJ_t44nUn4o9suCYEJe1kyGFKTV6Xc/view?usp=drive_link'>Referencia pase grados</a>
-                    <p >
-                        Puedes enviarme un email a: <a href='mailto:kihoot261@gmail.com'>kihoot261@gmail.com</a> en caso de tener una sugerencia o ver un error
-                    </p>
-                </div>
-            </div>
+            <ResourcesNavbar></ResourcesNavbar>
         </div>
     )
 }

@@ -100,7 +100,7 @@ function SearchTechnique() {
                     {
                         shownTechniques.map((technique) => {
                             return (
-                                <div className='info-card-container' key={technique.id} onClick={() => navigate('/technique', { state: { id_technique: technique.id } })}>
+                                <div className='info-card-container animate__animated animate__backInLeft' key={technique.id} onClick={() => navigate('/technique', { state: { id_technique: technique.id } })}>
                                     <div className='title-desc-container'>
                                         <TituloDescripción titulo={technique.title} desc={technique.description}></TituloDescripción>
                                         <p className='username-text'>{technique.username}</p>
@@ -112,7 +112,6 @@ function SearchTechnique() {
                                             callback={(e) => saveTheTechnique(e, technique.id)}>
                                         </BlackCornerWhiteBgButton>
                                     }
-
                                 </div>
                             )
                         })

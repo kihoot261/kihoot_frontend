@@ -11,7 +11,7 @@ function MyThings() {
     return (
         <>
             <h2>Mis cosas</h2>
-            <div className='many-buttons-container screen-for-buttons-container bridge-bg'>
+            <div className='many-buttons-container screen-for-buttons-container bridge-bg bridge-mythings'>
                 <RegularButton title='Mis rutinas' callback={() => navigate('/myroutines')}></RegularButton>
                 <RegularButton title='Mis técnicas' callback={() => navigate('/mytechniques')}></RegularButton>
                 <RegularButton title='Mis diarios' callback={() => navigate('/diaries')}></RegularButton>

@@ -25,8 +25,8 @@
 }
 
 %bg-white-color-black {
-   background-color: white;
-   color: black; 
+    background-color: white;
+    color: black;
 }
 
 %white-bg-general-button {
@@ -54,12 +54,35 @@
     justify-content: center;
 }
 
+%golden-filigree {
+    background: linear-gradient(to bottom, #cfc09f, #634f2c, #ffecb3);
+    //--size: 50px;
+    //--m: 0.5;
+    /* Curvature */
+    //--p: calc(var(--m) * var(--size));
+    //--R: calc(var(--size) * sqrt(var(--m) * var(--m) + 1));
+
+    -webkit-mask: radial-gradient(var(--R) at 50% calc(var(--size) + var(--p)), #000 99%, transparent 101%) calc(50% - 2*var(--size)) 0 / calc(4 * var(--size)) 100%, radial-gradient(var(--R) at 50% calc(-1*var(--p)), transparent 99%, #000 101%) 50% var(--size) / calc(4 * var(--size)) 100% repeat-x;
+    mask: radial-gradient(var(--R) at 50% calc(var(--size) + var(--p)), #000 99%, transparent 101%) calc(50% - 2*var(--size)) 0 / calc(4 * var(--size)) 100%, radial-gradient(var(--R) at 50% calc(-1*var(--p)), transparent 99%, #000 101%) 50% var(--size) / calc(4 * var(--size)) 100% repeat-x;
+}
+
 .regular-iconed {
-    @extend %general-button, %basic-button-sizing, %iconed-button, %black-bg-general-button;
+    @extend %general-button, %basic-button-sizing, %golden-filigree;
+    border-radius: 1em;
 
     .contents-menu-button {
-        @include m.center-object();
+        @include m.center-and-vertical();
+        width: 10em;
+        height: 10em;
         gap: 0.7em;
+    }
+
+    .bigger-button {
+        width: 22.5em;
+
+        @include m.desktop {
+            width: 10em;
+        }
     }
 }
 
@@ -75,9 +98,14 @@
     @extend %general-button, %basic-button-sizing, %iconed-button, %black-bg-general-button;
     color: v.$kihoot_gold;
     @include m.margin-top-bottom(2em, 2em);
+    
+    &--back-button {
+        color: white;
+    }
 }
 
-.home:hover {
+.home:hover,
+.regular-iconed:hover {
     border: 2px solid v.$kihoot_gold;
 }
 

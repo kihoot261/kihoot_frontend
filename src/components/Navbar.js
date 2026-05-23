@@ -7,45 +7,54 @@ import { faCircleInfo, faFileLines, faDumbbell, faHandFist, faCircleUser, faCale
 
 const Navbar = () => {
     return (
-        <nav className='iconed-navigation'>
-            <ul>
-                <li className='regular-iconed'>
-                    <Link to="/setupquiz" className='regular-button-link contents-menu-button'>
-                        <FontAwesomeIcon className="fa-lg" icon={faFileLines} />
-                        <p>Quiz</p>
-                    </Link>
-                </li>
-                <li className='regular-iconed'>
-                    <Link to="/info" className='regular-button-link contents-menu-button'>
-                        <FontAwesomeIcon className="fa-lg" icon={faCircleInfo} />
-                        <p>Recursos</p>
-                    </Link>
-                </li>
-                <li className='regular-iconed'>
-                    <Link to="/routines" className= 'regular-button-link contents-menu-button'>
-                        <FontAwesomeIcon className="fa-lg" icon={faDumbbell} />
+        <nav className='main-navigation'>
+            <div className='main-navigation-section'>
+                <div className='section-2-buttons'>
+                    <div className='regular-iconed'>
+                        <Link to="/setupquiz" className='regular-button-link contents-menu-button'>
+                            <FontAwesomeIcon className="fa-5x" icon={faFileLines} />
+                            <p>Quiz</p>
+                        </Link>
+                    </div>
+                    <div className='regular-iconed'>
+                        <Link to="/info" className='regular-button-link contents-menu-button'>
+                            <FontAwesomeIcon className="fa-5x" icon={faCircleInfo} />
+                            <p>Recursos</p>
+                        </Link>
+                    </div>
+                </div>
+                <div className='regular-iconed single-long-button'>
+                    <Link to="/routines" className='regular-button-link bigger-button contents-menu-button'>
+                        <FontAwesomeIcon className="fa-5x" icon={faDumbbell} />
                         <p>Rutinas de entrenamiento</p>
                     </Link>
-                </li>
-                <li className='regular-iconed'>
-                    <Link to="/events" className= 'regular-button-link contents-menu-button'>
-                        <FontAwesomeIcon className="fa-lg" icon={faCalendar} />
+                </div>
+            </div>
+            <div className='main-navigation-section'>
+                <div className='section-2-buttons'>
+                    <div className='regular-iconed'>
+                    <Link to="/events" className='regular-button-link contents-menu-button'>
+                        <FontAwesomeIcon className="fa-5x" icon={faCalendar} />
                         <p>Eventos</p>
                     </Link>
-                </li>
-                <li className='regular-iconed'>
+                </div>
+                <div className='regular-iconed'>
                     <Link to="/techniques" className='regular-button-link contents-menu-button'>
-                        <FontAwesomeIcon className="fa-lg" icon={faHandFist} />
+                        <FontAwesomeIcon className="fa-5x" icon={faHandFist} />
                         <p>Técnicas</p>
                     </Link>
-                </li>
-                <li className='regular-iconed'>
-                    <Link to="/profile" className='regular-button-link contents-menu-button'>
-                        <FontAwesomeIcon className="fa-lg" icon={faCircleUser} />
+                </div>
+                </div>
+                
+                <div className='regular-iconed single-long-button'>
+                    <Link to="/profile" className='regular-button-link bigger-button contents-menu-button'>
+                        <FontAwesomeIcon className="fa-5x" icon={faCircleUser} />
                         <p>Perfil</p>
                     </Link>
-                </li>
-            </ul>
+                </div>
+            </div>
+
+
         </nav>
     );
 };

@@ -16,3 +16,18 @@
         @include m.padding-left-right(20%, 20%);
     }
 }
+
+.resources-navigation {
+    gap: 1em;
+    
+    @include m.mobile {
+        @include m.center-and-vertical();   
+    }
+
+    @include m.tablet {
+        @include m.grid-distribution(2);
+        place-items: center;
+        width: 100%;
+        @include m.padding-left-right(35%, 35%);
+    }
+}

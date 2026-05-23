@@ -1,18 +1,25 @@
 import React from 'react'
-import { useNavigate } from 'react-router';
-import RegularButton from '../../components/buttons/RegularButton';
+import { Link } from 'react-router';
 
 function Events() {
 
-    const navigate = useNavigate();
-
     return (
         <>
-            <div className='many-buttons-container screen-for-buttons-container osu-bg'>
-                <RegularButton title='Crear evento' callback={() => navigate('/createevent')}></RegularButton>
-                <RegularButton title='Buscar eventos' callback={() => navigate('/searchevents')}></RegularButton>
-            </div>
+            <h3 className='description-feature'>Organiza eventos en comunidad o asiste a eventos organizados</h3>
+            <nav className='resources-navigation osu-bg'>
+                <div className='regular-iconed'>
+                    <Link to="/createevent" className='regular-button-link contents-menu-button'>
+                        <p>Crear evento</p>
+                    </Link>
+                </div>
+                <div className='regular-iconed'>
+                    <Link to="/searchevents" className='regular-button-link contents-menu-button'>
+                        <p>Buscar eventoss</p>
+                    </Link>
+                </div>
+            </nav>
         </>
+
     )
 }
 

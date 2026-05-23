@@ -1,12 +1,11 @@
 import React from 'react'
 import { UserAuth } from '../../utils/AuthContext';
-import { Navigate, useNavigate } from 'react-router';
-import RegularButton from '../../components/buttons/RegularButton';
+import { Navigate } from 'react-router';
 import '../../styles/pages/_profile.scss';
+import { Link } from 'react-router';
 
 function Profile() {
 
-    const navigate = useNavigate();
     const { session } = UserAuth();
 
     return (
@@ -14,10 +13,18 @@ function Profile() {
             <h2>Acceder al perfil</h2>
             {!session ?
                 (
-                    <div className='many-buttons-container screen-for-buttons-container bridge-bg'>
-                        <RegularButton title='Inicia sesión' callback={() => navigate('/login')}></RegularButton>
-                        <RegularButton title='Registrarse' callback={() => navigate('/register')}></RegularButton>
-                    </div>
+                    <nav className='resources-navigation bridge-bg'>
+                        <div className='regular-iconed'>
+                            <Link to="/login" className='regular-button-link contents-menu-button'>
+                                <p>Inicia sesión</p>
+                            </Link>
+                        </div>
+                        <div className='regular-iconed'>
+                            <Link to="/register" className='regular-button-link contents-menu-button'>
+                                <p>Registrarse</p>
+                            </Link>
+                        </div>
+                    </nav>
                 ) : (
                     <Navigate to={'/myprofile'}></Navigate>
                 )

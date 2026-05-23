@@ -63,7 +63,7 @@ function MyDiaries() {
                 {
                     myDiaries.map((diary) => {
                         return (
-                            <div className='info-card-container' key={diary.id} onClick={() => navigate('/diary', { state: { id_diary: diary.id } })}>
+                            <div className='info-card-container animate__animated animate__backInLeft' key={diary.id} onClick={() => navigate('/diary', { state: { id_diary: diary.id } })}>
                                 <div className='title-desc-container'>
                                     <TituloDescripción
                                         titulo={diary.title}

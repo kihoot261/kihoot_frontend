@@ -143,7 +143,7 @@ function SetupQuiz() {
 
             <div className='main-quizsetup-container dragon-bg'> { /* este será un form algo diferente al resto */}
 
-                <div className='grouping-sections-container'>
+                <div className='grouping-sections-container animate__animated animate__backInUp'>
                     <div className='quiz-buttons-container'>
                         <h3 className='quiz-header'>
                             Kyu
@@ -153,64 +153,82 @@ function SetupQuiz() {
                         </ul>
                     </div>
                 </div>
-
                 <div className='grouping-sections-container'>
-                    <div className='quiz-buttons-container'
-                        style={{ visibility: visibilityQuestions ? 'visible' : 'hidden' }}>
-                        <h3 className='quiz-header'>
-                            Número de preguntas
-                        </h3>
-                        <ul className='double-grid-container'>
-                            <QuizButton title='10' disabledCondition={chekNumQuestions(1)} callback={() => handleQuestions(10)}></QuizButton>
-                            <QuizButton title='20' disabledCondition={chekNumQuestions(2)} callback={() => handleQuestions(20)}></QuizButton>
-                            <QuizButton title='50' disabledCondition={chekNumQuestions(5)} callback={() => handleQuestions(50)}></QuizButton>
-                            <QuizButton title='Todas' callback={() => handleQuestions(null)}></QuizButton>
-                        </ul>
-                    </div>
+                    {
+                        visibilityQuestions && (
+                            <div className='quiz-buttons-container animate__animated animate__backInUp'>
+                                <h3 className='quiz-header'>
+                                    Número de preguntas
+                                </h3>
+                                <ul className='double-grid-container'>
+                                    <QuizButton title='10' disabledCondition={chekNumQuestions(1)} callback={() => handleQuestions(10)}></QuizButton>
+                                    <QuizButton title='20' disabledCondition={chekNumQuestions(2)} callback={() => handleQuestions(20)}></QuizButton>
+                                    <QuizButton title='50' disabledCondition={chekNumQuestions(5)} callback={() => handleQuestions(50)}></QuizButton>
+                                    <QuizButton title='Todas' callback={() => handleQuestions(null)}></QuizButton>
+                                </ul>
+                            </div>
+                        )
+                    }
 
-                    <div className='quiz-buttons-container'
-                        style={{ visibility: visibilityMode ? 'visible' : 'hidden' }}>
-                        <h3 className='quiz-header'>
-                            Modo
-                        </h3>
-                        <ul className='double-grid-container'>
-                            <QuizButton title='Escriptura' callback={() => handleMode(true)}></QuizButton>
-                            <QuizButton title='Tap' callback={() => handleMode(false)}></QuizButton>
-                        </ul>
-                    </div>
+                    {
+                        visibilityMode && (
+                            <div className='quiz-buttons-container animate__animated animate__backInUp'>
+                                <h3 className='quiz-header'>
+                                    Modo
+                                </h3>
+                                <ul className='double-grid-container'>
+                                    <QuizButton title='Escriptura' callback={() => handleMode(true)}></QuizButton>
+                                    <QuizButton title='Tap' callback={() => handleMode(false)}></QuizButton>
+                                </ul>
+                            </div>
+                        )
+                    }
+
                 </div>
 
                 <div className='grouping-sections-container'>
-                    <div className='quiz-buttons-container'
-                        style={{ visibility: visibilityOrder ? 'visible' : 'hidden' }}>
-                        <h3 className='quiz-header'>
-                            Orden
-                        </h3>
-                        <ul className='double-grid-container'>
-                            <QuizButton title='Ordenado' callback={() => handleOrder(true)} disabledCondition={questions !== null}></QuizButton>
-                            <QuizButton title='Aleatorio' callback={() => handleOrder(false)}></QuizButton>
-                        </ul>
-                    </div>
+                    {
+                        visibilityOrder && (
+                            <div className='quiz-buttons-container animate__animated animate__backInUp'>
+                                <h3 className='quiz-header'>
+                                    Orden
+                                </h3>
+                                <ul className='double-grid-container'>
+                                    <QuizButton title='Ordenado' callback={() => handleOrder(true)} disabledCondition={questions !== null}></QuizButton>
+                                    <QuizButton title='Aleatorio' callback={() => handleOrder(false)}></QuizButton>
+                                </ul>
+                            </div>
+                        )
+                    }
 
-                    <div className='quiz-buttons-container'
-                        style={{ visibility: visibilityTime ? 'visible' : 'hidden' }}>
-                        <h3 className='quiz-header'>
-                            Tiempo
-                        </h3>
-                        <ul className='double-grid-container'>
-                            <QuizButton title='30s' callback={() => handleTime(30)}></QuizButton>
-                            <QuizButton title='60s' callback={() => handleTime(60)}></QuizButton>
-                            <QuizButton title='Sin tiempo' callback={() => handleTime(null)}></QuizButton>
-                        </ul>
-                    </div>
+                    {
+                        visibilityTime && (
+                            <div className='quiz-buttons-container animate__animated animate__backInUp'>
+                                <h3 className='quiz-header'>
+                                    Tiempo
+                                </h3>
+                                <ul className='double-grid-container'>
+                                    <QuizButton title='30s' callback={() => handleTime(31)}></QuizButton>
+                                    <QuizButton title='60s' callback={() => handleTime(61)}></QuizButton>
+                                    <QuizButton title='Sin tiempo' callback={() => handleTime(null)}></QuizButton>
+                                </ul>
+                            </div>
+                        )
+                    }
+
                 </div>
             </div>
-            <div className='startgame-container'>
-                {
-                    !startGame &&
-                    <RedCornerButton title='Comienza la partida' callback={() => goToConfigureGame()}></RedCornerButton>
-                }
-            </div>
+            {
+                !startGame && (
+                    <div className='startgame-container animate__animated animate__backInUp'>
+                        {
+                            !startGame &&
+                            <RedCornerButton title='Comienza la partida' callback={() => goToConfigureGame()}></RedCornerButton>
+                        }
+                    </div>
+                )
+            }
+
         </>
     )
 }

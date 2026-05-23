@@ -100,7 +100,7 @@ function SearchEvents() {
                 {
                     shownEvents.map((event) => {
                         return (
-                            <div className='info-card-container' key={event.id} onClick={() => navigate('/event', { state: { id_event: event.id } })}>
+                            <div className='info-card-container animate__animated animate__backInLeft' key={event.id} onClick={() => navigate('/event', { state: { id_event: event.id } })}>
                                 <div className='title-desc-container'>
                                     <TituloDescripción
                                         titulo={event.title}

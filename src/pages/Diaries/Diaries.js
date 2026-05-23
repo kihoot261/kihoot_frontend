@@ -1,18 +1,25 @@
 import React from 'react'
-import RegularButton from '../../components/buttons/RegularButton';
-import { useNavigate } from 'react-router';
+import { Link } from 'react-router'
+
 
 function Diaries() {
 
-    const navigate = useNavigate();
-
     return (
         <>
-            <h2>Diarios de progreso</h2>
-            <div className='many-buttons-container screen-for-buttons-container osu-bg'>
-                <RegularButton title='Crear diario' callback={() => navigate('/creatediary')}></RegularButton>
-                <RegularButton title='Mis diarios' callback={() => navigate('/mydiaries')}></RegularButton>
-            </div>
+            <h3 className='description-feature'>Mantén un progreso con algún ejercicio que busques mejorar, recuerda anotar cuanto haces cada dia y asi ver lo lejos que has llegado</h3>
+
+            <nav className='resources-navigation osu-bg'>
+                <div className='regular-iconed'>
+                    <Link to="/creatediary" className='regular-button-link contents-menu-button'>
+                        <p>Crear diario</p>
+                    </Link>
+                </div>
+                <div className='regular-iconed'>
+                    <Link to="/mydiaries" className='regular-button-link contents-menu-button'>
+                        <p>Mis diarios</p>
+                    </Link>
+                </div>
+            </nav>
         </>
     )
 }

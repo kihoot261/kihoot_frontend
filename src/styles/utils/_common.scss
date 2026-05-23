@@ -37,6 +37,11 @@ h2 {
     padding-top: 3em;
 }
 
+h3.description-feature {
+    @include m.padding-left-right(20%, 20%);
+    padding-top: 3em;
+}
+
 input,
 textarea,
 video {
@@ -117,6 +122,12 @@ ul {
 
 .bridge-bg {
     @include m.bridge();
+
+    &.bridge-mythings {
+        @include m.desktop {
+            @include m.padding-top-bottom(10%, 10%);
+        }
+    }
 }
 
 .kanku-bg {
@@ -159,14 +170,14 @@ ul {
     align-items: center;
 
     @include m.mobile {
-        width: 60%;
+        width: 15em;
         gap: 2em;
     }
 
     @include m.tablet {
-        width: fit-content;
+        width: 20em;
         gap: 2em;
-        @include m.padding-left-right(1em, 1em)
+        @include m.padding-left-right(1em, 1em);
     }
 }
 
@@ -184,7 +195,6 @@ ul {
 
     @include m.desktop {
         @include m.grid-distribution(3);
-        @include m.padding-left-right(10%, 10%);
     }
 }
 
