@@ -106,7 +106,7 @@ function SearchEvents() {
                                         titulo={event.title}
                                         desc={event.description}>
                                     </TituloDescripción>
-                                    <p className='username-text'>{event.username}</p>
+                                    <p className='username-text'>Inicio: {event.date_start}</p>
                                 </div>
                                 <div>
                                     {

@@ -7,7 +7,7 @@ function Routines() {
     return (
         <>
             <h3 className='description-feature'>Crea tus propias rutinas de entrenamiento o consulta y guarda las que otros usuarios han creado</h3>
-            <nav className='resources-navigation tsuki-bg'>
+            <nav className='resources-navigation tsuki-bg animate__animated animate__fadeInUp'>
                 <div className='regular-iconed'>
                     <Link to="/createroutine" className='regular-button-link contents-menu-button'>
                         <p>Crear rutina entrenamiento</p>

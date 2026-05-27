@@ -6,7 +6,7 @@ import RegularButton from '../../components/buttons/RegularButton';
 function SetupFlashcards() {
     const navigate = useNavigate();
     return (
-        <>
+        <div className='animate__animated animate__fadeInUp'>
         <h2>Flashcards</h2>
             <div className='many-buttons-container screen-for-buttons-container kanku-bg-mod kanku-bg'>
                 <RegularButton title='Números en japonés' callback={() => navigate('/flashcards', { state: { genre: 'numbers' }})}></RegularButton>
@@ -14,7 +14,7 @@ function SetupFlashcards() {
                 <RegularButton title='Vocabulario en japonés' callback={() => navigate('/flashcards', { state: { genre: 'vocabulario_japones' }})}></RegularButton>
                 <RegularButton title='Curiosidades' callback={() => navigate('/flashcards', { state: { genre: 'curiosidades' }})}></RegularButton>
             </div>
-        </>
+        </div>
 
     )
 }

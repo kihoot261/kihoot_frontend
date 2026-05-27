@@ -72,13 +72,26 @@
 
     .contents-menu-button {
         @include m.center-and-vertical();
-        width: 10em;
-        height: 10em;
         gap: 0.7em;
+
+        @include m.mobile {
+            @include m.width-height(7em, 7em);
+        }
+
+        @include m.tablet {
+            @include m.width-height(10em, 10em);
+        }
     }
 
     .bigger-button {
-        width: 22.5em;
+
+        @include m.mobile {
+            width: 16.5em;
+        }
+
+        @include m.tablet {
+            width: 22.5em;
+        }
 
         @include m.desktop {
             width: 10em;
@@ -98,7 +111,7 @@
     @extend %general-button, %basic-button-sizing, %iconed-button, %black-bg-general-button;
     color: v.$kihoot_gold;
     @include m.margin-top-bottom(2em, 2em);
-    
+
     &--back-button {
         color: white;
     }
@@ -123,6 +136,23 @@
 
 .save {
     @extend %white-bg-general-button, %general-button, %basic-button-sizing;
+
+    &--home {
+        @include m.center-object();
+
+        @include m.mobile {
+            @include m.width-height(14.5em, 2em);
+        }
+
+        @include m.tablet {
+            margin-left: 1.7em;
+            @include m.width-height(17em, 12em);
+        }
+
+        @include m.desktop {
+            @include m.width-height(3em, 12em);
+        }
+    }
 }
 
 .kyu:hover,

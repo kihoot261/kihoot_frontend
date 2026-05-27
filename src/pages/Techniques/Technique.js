@@ -178,12 +178,16 @@ function Technique() {
                             })
                         }
                     </div>
-                    <div className='home-button-container'>
-                        <RedCornerFlexButton
-                            title='Eliminar técnica'
-                            callback={(e) => eraseTechnique(e, technique.id, technique.title, technique.path)}>
-                        </RedCornerFlexButton>
-                    </div>
+                    {
+                        (isAdmin || checkOwner(technique.id_user)) && (
+                            <div className='home-button-container'>
+                                <RedCornerFlexButton
+                                    title='Eliminar técnica'
+                                    callback={(e) => eraseTechnique(e, technique.id, technique.title, technique.path)}>
+                                </RedCornerFlexButton>
+                            </div>
+                        )
+                    }
                 </div>
             </div>
         </div>

@@ -2,15 +2,19 @@ import { useState, useEffect } from "react";
 import { UserAuth } from "../utils/AuthContext";
 import Loading from "./Loading";
 import '../styles/components/_header.scss';
-import { useLocation } from "react-router";
-import { getBreadcrumb } from "../utils/methods";
+import { useLocation, useNavigate } from "react-router";
+import kanku from '../images/kanku.png'
+import BlackCornerWhiteBgButton from "./buttons/BlackCornerWhiteBgButton";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCalendar, faCircleInfo, faDumbbell, faFileLines, faHandFist } from "@fortawesome/free-solid-svg-icons";
+import { breadcrumbLocated } from "../utils/methods";
 
 const Header = () => {
     const { session, getUserData } = UserAuth();
     const [userName, setUserName] = useState('usuario aleatorio');
     const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
     const location = useLocation();
-    const breadcrumb = getBreadcrumb(location.pathname);
 
     useEffect(() => {
         if (session === undefined) {
@@ -51,23 +55,62 @@ const Header = () => {
     }
 
     return (
-        <div>
-            {
-                (location.pathname !== '/') ?
-                    (
-                        <div className="header-container">
-                            <h3 className="header-breadcrumb">{breadcrumb}</h3>
-                            <span className="header-span header-span--general">
-                                Hola, 
-                                <h3>{userName}</h3>
-                            </span>
-                        </div>
-                    ) : (
-                        <span className="header-span header-span--home">
-                            Hola, {userName}
-                        </span>
-                    )
-            }
+        <div className="header-container">
+            <div className="header-kanku-breadcrumb-container header-span header-span--general">
+                <img src={kanku} alt="kanku" className="kanku-logo-styling" onClick={() => navigate('/')}></img>
+                {/*<h3 className="breadcrumb-item">{breadcrumb}</h3>*/}
+            </div>
+
+            <div className="icons-header-navigation-container">
+                <div>
+                    <BlackCornerWhiteBgButton
+                        title={<FontAwesomeIcon className="fontawesome-icon fontawesome-icon--header-icon"
+                            icon={faFileLines}></FontAwesomeIcon>}
+                        callback={() => navigate('/setupquiz')}
+                        bgColor={breadcrumbLocated(location.pathname, 'partida') ? '#FFD700' : ''}
+                    ></BlackCornerWhiteBgButton>
+                </div>
+                <div>
+                    <BlackCornerWhiteBgButton
+                        title={<FontAwesomeIcon className="fontawesome-icon fontawesome-icon--header-icon"
+                            icon={faCircleInfo}></FontAwesomeIcon>}
+                        callback={() => navigate('/info')}
+                        bgColor={breadcrumbLocated(location.pathname, 'recursos') ? '#FFD700' : ''}
+                    ></BlackCornerWhiteBgButton>
+                </div>
+                <div>
+                    <BlackCornerWhiteBgButton
+                        title={<FontAwesomeIcon className="fontawesome-icon fontawesome-icon--header-icon"
+                            icon={faDumbbell}></FontAwesomeIcon>}
+                        callback={() => navigate('/routines')}
+                        bgColor={breadcrumbLocated(location.pathname, 'rutina') ? '#FFD700' : ''}
+                    ></BlackCornerWhiteBgButton>
+                </div>
+                <div>
+                    <BlackCornerWhiteBgButton
+                        title={<FontAwesomeIcon className="fontawesome-icon fontawesome-icon--header-icon"
+                            icon={faCalendar}></FontAwesomeIcon>}
+                        callback={() => navigate('/events')}
+                        bgColor={breadcrumbLocated(location.pathname, 'evento') ? '#FFD700' : ''}
+                    ></BlackCornerWhiteBgButton>
+                </div>
+                <div>
+                    <BlackCornerWhiteBgButton
+                        title={<FontAwesomeIcon className="fontawesome-icon fontawesome-icon--header-icon"
+                            icon={faHandFist}></FontAwesomeIcon>}
+                        callback={() => navigate('/techniques')}
+                        bgColor={breadcrumbLocated(location.pathname, 'técnica') ? '#FFD700' : ''}
+                    ></BlackCornerWhiteBgButton>
+                </div>
+            </div>
+
+            <div className="header-span-container">
+                <span className="header-span header-span--general" onClick={() => navigate('/myprofile')}>
+                    Hola,
+                    <h3 className="username-link">{userName}</h3>
+                </span>
+            </div>
+
         </div>
     );
 };

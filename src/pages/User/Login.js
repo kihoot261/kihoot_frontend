@@ -31,7 +31,7 @@ function Login() {
             try {
                 const result = await signInUser(emailValue, passwordValue);
                 if (result.success) {
-                    navigate('/');
+                    navigate('/myprofile');
                 }
                 else {
                     setFailedLogin(true);
@@ -76,7 +76,7 @@ function Login() {
                             {validator.current.message('password', passwordValue, 'required')}
                             {
                                 failedLogin &&
-                                <span>Nombre de usuario o contraseña incorrectos</span>
+                                <span className='data--red'>Nombre de usuario o contraseña incorrectos</span>
                             }
                         </div>
                     </div>

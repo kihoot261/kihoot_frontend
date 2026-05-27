@@ -110,8 +110,8 @@ function CompetitionsCalendar() {
 
     const handleSelectSlot = (slotInfo) => {
         setIsFormOpen(true);
-        setStartDate(format(slotInfo.start, 'yyyy-MM-dd'))
-        setEndDate(format(slotInfo.start, 'yyyy-MM-dd'))
+        setStartDate(format(slotInfo.start, 'yyyy-MM-dd'));
+        setEndDate(format(slotInfo.start, 'yyyy-MM-dd'));
     };
 
     const setDateEvent = (e) => {
@@ -147,7 +147,7 @@ function CompetitionsCalendar() {
                 defaultView='month'
                 min={new Date()}
                 onSelectSlot={(slotInfo) => handleSelectSlot(slotInfo)}
-                onSelectEvent={(e) => handleEventDelete(e)}
+                onSelectEvent={(e) => isAdmin ? handleEventDelete(e) : ''}
             />
 
             {

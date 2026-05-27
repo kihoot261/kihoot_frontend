@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router';
 import QuizButton from '../../components/buttons/QuizButton';
 import '../../styles/pages/_quiz.scss';
 import RedCornerButton from '../../components/buttons/RedCornerButton';
 import KyuButton from '../../components/buttons/KyuButton';
+import { scrollToSection } from '../../utils/methods';
 
 function SetupQuiz() {
     const [kyu, setKyu] = useState([]);
@@ -24,6 +25,10 @@ function SetupQuiz() {
 
     const navigate = useNavigate();
     let kyus = [];
+    const questionsRef = useRef(null);
+    const modeRef = useRef(null);
+    const orderRef = useRef(null);
+    const timeRef = useRef(null);
 
     const handleKyu = (kyuParam) => {
         setKyu([]);
@@ -135,13 +140,25 @@ function SetupQuiz() {
 
     kyus.push('sho-dan', 'ni-dan');
 
+    useEffect(() => {
+        if (visibilityTime && timeRef.current) {
+            scrollToSection(timeRef);
+        } else if (visibilityOrder && orderRef.current) {
+            scrollToSection(orderRef);
+        } else if (visibilityMode && modeRef.current) {
+            scrollToSection(modeRef);
+        } else if (visibilityQuestions && questionsRef.current) {
+            scrollToSection(questionsRef);
+        }
+    }, [visibilityQuestions, visibilityMode, visibilityOrder, visibilityTime]);
+
     return (
         <>
             <h2>
                 Configuración de Partida
             </h2>
 
-            <div className='main-quizsetup-container dragon-bg'> { /* este será un form algo diferente al resto */}
+            <div className='main-quizsetup-container dragon-bg dragon-quiz'> { /* este será un form algo diferente al resto */}
 
                 <div className='grouping-sections-container animate__animated animate__backInUp'>
                     <div className='quiz-buttons-container'>
@@ -156,7 +173,7 @@ function SetupQuiz() {
                 <div className='grouping-sections-container'>
                     {
                         visibilityQuestions && (
-                            <div className='quiz-buttons-container animate__animated animate__backInUp'>
+                            <div ref={questionsRef} className='quiz-buttons-container animate__animated animate__backInUp'>
                                 <h3 className='quiz-header'>
                                     Número de preguntas
                                 </h3>
@@ -172,7 +189,7 @@ function SetupQuiz() {
 
                     {
                         visibilityMode && (
-                            <div className='quiz-buttons-container animate__animated animate__backInUp'>
+                            <div ref={modeRef} className='quiz-buttons-container animate__animated animate__backInUp'>
                                 <h3 className='quiz-header'>
                                     Modo
                                 </h3>
@@ -189,7 +206,7 @@ function SetupQuiz() {
                 <div className='grouping-sections-container'>
                     {
                         visibilityOrder && (
-                            <div className='quiz-buttons-container animate__animated animate__backInUp'>
+                            <div ref={orderRef} className='quiz-buttons-container animate__animated animate__backInUp'>
                                 <h3 className='quiz-header'>
                                     Orden
                                 </h3>
@@ -203,7 +220,7 @@ function SetupQuiz() {
 
                     {
                         visibilityTime && (
-                            <div className='quiz-buttons-container animate__animated animate__backInUp'>
+                            <div ref={timeRef} className='quiz-buttons-container animate__animated animate__backInUp'>
                                 <h3 className='quiz-header'>
                                     Tiempo
                                 </h3>

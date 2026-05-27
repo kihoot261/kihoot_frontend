@@ -10,9 +10,22 @@
 }
 
 .technique-container {
-    width: 60%;
+
+    @include m.mobile {
+        width: 110%;
+    }
+
+    @include m.tablet {
+        width: 80%;
+    }
+
+    @include m.desktop {
+        width: 60%;
+    }
+    
 }
 
+//comments
 .main-public-comments-container {
     margin-top: 2em;
     @include m.center-and-vertical();
@@ -23,11 +36,19 @@
     justify-content: space-between;
     border: 1px solid v.$kihoot_grey;
     border-radius: 0.5em;
-    width: fit-content;
     padding: 1em;
+    width: fit-content;
     gap: 1em;
     @include m.margin-top-bottom(1em, 1em);
     background-color: white;
+
+    @include m.mobile {
+        max-width: 30em;
+    }
+
+    @include m.tablet {
+        max-width: 80%;
+    }
 }
 
 .comments-section {
@@ -35,6 +56,8 @@
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
+    word-break: break-all;
+    overflow-wrap: break-word;
 }
 
 .single-comment {

@@ -13,7 +13,7 @@ function Profile() {
             <h2>Acceder al perfil</h2>
             {!session ?
                 (
-                    <nav className='resources-navigation bridge-bg'>
+                    <nav className='resources-navigation bridge-bg animate__animated animate__fadeInUp'>
                         <div className='regular-iconed'>
                             <Link to="/login" className='regular-button-link contents-menu-button'>
                                 <p>Inicia sesión</p>

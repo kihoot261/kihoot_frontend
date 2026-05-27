@@ -1,4 +1,11 @@
 @use '../utils/mixins' as m;
+@use '../utils/variables' as v;
+
+
+.header-span-container {
+    display: flex;
+    align-items: center;
+}
 
 .header-span {
     font-size: 0.8em;
@@ -17,8 +24,58 @@ body {
 }
 
 .header-container {
-    display: flex;
+    @include m.center-object();
+    position: sticky;
+    top: 0;
+    left: 0;
+    @include m.width-height(100%, 5em);
+    z-index: 1000;
+    background-color: white;
     justify-content: space-between;
-    @include m.margin-left-right(10%, 10%);
-    @include m.padding-top-bottom(2em, 0);
+
+    @include m.mobile {
+        @include m.padding-left-right(5%, 5%);
+    }
+
+    @include m.tablet {
+        @include m.padding-left-right(10%, 10%);
+    }
+}
+
+.kanku-logo-styling {
+    width: 30px;
+}
+
+.header-kanku-breadcrumb-container {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+}
+
+.breadcrumb-item {
+    @include m.padding-left-right(0, 1em);
+    font-size: 0.8em;
+}
+
+.username-link:link,
+.username-link:visited {
+    color: black;
+}
+
+.username-link:hover {
+    text-decoration: underline;
+    color: v.$kihoot_second_grey;
+}
+
+.icons-header-navigation-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    padding-left: 2em;
+
+    @include m.tablet {
+        padding-left: 4em;
+        gap: 1em;
+    }
+
 }

@@ -2,16 +2,18 @@
 @use '../utils/mixins' as m;
 
 .kihoot-title {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    @include m.center-object();
     font-family: "Yuji Boku", serif;
     font-weight: 400;
-    color: black;
-    z-index: 3;
+    z-index: 1;
     margin: 0;
-    pointer-events: none;
+    padding-top: 4em;
+}
+
+h2.logo-home {
+    @include m.margin-left-right(20%, 20%);
+    font-family: "Yuji Boku", serif;
+    @include m.center-object();
 }
 
 .App {
@@ -19,10 +21,83 @@
     min-height: 100dvh;
     display: flex;
     flex-direction: column;
-    margin: 0;
-    background: linear-gradient(to bottom, white 45%, v.$kihoot_gold 200%);
+    @include m.padding-top-bottom(1em, 1em);
+
+    &--home {
+        background: linear-gradient(to bottom, black 45%, v.$kihoot_gold 100%);
+    }
+
+    &--general {
+        background: linear-gradient(to bottom, white 45%, v.$kihoot_gold 200%);
+    }
 }
 
-.header-position {
-    padding-top: 10em;
+.popular-one-section {
+    @include m.center-and-vertical();
+    @include m.padding-left-right(20%, 20%);
+}
+
+.popular-elems-section {
+    @include m.padding-top-bottom(2em, 2em);
+    gap: 1em;
+
+    @include m.mobile {
+        @include m.center-and-vertical();
+    }
+
+    @include m.tablet {
+        @include m.grid-distribution(2);
+    }
+
+    @include m.desktop {
+        @include m.grid-distribution(4);
+
+    }
+
+}
+.popular-card-container {
+    @include m.card-aspect();
+
+    @include m.mobile {
+        @include m.width-height(12em, 12em);
+    }
+
+    @include m.tablet {
+        @include m.width-height(14em, 10em);
+    }
+
+    @include m.desktop {
+        @include m.width-height(16em, 10em);
+    }
+}
+
+.popular-card-container:hover {
+    border: 2px solid black;
+}
+
+.popular-section-title {
+    align-items: left;
+    justify-content: left;
+    display: flex;
+    color: white;
+}
+
+.landing-page {
+    padding-bottom: 3em;
+}
+
+h2.landing-page-item {
+    color: white;
+    line-height: 1.5;
+    text-align: justify;
+
+    @include m.mobile {
+        @include m.padding-left-right(10%, 10%);
+        font-size: large;
+    }
+
+    @include m.tablet {
+        @include m.padding-left-right(20%, 20%);
+        font-size: x-large;
+    }
 }

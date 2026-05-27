@@ -57,19 +57,40 @@ export const diffBetweenDates = (date1, date2) => {
 }
 
 export const getBreadcrumb = (path) => {
-    return path in breadcrumbs ? breadcrumbs[path] : '';
+    let finalBreadcrumb = path in breadcrumbs ? breadcrumbs[path] : '';
+    return finalBreadcrumb.replace(">", ">\n");
+}
+
+export const breadcrumbLocated = (path, subsetBreadcrumb) => {
+    const foundBreadcrumb = path in breadcrumbs ? breadcrumbs[path] : '';
+    const finalBreadcrumb = foundBreadcrumb.toLowerCase(); 
+    return finalBreadcrumb.includes(subsetBreadcrumb);
+    //console.log(finalBreadcrumb, subsetBreadcrumb);
 }
 
 export const splitDateTime = (toSplit, separator) => {
     return toSplit.split(separator);
 }
 
+export const scrollToSection = (ref) => {
+    if (ref?.current) {
+        setTimeout(() => {
+            ref.current.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        }, 750);
+    }
+};
+
 const utils = {
     checkNaturals,
     compressVideoRecorder,
     getMinDate,
     diffBetweenDates,
-    getBreadcrumb
+    getBreadcrumb,
+    scrollToSection,
+    breadcrumbLocated
 };
 
 export default utils;

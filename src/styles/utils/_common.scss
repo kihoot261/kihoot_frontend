@@ -5,7 +5,6 @@ body {
     display: flex;
     flex-direction: column;
     @include m.width-height(100%, 100vh);
-    @include m.padding-top-bottom(1em, 1em);
 }
 
 a,
@@ -73,16 +72,8 @@ ul {
     width: 100%;
 }
 
-%card-aspect {
-    border: 1px solid v.$kihoot_grey;
-    background-color: white;
-    border-radius: 0.5em;
-    width: fit-content;
-    padding: 1em;
-}
-
 .regular-form-container {
-    @extend %card-aspect;
+    @include m.card-aspect();
     @include m.center-and-vertical();
     gap: 1em;
 }
@@ -105,6 +96,37 @@ ul {
 
 .data--blue {
     color: blue;
+}
+
+.fontawesome-icon {
+    @include m.mobile {
+        font-size: 4em;
+    }
+
+    @include m.tablet {
+        font-size: 5em;
+    }
+
+    &--header-icon {
+        @include m.mobile {
+        font-size: 1em;
+    }
+
+    @include m.tablet {
+        font-size: 2em;
+    }
+    }
+
+}
+
+.special-icon {
+    @include m.mobile {
+        font-size: 3em;
+    }
+
+    @include m.tablet {
+        font-size: 5em;
+    }
 }
 
 .many-buttons-container {
@@ -140,10 +162,48 @@ ul {
 
 .dragon-bg {
     @include m.dragon();
+
+    &.dragon-quiz {
+        @include m.desktop {
+            @include m.padding-top-bottom(5%, 5%);
+        }
+    }
+
+    &.dragon-home {
+
+        @include m.mobile {
+            &::before {
+                opacity: 0;
+            }
+        }
+
+        @include m.desktop {
+            @include m.margin-left-right(0, 0);
+
+            &::before,
+            &::after {
+                opacity: 0.3;
+                filter: invert(100%);
+                z-index: -1;
+                width: 40%;
+            }
+            &::after {
+                transform: scaleX(-1);
+            }
+        }
+    }
 }
 
 .kanji-kyoku-bg {
     @include m.kanji-kyoku();
+
+    &.home-page-kyoku {
+        filter: invert(100%);
+
+        &::before {
+            opacity: 0.3;
+        }
+    }
 }
 
 .mawashi-bg {
@@ -164,14 +224,14 @@ ul {
 }
 
 .info-card-container {
-    @extend %card-aspect;
+    @include m.card-aspect();
     display: flex;
     justify-content: space-between;
     align-items: center;
 
     @include m.mobile {
         width: 15em;
-        gap: 2em;
+        gap: 1em;
     }
 
     @include m.tablet {
@@ -199,7 +259,7 @@ ul {
 }
 
 .exercice-container {
-    @extend %card-aspect;
+    @include m.card-aspect();
     padding: 2em;
 }
 
@@ -219,7 +279,7 @@ ul {
 }
 
 .diary-container {
-    @extend %card-aspect;
+    @include m.card-aspect();
     gap: 1em;
 
     @include m.mobile {
@@ -241,8 +301,7 @@ ul {
 }
 
 .deletion-screen {
-    width: 100vw;
-    height: 100vh;
+    @include m.width-height(100vw, 100vh);
     top: 0;
     left: 0;
     position: fixed;

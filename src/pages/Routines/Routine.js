@@ -107,6 +107,10 @@ function Routine() { // podriamos cambiarlo a usar params, como en los botones
                     <p>{routine.description}</p>
                 </div>
                 <div>
+                    <h3>Por: </h3>
+                    <p>{routine.username}</p>
+                </div>
+                <div>
                     {
                         (ownsRoutine || isAdmin) &&
                         <BlackCornerWhiteBgButton
@@ -135,7 +139,7 @@ function Routine() { // podriamos cambiarlo a usar params, como en los botones
                                             <li className='reps-series-elem'>Descanso: {exercice.rest}</li>
                                             {
                                                 exercice.source ?
-                                                    <li>Video explicativo:
+                                                    <li className='link-container'>Video explicativo:
                                                         <a href={exercice.source}>{exercice.source}</a>
                                                     </li>
                                                     :

@@ -6,18 +6,18 @@ import { faBook, faCalendar, faClipboardQuestion, faEnvelope } from '@fortawesom
 
 const ResourcesNavbar = () => {
     return (
-        <nav className='main-navigation'>
+        <nav className='main-navigation animate__animated animate__backInUp'>
             <div className='resources-navigation-section'>
                 <div className='section-2-resources'>
                     <div className='regular-iconed'>
                         <Link to="/setupflashcards" className='regular-button-link contents-menu-button'>
-                            <FontAwesomeIcon className="fa-5x" icon={faClipboardQuestion} />
+                            <FontAwesomeIcon className="fontawesome-icon" icon={faClipboardQuestion} />
                             <p>Flashcards</p>
                         </Link>
                     </div>
                     <div className='regular-iconed'>
                         <Link to="/calendar" className='regular-button-link contents-menu-button'>
-                            <FontAwesomeIcon className="fa-5x" icon={faCalendar} />
+                            <FontAwesomeIcon className="fontawesome-icon" icon={faCalendar} />
                             <p>Calendario</p>
                         </Link>
                     </div>
@@ -27,13 +27,13 @@ const ResourcesNavbar = () => {
                 <div className='section-2-resources'>
                     <div className='regular-iconed'>
                         <Link to='https://drive.google.com/file/d/1aARJ_t44nUn4o9suCYEJe1kyGFKTV6Xc/view?usp=drive_link' className='regular-button-link contents-menu-button'>
-                            <FontAwesomeIcon className="fa-5x" icon={faBook} />
+                            <FontAwesomeIcon className="fontawesome-icon special-icon" icon={faBook} />
                             <p className='regular-button-link'>Referencia pase grados</p>
                         </Link>
                     </div>
                     <div className='regular-iconed'>
                         <Link to='mailto:kihoot261@gmail.com' className='regular-button-link contents-menu-button'>
-                            <FontAwesomeIcon className="fa-5x" icon={faEnvelope} />
+                            <FontAwesomeIcon className="fontawesome-icon" icon={faEnvelope} />
                             <p className='regular-button-link'>Contacto</p>
                         </Link>
                     </div>

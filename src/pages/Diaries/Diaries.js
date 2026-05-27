@@ -8,7 +8,7 @@ function Diaries() {
         <>
             <h3 className='description-feature'>Mantén un progreso con algún ejercicio que busques mejorar, recuerda anotar cuanto haces cada dia y asi ver lo lejos que has llegado</h3>
 
-            <nav className='resources-navigation osu-bg'>
+            <nav className='resources-navigation osu-bg animate__animated animate__fadeInUp'>
                 <div className='regular-iconed'>
                     <Link to="/creatediary" className='regular-button-link contents-menu-button'>
                         <p>Crear diario</p>

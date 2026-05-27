@@ -20,7 +20,7 @@
 }
 
 .event-subinfo-container {
-    padding-bottom: 1em;
+    @include m.padding-top-bottom(2em, 1em);
 }
 
 .event-info-container {
@@ -33,6 +33,10 @@
         place-items: center;
         place-content: center;
         @include m.margin-left-right(10%, 10%);
+    }
+
+    @include m.desktop {
+        @include m.margin-left-right(20%, 20%);
     }
 }
 

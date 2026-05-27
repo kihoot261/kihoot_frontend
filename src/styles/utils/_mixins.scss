@@ -60,39 +60,49 @@
     flex-direction: column;
 }
 
+@mixin card-aspect {
+    border: 1px solid v.$kihoot_grey;
+    background-color: white;
+    border-radius: 0.5em;
+    padding: 1em;
+    @include mobile {
+       @include width-height(80%, auto);
+       @include margin-left-right(10%, 10%);
+    }
+    @include tablet {
+        width: fit-content;
+    }
+}
+
 @mixin grid-distribution($cols) {
     display: grid;
     grid-template-columns: repeat($cols, 1fr);
 }
 
-@mixin dragon {
-    height: max-content;
+@mixin base-img {
     position: relative;
     z-index: 0;
-    @include padding-top-bottom(10%, 10%);
 
     &::before {
         content: '';
         position: absolute;
         inset: 0;
-        background-image: url('../../images/dragon.jpg');
-        background-size: cover;
+        background-size: contain;
         background-repeat: no-repeat;
         background-position: top;
         opacity: 0.1;
         z-index: 0;
     }
+}
 
-    @include mobile {
-        &::before {
-            background-size: cover;
-        }
-    }
+@mixin dragon {
+    height: max-content;
+    @include base-img();
 
-    @include tablet {
-        &::before {
-            background-size: contain;
-        }
+    @include padding-top-bottom(10%, 10%);
+
+    &::before {
+        background-image: url('../../images/dragon-sin-fondo.png');
     }
 
     @include desktop {
@@ -100,12 +110,8 @@
         @include margin-left-right(20%, 20%);
 
         &::before {
-            background-image: url('../../images/dragon.jpg');
-            background-size: contain;
-            background-repeat: no-repeat;
             background-position: left;
-            z-index: 0;
-            width: 50%;
+            width: 100%;
         }
 
         &::after {
@@ -114,21 +120,21 @@
             top: 0;
             right: 0;
             bottom: 0;
-            width: 50%;
-            background-image: url('../../images/dragon.jpg');
-            background-size: contain;
+            width: 100%;
+            background-image: url('../../images/dragon-sin-fondo.png');
             background-repeat: no-repeat;
-            background-position: right;
+            background-position: left;
+            background-size: contain;
             transform: rotate(180deg);
-            z-index: 0;
             opacity: 0.1;
+            z-index: -1;
         }
     }
 }
 
 @mixin bridge {
-    position: relative;
-    z-index: 0;
+
+    @include base-img();
 
     @include mobile {
         @include padding-top-bottom(10%, 10%);
@@ -143,55 +149,42 @@
 
     @include desktop {
         @include width-height(100%, 20vh);
+        @include margin-top-bottom(5%, 5%);
+        @include padding-top-bottom(5%, 20%);
     }
 
     &::before {
-        content: '';
-        position: absolute;
-        inset: 0;
         background-image: url('../../images/bridge.png');
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: center;
-        opacity: 0.1;
-        z-index: 0;
     }
 }
 
 @mixin osu {
-    position: relative;
-    z-index: 0;
+
+    @include base-img();
 
     @include mobile {
         @include margin-top-bottom(10%, 10%);
-        @include width-height(100%, 55vh);
+        @include width-height(100%, 35vh);
     }
 
     @include tablet {
         @include margin-top-bottom(5%, 5%);
+        @include width-height(100%, 45vh);
     }
 
     @include desktop {
+        @include width-height(100%, 55vh);
         @include margin-top-bottom(0, 0);
     }
 
     &::before {
-        content: '';
-        position: absolute;
-        inset: 0;
         background-image: url('../../images/OSU.jpg');
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: center;
-        opacity: 0.1;
-        z-index: 0;
     }
 }
 
 @mixin kanku {
     @include width-height(100%, 40vh);
-    position: relative;
-    z-index: 0;
+    @include base-img();
     @include margin-top-bottom(10%, 10%);
 
     @include mobile {
@@ -208,41 +201,24 @@
     }
 
     &::before {
-        content: '';
-        position: absolute;
-        inset: 0;
         background-image: url('../../images/simbol-kanku.png');
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: center;
-        opacity: 0.1;
-        z-index: 0;
     }
 }
 
 @mixin kanji-kyoku {
     @include width-height(100%, 30vh);
-    position: relative;
-    z-index: 0;
     @include margin-top-bottom(1em, 3em);
+    @include base-img();
 
     &::before {
-        content: '';
-        position: absolute;
-        inset: 0;
         background-image: url('../../images/kanji-kyoku.png');
-        background-size: contain;
-        background-repeat: no-repeat;
         background-position: center top;
-        opacity: 0.1;
-        z-index: 0;
     }
 }
 
 @mixin mawashi {
     @include width-height(100%, 40vh);
-    position: relative;
-    z-index: 0;
+    @include base-img();
 
     @include mobile {
         @include padding-top-bottom(20%, 30%);
@@ -251,29 +227,21 @@
 
     @include tablet {
         @include width-height(100%, 40vh);
-        @include margin-top-bottom(0, 0);
+        @include margin-top-bottom(10%, 10%);
     }
 
     @include desktop {
-        @include padding-top-bottom(15%, 20%);
+        @include margin-top-bottom(0, 0);
+        @include padding-top-bottom(10%, 20%);
     }
 
     &::before {
-        content: '';
-        position: absolute;
-        inset: 0;
         background-image: url('../../images/mawashi.png');
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: center;
-        opacity: 0.1;
-        z-index: 0;
     }
 }
 
 @mixin tsuki {
-    position: relative;
-    z-index: 0;
+    @include base-img();
     @include width-height(100%, 10vh);
 
     @include mobile {
@@ -291,14 +259,6 @@
     }
 
     &::before {
-        content: '';
-        position: absolute;
-        inset: 0;
         background-image: url('../../images/punch.png');
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: center;
-        opacity: 0.1;
-        z-index: 0;
     }
 }

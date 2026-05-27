@@ -30,7 +30,15 @@ nav.main-navigation {
         }
 
         .single-long-button {
-            display: block;
+
+            @include m.mobile {
+                width: 18em;
+                @include m.center-object();
+            }
+
+            @include m.tablet {
+                width: 100%;
+            }
         }
 
         @include m.desktop {
@@ -42,15 +50,25 @@ nav.main-navigation {
     .resources-navigation-section {
 
         .section-2-resources {
-            @include m.mobile {
-                @include m.center-and-vertical();
-                gap: 1em;
-            }
-
-            @include m.tablet {
-                display: flex;
-                flex-direction: row;
-            }
+            @include m.grid-distribution(2);
+            place-items: center;
+            width: 100%;
+            gap: 1em;
         }
+    }
+}
+
+.resources-navigation {
+    gap: 1em;
+    
+    @include m.mobile {
+        @include m.center-and-vertical();   
+    }
+
+    @include m.desktop {
+        @include m.grid-distribution(2);
+        place-items: center;
+        width: 100%;
+        @include m.padding-left-right(35%, 35%);
     }
 }

@@ -1,5 +1,12 @@
 @use '../utils/variables' as v;
+@use '../utils/mixins' as m;
 
 .footer-container {
     gap: 1em;
+    display: flex;
+    position: sticky;
+    @include m.width-height(100%, 5em);
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
 }

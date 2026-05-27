@@ -169,9 +169,9 @@ function MyProfile() {
         <>
             {!editMode ?
                 (
-                    <div className='dragon-bg dragon-bg-mod'>
+                    <div className='dragon-bg'>
                         <div className='my-profile-container'>
-                            <div className='block-my-profile-container'>
+                            <div className='block-my-profile-container animate__animated animate__backInLeft'>
                                 <div className='single-info-container'>
                                     <h3 className='myprofile-header'>Nombre</h3>
                                     <p>{userData.name}</p>
@@ -193,7 +193,7 @@ function MyProfile() {
                                     <p>{part2}</p>
                                 </div>
                             </div>
-                            <div className='block-my-stats-container'>
+                            <div className='block-my-stats-container animate__animated animate__backInRight'>
                                 <div className='ratio-games-container'>
                                     <div>
                                         <h1 className='data--blue'>{userData.ratio}%</h1>
@@ -216,14 +216,14 @@ function MyProfile() {
                                 </div>
                             </div>
                         </div>
-                        <div className='control-my-profile-container many-buttons-container'>
+                        <div className='control-my-profile-container many-buttons-container animate__animated animate__fadeInUp'>
                             <RegularButton title='Mis cosas' callback={() => navigate('/mythings')}></RegularButton>
                             <RegularButton title='Editar mis datos' callback={handleEditMode}></RegularButton>
                             <RegularButton title='Cerrar sessión' callback={handleSignOut}></RegularButton>
                         </div>
                     </div>
                 ) : (
-                    <>
+                    <> {/* todo esto a otro componente, y con su propio form */}
                         <h2>Edita mis datos</h2>
                         <div className='main-form-container'>
                             <form onSubmit={returnViewMode} className='regular-form-container'>
