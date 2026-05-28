@@ -43,7 +43,8 @@
     }
 
     @include m.tablet {
-        @include m.width-height(fit-content, auto);
+        @include m.padding-left-right(10%, 10%);
+        @include m.width-height(100%, auto);
     }
 }
 
@@ -64,7 +65,7 @@
 
     @include m.tablet {
         width: fit-content;
-        max-width: 90%;
+        max-width: 100%;
     }
 }
 
@@ -92,4 +93,12 @@
 .video-spacing {
     @include m.margin-top-bottom(2em, 0);
     @include m.margin-left-right(20%, 20%);
+}
+
+.creator-tecnique-username-comments {
+    text-align: left;
+
+    .text-username-technique {
+        padding-bottom: 2em;
+    }
 }

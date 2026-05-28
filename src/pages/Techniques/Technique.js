@@ -143,15 +143,19 @@ function Technique() {
                     >
                         Your browser does not support the video tag.
                     </video>
-                    <p>Creado por: {technique.username}</p>
-                    {
-                        session && <FormComment
-                            message={message}
-                            onMessageChange={(e) => setMessage(e.target.value)}
-                            onSubmit={sendComment}
-                            buttonName={<FontAwesomeIcon icon={faAngleRight} />}>
-                        </FormComment>
-                    }
+                    <div className='creator-tecnique-username-comments'>
+                        <p className='text-username-technique'>Creado por: {technique.username}</p>
+                        {
+                            session && <FormComment
+                                message={message}
+                                onMessageChange={(e) => setMessage(e.target.value)}
+                                onSubmit={sendComment}
+                                buttonName={<FontAwesomeIcon icon={faAngleRight} />}>
+                            </FormComment>
+                        }
+                    </div>
+
+
                 </div>
                 <div className='main-public-comments-container'>
                     <h3>Comentarios</h3>
