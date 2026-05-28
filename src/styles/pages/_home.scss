@@ -57,6 +57,7 @@ h2.logo-home {
 }
 .popular-card-container {
     @include m.card-aspect();
+    text-align: left;
 
     @include m.mobile {
         @include m.width-height(12em, 12em);
@@ -90,6 +91,7 @@ h2.landing-page-item {
     color: white;
     line-height: 1.5;
     text-align: justify;
+    padding-top: 3em;
 
     @include m.mobile {
         @include m.padding-left-right(10%, 10%);

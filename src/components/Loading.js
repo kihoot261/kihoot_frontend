@@ -1,6 +1,8 @@
 import React from 'react'
 import { Oval } from 'react-loader-spinner';
 import '../styles/components/_loading.scss';
+import variables from '../styles/utils/_variables.scss';
+
 
 function Loading() {
     return (
@@ -10,8 +12,8 @@ function Loading() {
                 width={200}
                 visible={true}
                 ariaLabel="oval-loading"
-                secondaryColor="#979797"
-                color='#000000'
+                secondaryColor={variables.kihoot_second_grey}
+                color='black'
                 strokeWidth={2}
                 strokeWidthSecondary={2}
             />

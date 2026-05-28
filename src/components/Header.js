@@ -8,6 +8,7 @@ import BlackCornerWhiteBgButton from "./buttons/BlackCornerWhiteBgButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendar, faCircleInfo, faDumbbell, faFileLines, faHandFist } from "@fortawesome/free-solid-svg-icons";
 import { breadcrumbLocated } from "../utils/methods";
+import variables from '../styles/utils/_variables.scss';
 
 const Header = () => {
     const { session, getUserData } = UserAuth();
@@ -67,7 +68,7 @@ const Header = () => {
                         title={<FontAwesomeIcon className="fontawesome-icon fontawesome-icon--header-icon"
                             icon={faFileLines}></FontAwesomeIcon>}
                         callback={() => navigate('/setupquiz')}
-                        bgColor={breadcrumbLocated(location.pathname, 'partida') ? '#FFD700' : ''}
+                        bgColor={breadcrumbLocated(location.pathname, 'partida') ? variables.kihoot_gold : ''}
                     ></BlackCornerWhiteBgButton>
                 </div>
                 <div>
@@ -75,7 +76,7 @@ const Header = () => {
                         title={<FontAwesomeIcon className="fontawesome-icon fontawesome-icon--header-icon"
                             icon={faCircleInfo}></FontAwesomeIcon>}
                         callback={() => navigate('/info')}
-                        bgColor={breadcrumbLocated(location.pathname, 'recursos') ? '#FFD700' : ''}
+                        bgColor={breadcrumbLocated(location.pathname, 'recursos') ? variables.kihoot_gold : ''}
                     ></BlackCornerWhiteBgButton>
                 </div>
                 <div>
@@ -83,7 +84,7 @@ const Header = () => {
                         title={<FontAwesomeIcon className="fontawesome-icon fontawesome-icon--header-icon"
                             icon={faDumbbell}></FontAwesomeIcon>}
                         callback={() => navigate('/routines')}
-                        bgColor={breadcrumbLocated(location.pathname, 'rutina') ? '#FFD700' : ''}
+                        bgColor={breadcrumbLocated(location.pathname, 'rutina') ? variables.kihoot_gold : ''}
                     ></BlackCornerWhiteBgButton>
                 </div>
                 <div>
@@ -91,7 +92,7 @@ const Header = () => {
                         title={<FontAwesomeIcon className="fontawesome-icon fontawesome-icon--header-icon"
                             icon={faCalendar}></FontAwesomeIcon>}
                         callback={() => navigate('/events')}
-                        bgColor={breadcrumbLocated(location.pathname, 'evento') ? '#FFD700' : ''}
+                        bgColor={breadcrumbLocated(location.pathname, 'evento') ? variables.kihoot_gold : ''}
                     ></BlackCornerWhiteBgButton>
                 </div>
                 <div>
@@ -99,7 +100,7 @@ const Header = () => {
                         title={<FontAwesomeIcon className="fontawesome-icon fontawesome-icon--header-icon"
                             icon={faHandFist}></FontAwesomeIcon>}
                         callback={() => navigate('/techniques')}
-                        bgColor={breadcrumbLocated(location.pathname, 'técnica') ? '#FFD700' : ''}
+                        bgColor={breadcrumbLocated(location.pathname, 'técnica') ? variables.kihoot_gold : ''}
                     ></BlackCornerWhiteBgButton>
                 </div>
             </div>

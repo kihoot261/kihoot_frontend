@@ -98,17 +98,16 @@ function App() {
                         </div>
                         <div className='landing-page animate__animated animate__fadeInUp'>
                             <h2 className='landing-page-item'>
-                                Practicar karate te apasiona,
-                                entrenar te encanta pero, sientes que falta algo. Tal vez una rutina para entrenar,
-                                tal vez una forma interactiva de aprender kihon, tal vez una forma de
-                                ver/aprender katas, tal vez encontrar competiciones que te motiven, tal vez ir
-                                a más eventos y vivir nuevas experiencias... Si esto resuena contigo, estas en el
-                                lugar correcto, clica en el botón de abajo y descubre lo que nuestra app
+                                Practicar karate te apasiona, entrenar te encanta pero, sientes que falta algo. 
+                                Tal vez una rutina para entrenar, tal vez una forma interactiva de aprender kihon, 
+                                tal vez una forma de ver/aprender katas, tal vez encontrar competiciones que te motiven, 
+                                tal vez ir a más eventos y vivir nuevas experiencias... Si esto resuena contigo, estas 
+                                en el lugar correcto, clica en el botón de abajo y descubre lo que nuestra app
                                 ofrece y no olvides registrarte para no perderte nada
                             </h2>
                         </div>
                         {
-                            (!showContent) ? (
+                            !showContent ? (
                                 <div className='home-button-container'>
                                     <BlackCornerWhiteBgButton
                                         title={'Empecemos'}
@@ -177,7 +176,7 @@ function App() {
                                                 {
                                                     techniques.slice(0, 3).map((elem) => {
                                                         return (
-                                                            <div className='popular-card-container' key={elem.id} onClick={() => navigate('/technique', { state: { id_event: elem.id } })}>
+                                                            <div className='popular-card-container' key={elem.id} onClick={() => navigate('/technique', { state: { id_technique: elem.id } })}>
                                                                 <div className='title-desc-container'>
                                                                     <TituloDescripción
                                                                         titulo={elem.title}

@@ -24,8 +24,7 @@
     z-index: 1;
     @include m.center-object();
     border-radius: 0.5em;
-    width: fit-content;
-    height: auto;
+    @include m.width-height(fit-content, auto);
     @include m.padding-left-right(3em, 3em);
     @include m.padding-top-bottom(1em, 2em);
 

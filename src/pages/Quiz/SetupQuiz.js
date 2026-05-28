@@ -5,6 +5,8 @@ import '../../styles/pages/_quiz.scss';
 import RedCornerButton from '../../components/buttons/RedCornerButton';
 import KyuButton from '../../components/buttons/KyuButton';
 import { scrollToSection } from '../../utils/methods';
+import variables from '../../styles/utils/_variables.scss';
+
 
 function SetupQuiz() {
     const [kyu, setKyu] = useState([]);
@@ -86,40 +88,40 @@ function SetupQuiz() {
             border: 'black'
         },
         {
-            color: "brown",
-            border: 'black'
+            color: "black",
+            border: 'brown'
         },
         {
             color: "brown",
             border: 'brown'
         },
         {
-            color: "#2DA64C",
-            border: 'brown'
+            color: 'brown',
+            border: variables.kihoot_green
         },
         {
-            color: "#2DA64C",
-            border: '#2DA64C'
+            color: variables.kihoot_green,
+            border: variables.kihoot_green
         },
         {
-            color: "yellow",
-            border: 'green'
+            color: "green",
+            border: 'yellow'
         },
         {
             color: "yellow",
             border: 'yellow'
         },
         {
-            color: "blue",
-            border: 'yellow'
+            color: "yellow",
+            border: 'blue'
         },
         {
             color: "blue",
             border: 'blue'
         },
         {
-            color: "orange",
-            border: 'blue'
+            color: "blue",
+            border: 'orange'
         },
         {
             color: "orange",

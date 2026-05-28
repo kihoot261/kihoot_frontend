@@ -6,13 +6,20 @@
     display: grid;
     grid-template-columns: 90% 10%;
     align-items: center;
-    gap: 1em;
+
+    @include m.mobile {
+        gap: 0.5em;
+    }
+
+    @include m.tablet {
+        gap: 1em;
+    }
 }
 
 .technique-container {
 
     @include m.mobile {
-        width: 110%;
+        width: 100%;
     }
 
     @include m.tablet {
@@ -22,13 +29,22 @@
     @include m.desktop {
         width: 60%;
     }
-    
+
 }
 
 //comments
 .main-public-comments-container {
     margin-top: 2em;
     @include m.center-and-vertical();
+
+    @include m.mobile {
+        @include m.width-height(90%, auto);
+        @include m.padding-left-right(10%, 0);
+    }
+
+    @include m.tablet {
+        @include m.width-height(fit-content, auto);
+    }
 }
 
 .comments-section-main-container {
@@ -37,17 +53,18 @@
     border: 1px solid v.$kihoot_grey;
     border-radius: 0.5em;
     padding: 1em;
-    width: fit-content;
     gap: 1em;
     @include m.margin-top-bottom(1em, 1em);
     background-color: white;
 
     @include m.mobile {
+        width: 100%;
         max-width: 30em;
     }
 
     @include m.tablet {
-        max-width: 80%;
+        width: fit-content;
+        max-width: 90%;
     }
 }
 
@@ -62,7 +79,6 @@
 
 .single-comment {
     max-width: fit-content;
-    float: left;
     white-space: pre-wrap;
     width: fit-content;
     text-align: left;

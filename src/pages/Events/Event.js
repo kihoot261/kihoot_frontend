@@ -130,7 +130,7 @@ function Event() {
 
     return (
         <div>
-            <h2>{event.title}</h2>
+            <h2 className='event-title'>{event.title}</h2>
             <div className='event-container'>
                 <div className='event-subinfo-container'>
                     <h3>Descripción: </h3>

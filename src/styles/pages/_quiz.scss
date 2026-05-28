@@ -108,7 +108,3 @@ h3.quiz-header {
         @include m.padding-top-bottom(10%, 10%);
     }
 }
-
-.kanku-bg {
-    @include m.kanku();
-}

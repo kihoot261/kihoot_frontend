@@ -6,8 +6,7 @@
     @include m.padding-left-right(10%, 10%);
     column-gap: 2em;
     position: relative;
-    width: 100%;
-    height: auto;
+    @include m.width-height(100%, auto);
     z-index: 0;
 }
 
@@ -73,4 +72,8 @@
 
 .events-buttons {
     margin-bottom: 1em;
+}
+
+.event-title {
+    padding-left: 10%;
 }

@@ -1,5 +1,6 @@
 import React from 'react'
 import '../../styles/components/_buttons.scss'
+import variables from '../../styles/utils/_variables.scss';
 
 
 function KyuButton({ title, callback, styleColor, styleBorder }) {
@@ -17,16 +18,16 @@ function KyuButton({ title, callback, styleColor, styleBorder }) {
                 {
                     styleBorder === 'black' && styleColor === 'black' && title === 'Sho-dan'
                     && <line x1="10" y1="0" x2="10" y2="20"
-                        stroke="#FFD700" strokeWidth="3" strokeLinecap="round" />
+                        stroke={variables.kihoot_gold} strokeWidth="3" strokeLinecap="round" />
                 }
                 {
                     styleBorder === 'black' && styleColor === 'black' && title === 'Ni-dan'
                     && (
                         <>
                             <line x1="7" y1="2" x2="7" y2="18"
-                                stroke="#FFD700" strokeWidth="3" strokeLinecap="round" />
+                                stroke={variables.kihoot_gold}  strokeWidth="3" strokeLinecap="round" />
                             <line x1="13" y1="2" x2="13" y2="18"
-                                stroke="#FFD700" strokeWidth="3" strokeLinecap="round" />
+                                stroke={variables.kihoot_gold}  strokeWidth="3" strokeLinecap="round" />
                         </>
                     )
                 }
