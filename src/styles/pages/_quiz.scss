@@ -96,6 +96,7 @@ h3.quiz-header {
 
 .startgame-container {
     @include m.center-object();
+    @include m.margin-top-bottom(1em, 2em);
 }
 
 //results

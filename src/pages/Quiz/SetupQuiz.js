@@ -31,6 +31,7 @@ function SetupQuiz() {
     const modeRef = useRef(null);
     const orderRef = useRef(null);
     const timeRef = useRef(null);
+    const startGameRef = useRef(null);
 
     const handleKyu = (kyuParam) => {
         setKyu([]);
@@ -151,8 +152,10 @@ function SetupQuiz() {
             scrollToSection(modeRef);
         } else if (visibilityQuestions && questionsRef.current) {
             scrollToSection(questionsRef);
+        } else if (!startGame && startGameRef.current) {
+            scrollToSection(startGameRef);
         }
-    }, [visibilityQuestions, visibilityMode, visibilityOrder, visibilityTime]);
+    }, [visibilityQuestions, visibilityMode, visibilityOrder, visibilityTime, startGame]);
 
     return (
         <>
@@ -239,7 +242,7 @@ function SetupQuiz() {
             </div>
             {
                 !startGame && (
-                    <div className='startgame-container animate__animated animate__backInUp'>
+                    <div ref={startGameRef} className='startgame-container animate__animated animate__backInUp'>
                         {
                             !startGame &&
                             <RedCornerButton title='Comienza la partida' callback={() => goToConfigureGame()}></RedCornerButton>

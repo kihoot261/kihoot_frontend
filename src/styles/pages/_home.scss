@@ -53,8 +53,8 @@ h2.logo-home {
         @include m.grid-distribution(4);
 
     }
-
 }
+
 .popular-card-container {
     @include m.card-aspect();
     text-align: left;
@@ -84,7 +84,7 @@ h2.logo-home {
 }
 
 .landing-page {
-    padding-bottom: 3em;
+    @include m.padding-top-bottom(1em, 3em);
 }
 
 h2.landing-page-item {
